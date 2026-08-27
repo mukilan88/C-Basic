@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Basic Error Messages and Debugging</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">16 - Basic Error Messages and Debugging Techniques</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To recognise the main categories of errors a C program can have,
+            read a real compiler error message correctly, and build simple habits for finding and fixing bugs.</div>
+
+        <div class="section-tag">1. The Four Categories of Errors</div>
+        <div class="types-grid">
+            <div class="type-card">
+                <b>1. Syntax Error</b><br>
+                Breaks the grammar rules of C (e.g. missing semicolon). Caught at <b>compile-time</b> — the
+                program will not even build.
+            </div>
+            <div class="type-card">
+                <b>2. Semantic / Type Error</b><br>
+                Grammatically valid but logically inconsistent (e.g. mismatched format specifier). Often caught
+                as a compiler <b>warning</b>.
+            </div>
+            <div class="type-card">
+                <b>3. Linker Error</b><br>
+                The compiler understood everything, but a referenced function/variable was never actually
+                defined anywhere. Caught at the <b>linking</b> stage (Topic 2).
+            </div>
+            <div class="type-card">
+                <b>4. Run-Time Error</b><br>
+                The program compiles and starts, but crashes or misbehaves <i>while running</i> (e.g. divide by
+                zero, array out of bounds).
+            </div>
+            <div class="type-card">
+                <b>5. Logical Error</b><br>
+                The program runs completely fine, with no crash and no error message — but produces the
+                <b>wrong answer</b> because of a mistake in the programmer's logic.
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#9888; Logical errors are the hardest to catch</b> — the compiler cannot detect them at all,
+            because nothing about the code is technically "wrong." Only careful testing (checking the output
+            against what you expect by hand) reveals them.
+        </div>
+
+        <div class="section-tag">2. Reading a Real Compiler Error Message</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">int</span> age = 20<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"%d"</span>, age);<br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box explanation-box-teal">
+                <b>GCC Output:</b><br>
+                <span style="font-family: var(--font-code); font-size: 12.5px;">
+                error.c:3:18: error: expected ';' before 'printf'<br>
+                &nbsp;&nbsp;3 | &nbsp;&nbsp;int age = 20<br>
+                &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^<br>
+                &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;
+                </span>
+            </div>
+        </div>
+        <div class="cloud-note">
+            <b>How to decode this message:</b><br>
+            <code>error.c:3:18</code> &rarr; the error is in file <code>error.c</code>, on <b>line 3</b>, around
+            <b>column 18</b>. <code>expected ';' before 'printf'</code> &rarr; the compiler expected a semicolon
+            right there, but instead found the start of the next statement. The <code>^</code> mark points to the
+            exact spot. <b>Note:</b> the actual missing semicolon is at the <i>end of line 2</i> — compilers
+            often report the error one token <i>after</i> where the real mistake is, so always check the line
+            just above the reported one too.
+        </div>
+
+        <div class="section-tag">3. Common Beginner Errors &amp; Fixes</div>
+        <table class="custom-table">
+            <tr>
+                <th>Symptom / Message</th>
+                <th>Likely Cause</th>
+                <th>Fix</th>
+            </tr>
+            <tr>
+                <td><code>expected ';' before ...</code></td>
+                <td>Missing semicolon at the end of the previous line</td>
+                <td>Add the missing <code>;</code></td>
+            </tr>
+            <tr>
+                <td><code>'age' undeclared</code></td>
+                <td>Variable used before being declared, or misspelled</td>
+                <td>Declare the variable first, check spelling/case</td>
+            </tr>
+            <tr>
+                <td><code>expected '}' at end of input</code></td>
+                <td>A curly brace <code>{</code> was never closed</td>
+                <td>Count braces carefully; use editor auto-indent to spot the gap</td>
+            </tr>
+            <tr>
+                <td>Warning: format <code>%d</code> expects <code>int</code>, got <code>double</code></td>
+                <td>Format specifier doesn't match the variable's actual type</td>
+                <td>Match the specifier exactly: <code>%d</code>/<code>%f</code>/<code>%lf</code>/<code>%c</code>/<code>%s</code></td>
+            </tr>
+            <tr>
+                <td><code>undefined reference to 'add'</code></td>
+                <td>Linker error — function was declared/called but never defined</td>
+                <td>Make sure the function body actually exists in the file</td>
+            </tr>
+            <tr>
+                <td>Program crashes / "Segmentation fault"</td>
+                <td>Run-time error — often array out-of-bounds or dividing by zero</td>
+                <td>Check array indices and guard against zero divisors</td>
+            </tr>
+            <tr>
+                <td>Output is wrong but no error shown</td>
+                <td>Logical error — flawed formula or condition</td>
+                <td>Trace through the logic by hand, or add debug prints (below)</td>
+            </tr>
+        </table>
+
+        <div class="section-tag">4. Simple Debugging Techniques</div>
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">&#128269; 1. Fix the First Error First</div>
+                <div class="card-subtitle">One real mistake often triggers a cascade of many reported errors.</div>
+                Always scroll to the <b>very first</b> error in the compiler output and fix that one before
+                worrying about the rest — recompiling often makes most of the later errors disappear on their
+                own.
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128269; 2. Compile Often, in Small Steps</div>
+                <div class="card-subtitle">Don't write 50 lines and compile once.</div>
+                Compile after every small addition (a few lines at a time). This way, if an error appears, you
+                know it must be in the few lines you just added — dramatically narrowing the search.
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128269; 3. printf() Debugging</div>
+                <div class="card-subtitle">The simplest way to "see inside" a running program.</div>
+                Temporarily add extra <code>printf("here, x = %d\n", x);</code> statements at key points to check
+                whether variables hold the values you expect, at the moment you expect them to.
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128269; 4. Read Errors Bottom-to-Top... Then Top-to-Bottom</div>
+                <div class="card-subtitle">Long error lists can be confusing.</div>
+                A single typo can cause many follow-on errors below it. Read the <b>first</b> error message
+                closely — it's usually the true root cause; later ones are often just side-effects of it.
+            </div>
+        </div>
+
+        <div class="key-rule-box">
+            &#128161; <b>Golden Debugging Habit:</b> Never guess-and-check randomly. Read the exact error message,
+            find the exact file and line number it points to, understand <i>why</i> the compiler is confused
+            there, and only then make a targeted fix — then recompile immediately to confirm.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: Syntax/Semantic errors are caught by the compiler, Linker errors at
+            linking, Run-time errors while the program executes, and Logical errors give wrong output with no
+            error at all — always fix the <b>first</b> reported error first, and use <code>printf()</code> to peek
+            inside a running program when the bug isn't obvious.
+        </div>
+
+        <div class="footer-page">- 16 -</div>
+    </div>
+
+</body>
+
+</html>

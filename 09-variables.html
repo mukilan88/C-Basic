@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C Programming - Variables</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="punch-hole hole1"></div>
+    <div class="punch-hole hole2"></div>
+    <div class="punch-hole hole3"></div>
+
+    <h1 class="main-title">C Programming</h1>
+    <div class="sub-title">09 - Variables</div>
+
+    <div class="aim-box">&#10022; <u>Aim:</u> To understand what a variable is, how to declare and initialise one,
+      the rules for naming them, and the idea of variable scope.</div>
+
+    <div class="section-tag">1. What is a Variable?</div>
+    <p class="p-tight">A variable is a <b>named location in memory</b> that can store a value which may change
+      while the program runs — hence "vari-able." Every variable in C needs a <b>data type</b> (Topic 6) so the
+      compiler knows how many bytes to reserve and how to interpret them, and a <b>name (identifier)</b> so your
+      code can refer to it.</p>
+
+    <div class="section-tag">2. Declaration vs Initialisation</div>
+    <div class="grid-2">
+      <div class="card-box">
+        <div class="card-title">1. Declaration</div>
+        <div class="card-subtitle">Creates the variable and reserves memory, but doesn't give it a value yet.</div>
+        <div class="code-snippet">
+          <span class="highlight-blue">int</span> age;
+        </div>
+        <code>age</code> now exists in memory, but holds an unpredictable <b>garbage value</b> until something is
+        stored in it.
+      </div>
+      <div class="card-box">
+        <div class="card-title">2. Initialisation</div>
+        <div class="card-subtitle">Declares the variable AND gives it a starting value, in one step.</div>
+        <div class="code-snippet">
+          <span class="highlight-blue">int</span> age = 20;
+        </div>
+        This is the safer, more common style — the variable never has an unknown value.
+      </div>
+    </div>
+
+    <div class="code-container">
+      <div class="code-box">
+        <span class="highlight-blue">int</span> age;        <span class="highlight-purple">// declaration only</span><br>
+        age = 20;                              <span class="highlight-purple">// assignment — gives it a value later</span><br><br>
+        <span class="highlight-blue">int</span> marks = 90; <span class="highlight-purple">// declaration + initialisation together</span><br><br>
+        <span class="highlight-blue">int</span> a = 5, b = 10, c = 15; <span class="highlight-purple">// multiple variables, one line</span>
+      </div>
+      <div class="explanation-box">
+        <div class="exp-line"><b>Declaration</b> and <b>assignment</b> can happen separately, as shown with
+          <code>age</code> — first declared, then assigned a value on the next line.</div>
+        <div class="exp-line"><b>Initialisation</b> combines both into a single statement, as shown with
+          <code>marks</code> — this is generally preferred since it avoids ever reading a garbage value by
+          mistake.</div>
+        <div class="exp-line">C allows declaring <b>several variables of the same type</b> on one line, separated
+          by commas, as shown with <code>a</code>, <code>b</code>, <code>c</code>.</div>
+      </div>
+    </div>
+
+    <div class="section-tag">3. Rules for Naming a Variable</div>
+    <p class="p-tight">A variable name is a kind of <b>identifier</b> (Topic 5) and must follow the same rules:</p>
+    <div class="grid-2">
+      <div class="card-box">
+        <div class="card-title">&#9989; Valid Variable Names</div>
+        <ul class="trap-list">
+          <li><code>age</code>, <code>total_marks</code>, <code>_count</code>, <code>studentAge</code></li>
+          <li>Letters, digits, and underscore only</li>
+          <li>Must start with a letter or underscore</li>
+          <li>Case-sensitive: <code>Age</code> &ne; <code>age</code></li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <div class="card-title">&#10060; Invalid Variable Names</div>
+        <ul class="trap-list">
+          <li><code>2age</code> &rarr; starts with a digit</li>
+          <li><code>total marks</code> &rarr; contains a space</li>
+          <li><code>float</code> &rarr; it's a reserved keyword</li>
+          <li><code>total-marks</code> &rarr; hyphen isn't allowed</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="star-box">
+      <b>&#128161; Good Naming Practice (beyond what the compiler enforces)</b><br>
+      The compiler only cares about the rules above, but <b>readable</b> code also uses meaningful names.
+      <code>int a;</code> compiles fine, but <code>int studentAge;</code> tells the next reader (including you,
+      later) exactly what it's for — this is part of good "documentation" practice from Topic 4.
+    </div>
+
+    <div class="section-tag">4. A Full Example</div>
+    <div class="code-container">
+      <div class="code-box">
+        <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+        <span class="highlight-blue">int</span> main() {<br>
+        &nbsp;&nbsp;<span class="highlight-blue">int</span> age = 20;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">float</span> height = 5.6;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">char</span> grade = <span class="highlight-red">'A'</span>;<br><br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Age: %d, Height: %.1f, Grade: %c\n"</span>, age, height, grade);<br><br>
+        &nbsp;&nbsp;age = 21; <span class="highlight-purple">// the VALUE stored in age changes — that's what makes it a variable</span><br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Age after birthday: %d\n"</span>, age);<br><br>
+        &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+        }
+      </div>
+      <div class="explanation-box explanation-box-teal">
+        <b>Output:</b><br>
+        Age: 20, Height: 5.6, Grade: A<br>
+        Age after birthday: 21<br><br>
+        Notice <code>age</code> holds <code>20</code>, then later holds <code>21</code> — the same named memory
+        location, just updated with a new value.
+      </div>
+    </div>
+
+    <div class="section-tag">5. A Preview of Scope (Local vs Global)</div>
+    <p class="p-tight">Where a variable is declared decides where it can be used — this is called its
+      <b>scope</b>. This was briefly introduced in Topic 1 (Structure of a C Program) and will come up often
+      going forward:</p>
+    <table class="custom-table">
+      <tr>
+        <th>Type</th>
+        <th>Declared</th>
+        <th>Accessible From</th>
+      </tr>
+      <tr>
+        <td><b>Local Variable</b></td>
+        <td>Inside a function (e.g. inside <code>main()</code>)</td>
+        <td>Only within that function</td>
+      </tr>
+      <tr>
+        <td><b>Global Variable</b></td>
+        <td>Outside every function, at the top of the file</td>
+        <td>Any function in the file</td>
+      </tr>
+    </table>
+
+    <div class="revision-footer-pill-pink">
+      &#128221; One-Line Revision: A variable = a named, typed memory location whose value can change; declare it
+      with a type and a valid identifier name, and prefer initialising it immediately to avoid garbage values.
+    </div>
+
+    <div class="footer-page">- 9 -</div>
+  </div>
+
+</body>
+
+</html>

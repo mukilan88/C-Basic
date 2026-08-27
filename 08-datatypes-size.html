@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Data Types, Size &amp; Range</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">08 - Data Types (Part 3 of 3): Size, Range &amp; sizeof()</div>
+
+        <div class="aim-box">&#127919; <u>What are Data Types (recap)?</u> A data type tells the compiler what
+            kind of value a variable stores and exactly how many bytes of RAM to reserve for it. This page is the
+            master reference table for every basic type in C, plus the <code>sizeof()</code> operator that lets us
+            verify these sizes on our own machine.</div>
+
+        <div class="section-tag">1. Complete Quick-Revision Table</div>
+        <table class="custom-table">
+            <tr>
+                <th>Data Type</th>
+                <th>Memory Size</th>
+                <th>Format</th>
+                <th>Range / Purpose</th>
+            </tr>
+            <tr>
+                <td><b>char</b></td>
+                <td>1 byte</td>
+                <td><code>%c</code></td>
+                <td>Compiler-dependent: usually -128 to 127 (signed) — stores 1 character</td>
+            </tr>
+            <tr>
+                <td><b>signed char</b></td>
+                <td>1 byte</td>
+                <td><code>%c</code></td>
+                <td>-128 to 127</td>
+            </tr>
+            <tr>
+                <td><b>unsigned char</b></td>
+                <td>1 byte</td>
+                <td><code>%c</code></td>
+                <td>0 to 255 (positive only)</td>
+            </tr>
+            <tr>
+                <td><b>short int</b></td>
+                <td>2 bytes</td>
+                <td><code>%hd</code></td>
+                <td>-32,768 to 32,767 (small integers)</td>
+            </tr>
+            <tr>
+                <td><b>unsigned short int</b></td>
+                <td>2 bytes</td>
+                <td><code>%hu</code></td>
+                <td>0 to 65,535</td>
+            </tr>
+            <tr>
+                <td><b>int / signed int</b></td>
+                <td>4 bytes</td>
+                <td><code>%d</code></td>
+                <td>-2,147,483,648 to 2,147,483,647</td>
+            </tr>
+            <tr>
+                <td><b>unsigned int</b></td>
+                <td>4 bytes</td>
+                <td><code>%u</code></td>
+                <td>0 to 4,294,967,295</td>
+            </tr>
+            <tr>
+                <td><b>long int</b></td>
+                <td>4 or 8 bytes (system-dependent)</td>
+                <td><code>%ld</code></td>
+                <td>System-dependent — up to &plusmn;9.22 &times; 10<sup>18</sup> on 8-byte systems</td>
+            </tr>
+            <tr>
+                <td><b>unsigned long int</b></td>
+                <td>4 or 8 bytes (system-dependent)</td>
+                <td><code>%lu</code></td>
+                <td>System-dependent — up to 18.4 &times; 10<sup>18</sup> on 8-byte systems</td>
+            </tr>
+            <tr>
+                <td><b>long long int</b></td>
+                <td>8 bytes</td>
+                <td><code>%lld</code></td>
+                <td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+            </tr>
+            <tr>
+                <td><b>unsigned long long int</b></td>
+                <td>8 bytes</td>
+                <td><code>%llu</code></td>
+                <td>0 to 18,446,744,073,709,551,615</td>
+            </tr>
+            <tr>
+                <td><b>float</b></td>
+                <td>4 bytes</td>
+                <td><code>%f</code></td>
+                <td>~6 decimal digits precision</td>
+            </tr>
+            <tr>
+                <td><b>double</b></td>
+                <td>8 bytes</td>
+                <td><code>%lf</code></td>
+                <td>~15 decimal digits precision</td>
+            </tr>
+            <tr>
+                <td><b>long double</b></td>
+                <td>16 bytes (commonly, though 10/12 bytes on some compilers)</td>
+                <td><code>%Lf</code></td>
+                <td>Higher precision than double</td>
+            </tr>
+        </table>
+
+        <div class="star-box">
+            <b>&#9888; Correction / Clarification:</b> Plain <code>char</code>'s signedness (whether it behaves
+            like <code>signed char</code> or <code>unsigned char</code>) is left to the compiler by the C
+            standard — on most common compilers (including GCC on x86/Linux) it behaves as <b>signed</b>, so we
+            list its range as -128 to 127. Never rely on this if a value must reliably be treated as
+            positive-only — declare <code>unsigned char</code> explicitly instead.
+        </div>
+
+        <div class="section-tag">2. Finding Size Using the sizeof() Operator</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"char = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">char</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"short int = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">short int</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"int = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">int</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"long int = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">long int</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"long long int = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">long long int</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"float = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">float</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"double = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">double</span>));<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"long double = %zu bytes\n"</span>, <span class="highlight-purple">sizeof</span>(<span class="highlight-blue">long double</span>));<br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>sizeof()</b> is a built-in <b>compile-time</b> operator in C — the
+                    compiler computes the answer while compiling, not while the program runs, so it costs nothing
+                    at run-time.</div>
+                <div class="exp-line">It returns the exact memory size of a variable or data type, in bytes, for
+                    <i>your specific compiler and system</i> — this is the most reliable way to check sizes rather
+                    than assuming.</div>
+                <div class="exp-line">Its return type is <code>size_t</code>, an unsigned integer type — always
+                    print it with <code>%zu</code> (not <code>%d</code>) to avoid warnings/undefined behaviour.</div>
+                <div class="exp-line"><code>sizeof</code> can be used on a type name, e.g.
+                    <code>sizeof(int)</code>, or directly on a variable, e.g. <code>sizeof(age)</code> — both
+                    work.</div>
+            </div>
+        </div>
+
+        <div class="cloud-note">
+            <b>Expected Sample Output (on a typical 64-bit system):</b><br>
+            char = 1 bytes<br>
+            short int = 2 bytes<br>
+            int = 4 bytes<br>
+            long int = 8 bytes<br>
+            long long int = 8 bytes<br>
+            float = 4 bytes<br>
+            double = 8 bytes<br>
+            long double = 16 bytes
+        </div>
+
+        <div class="memory-pill">
+            &#11088; <b>The 4-Point Rule for Every Type:</b><br>
+            <span class="text-blue">Data Type</span> &rarr; <span class="text-green">Memory Size</span> &rarr;
+            <span class="text-orange">Range</span> &rarr; <span class="text-pink">Format Specifier</span>
+        </div>
+
+        <div class="star-box">
+            <b>&#128161; Why should we care about size and range at all?</b>
+            <ul>
+                <li>Picking a type too small for the data causes <b>overflow</b> — the value silently wraps around
+                    to an incorrect number instead of giving an error.</li>
+                <li>Picking a type too large wastes memory — usually harmless for a small student program, but
+                    matters a lot in large-scale software or embedded systems with limited RAM.</li>
+                <li>Understanding size is the foundation for later topics like pointers, arrays, and structures,
+                    where the exact byte layout of memory matters.</li>
+            </ul>
+        </div>
+
+        <div class="footer-page">- 8 -</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C Programming - Input/Output Functions</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="punch-hole hole1"></div>
+    <div class="punch-hole hole2"></div>
+    <div class="punch-hole hole3"></div>
+
+    <h1 class="main-title">C Programming</h1>
+    <div class="sub-title">14 - Input/Output Functions</div>
+
+    <div class="aim-box">&#10022; <u>Aim:</u> To understand what Input/Output (I/O) functions are in C, where they
+      come from, and the main functions available — before diving into the detailed formatted versions in the
+      next topic.</div>
+
+    <div class="section-tag">1. What is an Input/Output Function?</div>
+    <p class="p-tight">A program is only useful if it can exchange data with the outside world: reading what the
+      user types (<b>input</b>) and showing results back (<b>output</b>). C does not build this ability into the
+      language itself — instead, it is provided through <b>library functions</b> declared in the header file
+      <code>stdio.h</code> ("Standard Input Output"), which is why every program that reads or displays anything
+      begins with <code>#include &lt;stdio.h&gt;</code> (Topic 1).</p>
+
+    <div class="section-tag">2. The Main I/O Functions in C</div>
+    <table class="custom-table">
+      <tr>
+        <th>Function</th>
+        <th>Direction</th>
+        <th>Reads/Writes</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><code>printf()</code></td>
+        <td>Output</td>
+        <td>Formatted text of any type</td>
+        <td>The most-used output function; covered in depth next topic</td>
+      </tr>
+      <tr>
+        <td><code>scanf()</code></td>
+        <td>Input</td>
+        <td>Formatted values of any type</td>
+        <td>The most-used input function; covered in depth next topic</td>
+      </tr>
+      <tr>
+        <td><code>getchar()</code></td>
+        <td>Input</td>
+        <td>A single character</td>
+        <td>Simplest possible input — no format specifier needed</td>
+      </tr>
+      <tr>
+        <td><code>putchar()</code></td>
+        <td>Output</td>
+        <td>A single character</td>
+        <td>Simplest possible output — no format specifier needed</td>
+      </tr>
+      <tr>
+        <td><code>gets()</code> <i>(unsafe, avoid)</i></td>
+        <td>Input</td>
+        <td>A full line of text, including spaces</td>
+        <td>Removed from modern C standards due to buffer-overflow risk</td>
+      </tr>
+      <tr>
+        <td><code>fgets()</code></td>
+        <td>Input</td>
+        <td>A full line of text, safely, up to a size limit</td>
+        <td>The modern, safe replacement for <code>gets()</code></td>
+      </tr>
+      <tr>
+        <td><code>puts()</code></td>
+        <td>Output</td>
+        <td>A string, followed automatically by a newline</td>
+        <td>Simpler than <code>printf()</code> when no formatting is needed</td>
+      </tr>
+    </table>
+
+    <div class="section-tag">3. Simple I/O Without Any Format Specifiers</div>
+    <div class="code-container">
+      <div class="code-box">
+        <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+        <span class="highlight-blue">int</span> main() {<br>
+        &nbsp;&nbsp;<span class="highlight-blue">char</span> ch;<br><br>
+        &nbsp;&nbsp;puts(<span class="highlight-red">"Type a character: "</span>);<br>
+        &nbsp;&nbsp;ch = getchar();  <span class="highlight-purple">// reads exactly one character</span><br><br>
+        &nbsp;&nbsp;puts(<span class="highlight-red">"You typed:"</span>);<br>
+        &nbsp;&nbsp;putchar(ch);     <span class="highlight-purple">// writes exactly one character</span><br><br>
+        &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+        }
+      </div>
+      <div class="explanation-box">
+        <div class="exp-line"><b>getchar()</b> and <b>putchar()</b> work with a <b>single character</b> at a time
+          — no format string like <code>"%c"</code> needed, since there's only one possible type they can
+          handle.</div>
+        <div class="exp-line"><b>puts()</b> prints a string and automatically adds a newline afterward — unlike
+          <code>printf()</code>, which requires you to add <code>\n</code> yourself.</div>
+        <div class="exp-line">These simpler functions are useful when you don't need C's flexible formatting —
+          just plain text or a single character.</div>
+      </div>
+    </div>
+
+    <div class="star-box">
+      <b>&#9888; Why avoid <code>gets()</code>?</b><br>
+      <code>gets()</code> reads a whole line but has <b>no way to limit how many characters</b> it accepts — if
+      the input is longer than the destination array, it silently overflows into other memory, a serious security
+      risk. Modern C standards have removed it entirely. Use <code>fgets()</code> instead, which takes a maximum
+      size argument.
+    </div>
+
+    <div class="cloud-note">
+      <b>Why is printf()/scanf() so much more common than the simple functions?</b><br>
+      <code>getchar()</code>/<code>putchar()</code> only handle single characters, and <code>puts()</code> only
+      handles plain strings. Real programs constantly need to read/display <b>numbers</b>
+      (int, float, double) alongside text — that flexibility is exactly what <code>printf()</code> and
+      <code>scanf()</code> provide through <b>format specifiers</b>, which is the focus of the next topic.
+    </div>
+
+    <div class="revision-footer-pill-pink">
+      &#128221; One-Line Revision: I/O functions live in <code>stdio.h</code> and move data between your program
+      and the user — <code>getchar()</code>/<code>putchar()</code>/<code>puts()</code> handle simple cases,
+      while <code>printf()</code>/<code>scanf()</code> handle everything via formatted specifiers (next topic).
+    </div>
+
+    <div class="footer-page">- 14 -</div>
+  </div>
+
+</body>
+
+</html>

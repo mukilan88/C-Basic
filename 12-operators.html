@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Operators</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">12 - Operators &amp; Expressions in C</div>
+
+        <div class="aim-box">&#127919; <u>What are Operators?</u> Special symbols that perform an operation on one
+            or more values (called <b>operands</b>). For example in <code>a + b</code>, <code>+</code> is the
+            operator and <code>a</code>, <code>b</code> are the operands.</div>
+
+        <div class="section-tag">1. Operators Summary</div>
+        <table class="custom-table">
+            <tr>
+                <th>Category</th>
+                <th>Operators</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><b>Arithmetic</b></td>
+                <td><code>+ - * / %</code></td>
+                <td><code>10 % 3 = 1</code></td>
+            </tr>
+            <tr>
+                <td><b>Relational</b></td>
+                <td><code>&gt; &lt; &gt;= &lt;= == !=</code></td>
+                <td><code>5 &gt; 2</code> &rarr; 1 (True)</td>
+            </tr>
+            <tr>
+                <td><b>Logical</b></td>
+                <td><code>&amp;&amp; || !</code></td>
+                <td><code>(5&gt;2) &amp;&amp; (3&gt;1)</code> &rarr; 1 (True)</td>
+            </tr>
+            <tr>
+                <td><b>Assignment</b></td>
+                <td><code>= += -= *= /=</code></td>
+                <td><code>a += 5</code> means <code>a = a + 5</code></td>
+            </tr>
+            <tr>
+                <td><b>Increment / Decrement</b></td>
+                <td><code>++ --</code></td>
+                <td><code>count++ / ++count</code></td>
+            </tr>
+            <tr>
+                <td><b>Conditional (Ternary)</b></td>
+                <td><code>condition ? val1 : val2</code></td>
+                <td><code>(a &gt; b) ? a : b</code></td>
+            </tr>
+            <tr>
+                <td><b>Bitwise</b></td>
+                <td><code>&amp; | ^ &lt;&lt; &gt;&gt;</code></td>
+                <td><code>a &amp; b</code></td>
+            </tr>
+        </table>
+
+        <div class="section-tag">2. The Full Program</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">int</span> a, b;<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"Enter two numbers: "</span>);<br>
+                &nbsp;&nbsp;scanf(<span class="highlight-red">"%d%d"</span>, &amp;a, &amp;b);<br><br>
+                &nbsp;&nbsp;<span class="highlight-purple">// ... Arithmetic, Relational, Logical, Assignment,</span><br>
+                &nbsp;&nbsp;<span class="highlight-purple">// Increment/Decrement, Conditional, Bitwise sections below</span><br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>int a, b;</b> &rarr; Declares two integer variables in a single line
+                    (comma-separated).</div>
+                <div class="exp-line"><b>scanf("%d%d", &amp;a, &amp;b);</b> &rarr; Reads two integers in one call.
+                    The user can separate them by a space, tab, or Enter — <code>scanf()</code> automatically
+                    skips whitespace between numeric inputs.</div>
+                <div class="exp-line">The rest of the program (shown section by section below) demonstrates every
+                    operator category using the same <code>a</code> and <code>b</code>.</div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Arithmetic Operators</div>
+        <p class="p-tight">Perform standard mathematical calculations.</p>
+        <div class="code-container">
+            <div class="code-box">
+                printf(<span class="highlight-red">"Addition (+): %d\n"</span>, a + b);<br>
+                printf(<span class="highlight-red">"Subtraction (-): %d\n"</span>, a - b);<br>
+                printf(<span class="highlight-red">"Multiplication (*): %d\n"</span>, a * b);<br>
+                printf(<span class="highlight-red">"Division (/): %d\n"</span>, a / b);<br>
+                printf(<span class="highlight-red">"Modulus (%%): %d\n"</span>, a % b);
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>/ (Division)</b> &rarr; When both operands are <code>int</code>, C
+                    performs <b>integer division</b> — the decimal part is dropped, not rounded.</div>
+                <div class="exp-line"><b>% (Modulus)</b> &rarr; Gives the <b>remainder</b> after division. Works
+                    only with integer operands, never with float/double.</div>
+                <div class="exp-line">Note the double <code>%%</code> in the printf string — since <code>%</code>
+                    normally starts a format specifier, we must write it twice to print a literal <code>%</code>
+                    symbol.</div>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Relational Operators</div>
+        <p class="p-tight">Compare two values and produce a <b>Boolean-style result</b>: C has no separate boolean
+            type, so it uses <code>1</code> for true and <code>0</code> for false.</p>
+        <div class="code-container">
+            <div class="code-box">
+                printf(<span class="highlight-red">"%d &gt; %d = %d\n"</span>, a, b, a &gt; b);<br>
+                printf(<span class="highlight-red">"%d &lt; %d = %d\n"</span>, a, b, a &lt; b);<br>
+                printf(<span class="highlight-red">"%d &gt;= %d = %d\n"</span>, a, b, a &gt;= b);<br>
+                printf(<span class="highlight-red">"%d &lt;= %d = %d\n"</span>, a, b, a &lt;= b);<br>
+                printf(<span class="highlight-red">"%d == %d = %d\n"</span>, a, b, a == b);<br>
+                printf(<span class="highlight-red">"%d != %d = %d\n"</span>, a, b, a != b);
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>== vs =</b> &rarr; A very common beginner bug: <code>==</code> compares
+                    two values for equality; a single <code>=</code> assigns a value. Using <code>=</code> inside
+                    an <code>if</code> condition by mistake silently changes the variable instead of comparing it.</div>
+                <div class="exp-line">Each result printed above is either <code>1</code> (condition is true) or
+                    <code>0</code> (condition is false).</div>
+            </div>
+        </div>
+
+        <div class="section-tag">5. Logical Operators</div>
+        <p class="p-tight">Combine multiple conditions into one. Also give results as <code>1</code> or
+            <code>0</code>.</p>
+        <div class="code-container">
+            <div class="code-box">
+                printf(<span class="highlight-red">"(a &gt; 0 &amp;&amp; b &gt; 0) = %d\n"</span>, a &gt; 0 &amp;&amp; b &gt; 0);<br>
+                printf(<span class="highlight-red">"(a &gt; 0 || b &gt; 0) = %d\n"</span>, a &gt; 0 || b &gt; 0);<br>
+                printf(<span class="highlight-red">"!(a &gt; b) = %d\n"</span>, !(a &gt; b));
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>&amp;&amp; (Logical AND)</b> &rarr; True only if <b>both</b> sides are
+                    true.</div>
+                <div class="exp-line"><b>|| (Logical OR)</b> &rarr; True if <b>at least one</b> side is true.</div>
+                <div class="exp-line"><b>! (Logical NOT)</b> &rarr; Reverses/flips the result: true becomes false
+                    and false becomes true.</div>
+            </div>
+        </div>
+
+        <div class="section-tag">6. Assignment Operators</div>
+        <p class="p-tight">Shorthand ways to update a variable's value based on itself.</p>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">int</span> c = a;<br><br>
+                c += b;   <span class="highlight-purple">// same as c = c + b</span><br>
+                printf(<span class="highlight-red">"c += b: %d\n"</span>, c);<br><br>
+                c = a; c -= b;   <span class="highlight-purple">// c = c - b</span><br>
+                c = a; c *= b;   <span class="highlight-purple">// c = c * b</span><br>
+                c = a; c /= b;   <span class="highlight-purple">// c = c / b</span>
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line">Each compound operator (<code>+=</code>, <code>-=</code>, <code>*=</code>,
+                    <code>/=</code>, and also <code>%=</code>) is exactly equivalent to the longer
+                    "<code>variable = variable OP value</code>" form, just shorter to type and slightly clearer
+                    to read once you're used to it.</div>
+                <div class="exp-line">Notice <code>c</code> is reset to <code>a</code> before each new example —
+                    otherwise each operation would build on the previous result.</div>
+            </div>
+        </div>
+
+        <div class="section-tag">7. Increment and Decrement Operators</div>
+        <p class="p-tight">Quickly add or subtract 1 from a variable. Available in two forms: <b>prefix</b>
+            (<code>++c</code>) and <b>postfix</b> (<code>c++</code>).</p>
+        <div class="code-container">
+            <div class="code-box">
+                c = a;<br>
+                printf(<span class="highlight-red">"c++ = %d\n"</span>, c++);<br>
+                printf(<span class="highlight-red">"After c++ = %d\n"</span>, c);<br><br>
+                printf(<span class="highlight-red">"++c = %d\n"</span>, ++c);<br><br>
+                printf(<span class="highlight-red">"c-- = %d\n"</span>, c--);<br>
+                printf(<span class="highlight-red">"After c-- = %d\n"</span>, c);<br><br>
+                printf(<span class="highlight-red">"--c = %d\n"</span>, --c);
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>Postfix c++</b> &rarr; Uses the <b>current</b> value of <code>c</code> in
+                    the expression first, THEN increases it by 1 afterwards.</div>
+                <div class="exp-line"><b>Prefix ++c</b> &rarr; Increases <code>c</code> by 1 FIRST, then uses the
+                    new value in the expression.</div>
+                <div class="exp-line">This ordering difference only matters when the increment is used
+                    <i>inside</i> a larger expression (like a printf argument); on its own line,
+                    <code>c++;</code> and <code>++c;</code> behave identically.</div>
+                <div class="exp-line">The same prefix/postfix logic applies to <code>--</code> (decrement).</div>
+            </div>
+        </div>
+
+        <div class="section-tag">8. Conditional (Ternary) Operator</div>
+        <p class="p-tight">A compact one-line replacement for a simple if-else, using the pattern
+            <code>condition ? value_if_true : value_if_false</code>.</p>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">int</span> max = (a &gt; b) ? a : b;<br>
+                printf(<span class="highlight-red">"Maximum = %d\n"</span>, max);
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line">It is called "ternary" because it is the only C operator that takes
+                    <b>three</b> operands: the condition, the true-value, and the false-value.</div>
+                <div class="exp-line">Equivalent longer form:
+                    <br><code>if (a &gt; b) { max = a; } else { max = b; }</code></div>
+            </div>
+        </div>
+
+        <div class="section-tag">9. Bitwise Operators</div>
+        <p class="p-tight">Operate directly on the individual <b>binary bits</b> of integer values. Used heavily in
+            embedded programming, flags/permissions, and performance-critical code.</p>
+        <div class="code-container">
+            <div class="code-box">
+                printf(<span class="highlight-red">"a &amp; b = %d\n"</span>, a &amp; b);<br>
+                printf(<span class="highlight-red">"a | b = %d\n"</span>, a | b);<br>
+                printf(<span class="highlight-red">"a ^ b = %d\n"</span>, a ^ b);<br>
+                printf(<span class="highlight-red">"a &lt;&lt; 1 = %d\n"</span>, a &lt;&lt; 1);<br>
+                printf(<span class="highlight-red">"a &gt;&gt; 1 = %d\n"</span>, a &gt;&gt; 1);
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>&amp; (Bitwise AND)</b> &rarr; Compares each bit; result bit is 1 only if
+                    both input bits are 1.</div>
+                <div class="exp-line"><b>| (Bitwise OR)</b> &rarr; Result bit is 1 if at least one input bit is 1.</div>
+                <div class="exp-line"><b>^ (Bitwise XOR)</b> &rarr; Result bit is 1 only if the two input bits are
+                    different.</div>
+                <div class="exp-line"><b>&lt;&lt; (Left Shift)</b> &rarr; Shifts all bits left by the given amount
+                    — each left-shift by 1 effectively doubles the value.</div>
+                <div class="exp-line"><b>&gt;&gt; (Right Shift)</b> &rarr; Shifts all bits right — each
+                    right-shift by 1 effectively halves the value (integer division by 2).</div>
+                <div class="exp-line">Don't confuse <code>&amp;</code> (bitwise AND, works on numbers) with
+                    <code>&amp;&amp;</code> (logical AND, works on true/false conditions) — mixing them up is a
+                    very common bug.</div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#9888; Important Practical Notes:</b>
+            <ul>
+                <li>For division (<code>a / b</code>) and modulus (<code>a % b</code>), <code>b</code> must never
+                    be <b>0</b> — dividing by zero causes undefined behaviour / a crash.</li>
+                <li>Modulus <code>%</code> works ONLY with integer operands, never float or double.</li>
+                <li>Always double-check <code>==</code> vs <code>=</code> and <code>&amp;</code> vs
+                    <code>&amp;&amp;</code> — these are the most common operator mistakes for beginners.</li>
+            </ul>
+        </div>
+
+        <div class="footer-page">- 12 -</div>
+    </div>
+
+</body>
+
+</html>

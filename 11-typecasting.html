@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming Notes - Page 5: Type Casting</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C PROGRAMMING</h1>
+        <div class="sub-title">TOPIC 11: TYPE CASTING (Implicit &amp; Explicit)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand what type casting is, the difference between implicit and explicit
+            casting, and how to avoid the classic "integer division" trap that silently produces wrong results.
+        </div>
+
+        <div class="section-tag">1. What is Type Casting?</div>
+        <p class="page-description-sm">
+            Type casting is the process of converting a value from one data type into another — for example,
+            converting an <code>int</code> into a <code>float</code>, or a <code>float</code> into an
+            <code>int</code>. This is needed because C is strict about types: mixing types in a calculation or
+            assignment requires the value to first be converted so both sides "speak the same language."
+            There are two ways this conversion can happen:
+        </p>
+        <ul class="p-tight">
+            <li><b>Implicit type casting</b> — the compiler converts it automatically, without you asking.</li>
+            <li><b>Explicit type casting</b> — you, the programmer, manually force the conversion.</li>
+        </ul>
+
+        <div class="grid-2">
+            <!-- Implicit Casting Box -->
+            <div class="card-box">
+                <div class="card-title">&#9881; 1. Implicit Type Casting (Automatic)</div>
+                <div class="card-subtitle">Performed automatically by the C compiler, usually when a "smaller"
+                    type is combined with or assigned to a "larger" type — this is called <b>type promotion</b>.
+                    No data is lost in this direction.</div>
+                <div class="code-snippet">
+                    <span class="text-blue">int</span> a = 10;<br>
+                    <span class="text-blue">float</span> b = a; <span class="text-green">// Auto converted to
+                        float</span>
+                </div>
+                <div class="flow-diagram">
+                    int (10) &rarr; Compiler &rarr; float (10.000000)
+                </div>
+                <div class="terminal-box">
+                    Output: <span>Integer value: 10<br>Float value: 10.000000</span>
+                </div>
+            </div>
+
+            <!-- Explicit Casting Box -->
+            <div class="card-box">
+                <div class="card-title">&#9997; 2. Explicit Type Casting (Manual)</div>
+                <div class="card-subtitle">The programmer forces conversion using the cast operator
+                    <code>(type)value</code>. Used when going from a "larger" type to a "smaller" one, where data
+                    (like the decimal part) may be lost — the compiler will not do this automatically because it
+                    could silently lose information, so it requires an explicit request.</div>
+                <div class="code-snippet">
+                    <span class="text-blue">float</span> a = 10.75;<br>
+                    <span class="text-blue">int</span> b = (<span class="text-blue">int</span>)a; <span
+                        class="text-green">// Drops .75 decimal</span>
+                </div>
+                <div class="flow-diagram">
+                    float (10.75) &rarr; (int) &rarr; int (10)
+                </div>
+                <div class="terminal-box">
+                    Output: <span>Float value: 10.750000<br>Integer value: 10</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cloud-note">
+            <b>Why does casting float to int give 10, not 11?</b><br>
+            Explicit <code>(int)</code> casting always <b>truncates</b> — it simply chops off everything after the
+            decimal point. It does <b>not</b> round to the nearest whole number. So <code>(int)10.75</code> gives
+            <code>10</code>, and even <code>(int)10.99</code> would still give <code>10</code>, not 11.
+        </div>
+
+        <table class="styled-table">
+            <tr>
+                <th>Casting Type</th>
+                <th>Who Performs It?</th>
+                <th>Syntax / Example</th>
+                <th>Key Takeaway</th>
+            </tr>
+            <tr>
+                <td><b>Implicit</b></td>
+                <td>Compiler</td>
+                <td><code>float b = a;</code></td>
+                <td>Automatic promotion, safe (no data loss going small &rarr; large)</td>
+            </tr>
+            <tr>
+                <td><b>Explicit</b></td>
+                <td>Programmer</td>
+                <td><code>int b = (int)a;</code></td>
+                <td>Manual conversion operator, may lose data (large &rarr; small)</td>
+            </tr>
+        </table>
+
+        <div class="section-tag">2. The Classic Trap: Type Casting in Division</div>
+        <p class="page-description-xs">
+            Why does <code>5 / 2</code> output <code>2.000000</code> instead of <code>2.500000</code> in C, even
+            when the result is stored in a <code>float</code>?
+        </p>
+
+        <div class="division-trap-container">
+            <!-- Wrong side -->
+            <div class="trap-card trap-wrong">
+                <b class="text-red-dark">&#10060; Without Casting (Integer Division)</b>
+                <div class="code-snippet">
+                    <span class="text-blue">int</span> a = 5, b = 2;<br>
+                    <span class="text-blue">float</span> c;<br>
+                    c = a / b;
+                </div>
+                <b>Evaluation steps:</b>
+                <ol class="trap-list">
+                    <li><code>a / b</code> is calculated <b>first</b>, before any assignment happens.</li>
+                    <li>Since both <code>a</code> and <code>b</code> are <code>int</code>, C performs <b>integer
+                        division</b>: <code>5 / 2</code> mathematically is 2.5, but integer division discards the
+                        decimal part, giving <b>2</b>.</li>
+                    <li>Only <b>after</b> this truncated integer result (2) is computed does the assignment to the
+                        float variable <code>c</code> happen — so <code>c</code> becomes <b>2.000000</b>, and the
+                        <code>.5</code> is already permanently lost by that point.</li>
+                </ol>
+                <div class="terminal-box">Output: <span>2.000000</span></div>
+            </div>
+
+            <!-- Right side -->
+            <div class="trap-card trap-right">
+                <b class="text-green">&#9989; With Explicit Casting (Floating Division)</b>
+                <div class="code-snippet">
+                    <span class="text-blue">int</span> a = 5, b = 2;<br>
+                    <span class="text-blue">float</span> c;<br>
+                    c = (<span class="text-blue">float</span>)a / b;
+                </div>
+                <b>Evaluation steps:</b>
+                <ol class="trap-list">
+                    <li><code>(float)a</code> converts <code>a</code> from <code>5</code> (int) to <code>5.0</code>
+                        (float) <b>before</b> the division happens.</li>
+                    <li>Now the expression is <code>5.0 / 2</code> — since one operand is already a float, C
+                        automatically promotes <code>b</code> to float as well and performs <b>floating-point
+                        division</b>.</li>
+                    <li>Result is the mathematically correct <b>2.500000</b>, stored fully in <code>c</code>.</li>
+                </ol>
+                <div class="terminal-box">Output: <span>2.500000</span></div>
+            </div>
+        </div>
+
+        <div class="key-rule-box">
+            &#128161; <b>Core Teaching Rule:</b> Casting just <b>one operand</b> before an arithmetic calculation
+            (e.g., <code>(float)a / b</code>) is enough to make the <b>entire expression</b> evaluate as
+            floating-point — C automatically promotes the other operand to match. You do NOT need to cast both
+            sides.
+        </div>
+
+        <div class="star-box">
+            <b>&#9888; Common Beginner Mistakes with Casting</b>
+            <ul>
+                <li>Writing <code>c = (float)(a / b);</code> instead of <code>c = (float)a / b;</code> — this
+                    casts the already-truncated integer result to float too late; you still get 2.000000, not
+                    2.500000. The cast must happen <b>before</b> the division, on one of the operands.</li>
+                <li>Assuming <code>(int)</code> rounds — it truncates (always rounds toward zero), which is not
+                    the same as rounding to the nearest whole number.</li>
+                <li>Forgetting that casting a <code>double</code> down to <code>float</code>, or a large
+                    <code>long long</code> down to <code>int</code>, can lose precision or overflow — explicit
+                    casting removes the compiler's safety warning, so the responsibility shifts to the
+                    programmer.</li>
+            </ul>
+        </div>
+
+        <div class="section-tag">3. Quick Memory Flowchart</div>
+        <div class="flowchart-container">
+            <div class="flowchart-box-orange">
+                IMPLICIT &rarr; Automatic &rarr; Compiler decides
+            </div>
+            <div class="flowchart-box-indigo">
+                EXPLICIT &rarr; Manual &rarr; Programmer writes <code>(type)</code>
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Revision:</b> Implicit = automatic, safe, compiler-driven conversion | Explicit =
+            manual, programmer-driven conversion using <code>(type)value</code> | <code>(float)5 / 2</code> =
+            <code>2.5</code>, but <code>5 / 2</code> = <code>2</code>.
+        </div>
+
+        <div class="page-number">- Page 11 -</div>
+    </div>
+
+</body>
+
+</html>

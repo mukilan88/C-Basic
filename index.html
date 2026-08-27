@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Structure of a C Program</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">01 - Structure of a C Program</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To understand the standard sections every C program is built
+            from, in the order the compiler expects them, and why each section exists.</div>
+
+        <div class="section-tag">1. Why Does a C Program Need a "Structure"?</div>
+        <p class="p-tight">C is not a free-form language — the compiler expects code to be organised into specific
+            sections, in a specific order. Learning this fixed skeleton means you can look at <b>any</b> C
+            program, even one you've never seen, and immediately recognise where the includes are, where
+            variables live, and where execution actually starts.</p>
+
+        <div class="section-tag">2. The Six Sections of a C Program</div>
+        <div class="types-grid">
+            <div class="type-card">
+                <b>1. Documentation Section</b><br>
+                Comments describing what the program does, author name, date. Optional but good practice.
+            </div>
+            <div class="type-card">
+                <b>2. Preprocessor / Link Section</b><br>
+                <code>#include</code> statements that bring in library code, e.g. <code>#include &lt;stdio.h&gt;</code>.
+            </div>
+            <div class="type-card">
+                <b>3. Global Declaration Section</b><br>
+                Variables or function prototypes declared outside <code>main()</code>, visible to every function
+                in the file.
+            </div>
+            <div class="type-card">
+                <b>4. main() Function Section</b><br>
+                <code>int main() { ... }</code> — the compulsory entry point. Execution always begins here.
+            </div>
+            <div class="type-card">
+                <b>5. Local Declaration &amp; Statements</b><br>
+                Variables declared inside <code>main()</code> (or any function), followed by the actual
+                instructions (executable statements).
+            </div>
+            <div class="type-card">
+                <b>6. User-Defined Function Section</b><br>
+                Any additional functions you write yourself, usually placed after <code>main()</code>.
+            </div>
+        </div>
+
+        <div class="section-tag">3. Annotated Example</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-purple">// Documentation Section</span><br>
+                <span class="highlight-purple">// Program: Add two numbers</span><br>
+                <span class="highlight-purple">// Author: Voflic Academy</span><br><br>
+                <span class="highlight-purple">/* Preprocessor / Link Section */</span><br>
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-purple">/* Global Declaration Section */</span><br>
+                <span class="highlight-blue">int</span> total;   <span class="highlight-purple">// visible to every function below</span><br><br>
+                <span class="highlight-purple">/* main() Function Section */</span><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-purple">// Local Declaration</span><br>
+                &nbsp;&nbsp;<span class="highlight-blue">int</span> a = 5, b = 10;<br><br>
+                &nbsp;&nbsp;<span class="highlight-purple">// Executable Statements</span><br>
+                &nbsp;&nbsp;total = a + b;<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"Total = %d\n"</span>, total);<br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>Documentation</b> is written as comments — the compiler skips these
+                    entirely, they exist purely for humans reading the code.</div>
+                <div class="exp-line"><b>#include &lt;stdio.h&gt;</b> must appear before you use
+                    <code>printf()</code>/<code>scanf()</code>, since the compiler needs to know these functions
+                    exist before it sees them being called.</div>
+                <div class="exp-line"><b>int total;</b> declared outside <code>main()</code> is a <b>global
+                    variable</b> — it exists for the entire lifetime of the program and can be accessed inside
+                    any function, unlike a local variable which only exists inside the function it's declared in.</div>
+                <div class="exp-line"><b>int main()</b> is the only section that is truly <b>compulsory</b> —
+                    every single C program must have exactly one <code>main()</code>, because that's where the
+                    operating system hands control to your program.</div>
+                <div class="exp-line"><b>return 0;</b> tells the operating system the program finished
+                    successfully. A non-zero return generally signals that something went wrong.</div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#128161; What is actually compulsory vs optional?</b>
+            <ul>
+                <li><b>Compulsory:</b> the <code>main()</code> function. A C program with no <code>main()</code>
+                    will not compile into a runnable program.</li>
+                <li><b>Practically necessary:</b> <code>#include &lt;stdio.h&gt;</code> — only if you use
+                    input/output functions like <code>printf</code>/<code>scanf</code>.</li>
+                <li><b>Optional:</b> documentation comments, global variables, and user-defined functions — a
+                    tiny program can consist of nothing but an empty <code>main()</code>.</li>
+            </ul>
+        </div>
+
+        <div class="cloud-note">
+            <b>Curly braces <code>{ }</code> define a "block."</b><br>
+            Everything between the opening <code>{</code> and closing <code>}</code> of <code>main()</code> belongs
+            to that function. Every opening brace must have a matching closing brace — a missing one is one of the
+            most common beginner compile errors (covered in Topic 16).
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: Documentation &rarr; Preprocessor &rarr; Global Declarations &rarr;
+            main() &rarr; Local Declarations &amp; Statements &rarr; User-Defined Functions — in that order, with
+            main() as the only compulsory piece.
+        </div>
+
+        <div class="footer-page">- 1 -</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Compilation and Execution</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">02 - Compilation and Execution</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To understand the journey a C program takes from human-readable
+            source code to a running program — the stages a compiler performs, and the commands used to trigger
+            them.</div>
+
+        <div class="section-tag">1. Why Can't the Computer Run C Code Directly?</div>
+        <p class="p-tight">A CPU only understands <b>machine code</b> — raw binary instructions specific to its
+            hardware. The C code we write (like <code>printf("Hello");</code>) is designed for humans to read,
+            not for the CPU. A special program called a <b>compiler</b> (e.g. GCC — the GNU Compiler Collection)
+            translates our source code into machine code the CPU can actually execute.</p>
+
+        <div class="section-tag">2. The Four Stages of Compilation</div>
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">1&#65039;&#8419; Preprocessing</div>
+                <div class="card-subtitle">Handles all lines starting with <code>#</code> before real
+                    compilation begins.</div>
+                <div class="code-snippet">program.c &rarr; program.i</div>
+                Expands <code>#include</code> files (copies in the full content of <code>stdio.h</code>, etc.) and
+                replaces <code>#define</code> macros with their literal values.
+            </div>
+            <div class="card-box">
+                <div class="card-title">2&#65039;&#8419; Compilation</div>
+                <div class="card-subtitle">Translates the preprocessed C code into Assembly language.</div>
+                <div class="code-snippet">program.i &rarr; program.s</div>
+                This is also where the compiler checks for <b>syntax errors</b> — missing semicolons, undeclared
+                variables, mismatched types, etc.
+            </div>
+            <div class="card-box">
+                <div class="card-title">3&#65039;&#8419; Assembly</div>
+                <div class="card-subtitle">Converts the Assembly code into machine-readable Object code.</div>
+                <div class="code-snippet">program.s &rarr; program.o</div>
+                Object code is binary, but not yet a complete, runnable program — pieces are still missing.
+            </div>
+            <div class="card-box">
+                <div class="card-title">4&#65039;&#8419; Linking</div>
+                <div class="card-subtitle">Combines your object code with pre-compiled library code (like the
+                    real implementation of <code>printf</code>).</div>
+                <div class="code-snippet">program.o + libraries &rarr; program (executable)</div>
+                This is where <b>linker errors</b> appear — e.g. calling a function that was declared but never
+                defined anywhere.
+            </div>
+        </div>
+
+        <div class="flow-diagram">
+            Source Code (.c) &rarr; Preprocessor &rarr; Compiler &rarr; Assembler &rarr; Linker &rarr; Executable
+            File
+        </div>
+
+        <div class="section-tag">3. Compiling &amp; Running with GCC (Command Line)</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-purple"># Step 1: Compile the source file into an executable</span><br>
+                gcc program.c -o program<br><br>
+                <span class="highlight-purple"># Step 2: Run the executable</span><br>
+                <span class="highlight-purple"># On Linux / macOS:</span><br>
+                ./program<br><br>
+                <span class="highlight-purple"># On Windows:</span><br>
+                program.exe
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><b>gcc</b> &rarr; invokes the GNU C Compiler.</div>
+                <div class="exp-line"><b>program.c</b> &rarr; the source file to compile.</div>
+                <div class="exp-line"><b>-o program</b> &rarr; "output" flag; names the resulting executable
+                    file <code>program</code> (without <code>-o</code>, GCC defaults to naming it
+                    <code>a.out</code>).</div>
+                <div class="exp-line"><b>./program</b> &rarr; the <code>./</code> tells the shell "run the file
+                    named <code>program</code> located right here in this folder," which is required on
+                    Linux/macOS for safety reasons.</div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#9888; Compile-time vs Run-time</b><br>
+            <b>Compile-time</b> is everything that happens during the <code>gcc program.c -o program</code> step —
+            syntax errors are caught here, and the program never even gets created if these fail. <b>Run-time</b>
+            is everything that happens after you launch <code>./program</code> — a program can compile perfectly
+            but still crash or misbehave at run-time (e.g. dividing by zero, reading beyond an array).
+        </div>
+
+        <div class="cloud-note">
+            <b>What if I don't have GCC installed?</b><br>
+            You can also compile and run C instantly using free <b>online compilers</b> in a browser — no
+            installation needed. This is exactly what the next topic, "Interactive and Script Mode," compares
+            against writing and compiling a saved <code>.c</code> file yourself.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: Preprocessing &rarr; Compilation &rarr; Assembly &rarr; Linking turns your
+            <code>.c</code> file into a runnable program; <code>gcc file.c -o output</code> then <code>./output</code>
+            is the standard command-line workflow.
+        </div>
+
+        <div class="footer-page">- 2 -</div>
+    </div>
+
+</body>
+
+</html>

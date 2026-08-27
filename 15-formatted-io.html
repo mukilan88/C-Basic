@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C Programming - Formatted Input and Output</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="punch-hole hole1"></div>
+    <div class="punch-hole hole2"></div>
+    <div class="punch-hole hole3"></div>
+
+    <h1 class="main-title">C Programming</h1>
+    <div class="sub-title">15 - Formatted Input and Output (printf, scanf)</div>
+
+    <div class="aim-box">&#10022; <u>Aim:</u> To master <code>scanf()</code> and <code>printf()</code> — the two
+      workhorse I/O functions from Topic 14 — using format specifiers to read and display every data type
+      correctly.</div>
+
+    <div class="section-tag">1. What Does "Formatted" Mean?</div>
+    <p class="p-tight"><code>printf()</code> and <code>scanf()</code> are called <b>formatted</b> I/O functions
+      because they use a <b>format string</b> containing special codes — <b>format specifiers</b> — that tell C
+      exactly what data type to expect at each point: <b>%d</b> for int, <b>%f</b> for float, <b>%lf</b> for
+      double, <b>%c</b> for char, and <b>%s</b> for a string. This is what lets a single function handle every
+      data type from Topics 6–8, unlike <code>getchar()</code>/<code>putchar()</code> from Topic 14.</p>
+
+    <div class="section-tag">2. A Full Example Program</div>
+    <div class="code-container">
+      <div class="code-box">
+        <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+        <span class="highlight-blue">int</span> main() {<br>
+        &nbsp;&nbsp;<span class="highlight-blue">int</span> age;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">float</span> height;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">double</span> salary;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">char</span> grade;<br>
+        &nbsp;&nbsp;<span class="highlight-blue">char</span> name[50];<br><br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Enter your name: "</span>);<br>
+        &nbsp;&nbsp;scanf(<span class="highlight-red">"%s"</span>, name);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Enter your age: "</span>);<br>
+        &nbsp;&nbsp;scanf(<span class="highlight-red">"%d"</span>, &amp;age);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Enter your height: "</span>);<br>
+        &nbsp;&nbsp;scanf(<span class="highlight-red">"%f"</span>, &amp;height);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Enter your salary: "</span>);<br>
+        &nbsp;&nbsp;scanf(<span class="highlight-red">"%lf"</span>, &amp;salary);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Enter your grade: "</span>);<br>
+        &nbsp;&nbsp;scanf(<span class="highlight-red">" %c"</span>, &amp;grade);<br><br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"\n----- Student Details -----\n"</span>);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Name: %s\n"</span>, name);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Age: %d\n"</span>, age);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Height: %.2f\n"</span>, height);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Salary: %.2lf\n"</span>, salary);<br>
+        &nbsp;&nbsp;printf(<span class="highlight-red">"Grade: %c\n"</span>, grade);<br><br>
+        &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+        }
+      </div>
+      <div class="explanation-box">
+        <div class="exp-line">All five variables were declared following the rules from Topic 9 (Variables), each
+          with the data type it needs from Topics 6–8.</div>
+        <div class="exp-line">Each <code>scanf()</code>/<code>printf()</code> pair uses the format specifier that
+          matches its variable's exact type — mismatching them is one of the most common beginner bugs.</div>
+      </div>
+    </div>
+
+    <div class="section-tag">3. Getting Input with scanf()</div>
+    <p class="p-tight">We use <span class="highlight-blue">scanf();</span> together with a <b>format specifier</b>
+      that matches the variable's data type: <b>%d</b> for int, <b>%f</b> for float, <b>%lf</b> for double,
+      <b>%c</b> for char, and <b>%s</b> for a string (character array).</p>
+
+    <div class="star-box">
+      <b>&#11088; Why do we use &amp; before the variable name?</b><br>
+      <code>scanf()</code> does not simply store a value into a variable — it needs to know the exact
+      <b>memory address</b> where the value should be written. The <code>&amp;</code> ("address-of") operator gives
+      it that address. A string/array is a special case: the array name (<code>name</code>) already represents the
+      address of its first element, so we do NOT add <code>&amp;</code> before it.<br><br>
+      <b>Easy Rule:</b>
+      <ul>
+        <li>scanf() + normal variable (int, float, double, char) &rarr; <span class="highlight-green">use
+            &amp;</span> &rarr; e.g. <code>&amp;age</code></li>
+        <li>scanf() + string/character array &rarr; <span class="highlight-red">don't use &amp;</span> &rarr; e.g.
+          <code>name</code></li>
+      </ul>
+    </div>
+
+    <div class="cloud-note">
+      <b>Why is there a space before %c in <code>scanf(" %c", &amp;grade);</code>?</b><br>
+      Every time the user types a value and presses <b>Enter</b>, the Enter key itself leaves a leftover newline
+      character (<code>\n</code>) sitting in the input buffer. If we write plain <code>"%c"</code>, <code>scanf()</code>
+      would instantly read that leftover <code>\n</code> instead of waiting for the user's actual character. The
+      single leading space tells <code>scanf()</code> to first skip over any whitespace (spaces, tabs, newlines)
+      before reading the real character. This trick is usually only needed for <code>%c</code>; <code>%d</code>,
+      <code>%f</code>, and <code>%lf</code> already skip leading whitespace automatically.
+    </div>
+
+    <div class="section-tag">4. Displaying Output with printf()</div>
+    <p class="p-tight">We use <span class="highlight-blue">printf();</span> to send output to the screen.</p>
+
+    <div class="cloud-note">
+      <b>How does printf() work?</b><br>
+      • <code>printf("hi");</code> &rarr; Prints a <b>plain message</b> exactly as written.<br>
+      • <code>printf("Age: %d\n", age);</code> &rarr; Prints the text <code>"Age: "</code>, then substitutes the
+      value stored inside <code>age</code> in place of <code>%d</code>, then moves to a new line because of
+      <code>\n</code>.
+    </div>
+
+    <div class="cloud-note">
+      <b>What does %.2f mean?</b><br>
+      The number between <code>%</code> and the specifier is the <b>precision</b> — it fixes how many digits appear
+      after the decimal point. <code>%.2f</code> rounds the value to exactly <b>2 decimal digits</b>.<br>
+      <i>Example:</i> a stored value of <code>5.6789</code> is printed as <code>5.68</code> (rounded, not
+      truncated).
+    </div>
+
+    <div class="star-box">
+      <b>&#9888; Common Beginner Mistakes with Formatted I/O</b>
+      <ul>
+        <li>Using <code>%d</code> to print a <code>float</code> or <code>double</code> (or vice-versa) — this
+          reads the memory bits incorrectly and prints garbage values. The specifier must always match the
+          variable's type.</li>
+        <li>Forgetting <code>&amp;</code> before a normal variable in <code>scanf()</code> — the program may
+          crash or silently fail to store the value, because <code>scanf()</code> was given a value instead of
+          an address.</li>
+        <li>Using <code>char name[50]</code> but typing a name longer than 49 characters — this overflows the
+          array and can corrupt nearby memory. Always size arrays generously.</li>
+        <li><code>%s</code> with <code>scanf()</code> stops reading at the first space, so it cannot capture a
+          full name with a space in it (e.g. "Ramya M"). That needs <code>fgets()</code> from Topic 14, not
+          <code>scanf("%s", ...)</code>.</li>
+      </ul>
+    </div>
+
+    <div class="section-tag">5. Quick Reference Table</div>
+    <table class="custom-table">
+      <tr class="tr-alt-bg">
+        <th>Variable</th>
+        <th>Declaration</th>
+        <th>scanf()</th>
+        <th>printf()</th>
+      </tr>
+      <tr>
+        <td><b>Integer</b></td>
+        <td><code>int age;</code></td>
+        <td><code>%d</code></td>
+        <td><code>%d</code></td>
+      </tr>
+      <tr>
+        <td><b>Float</b></td>
+        <td><code>float height;</code></td>
+        <td><code>%f</code></td>
+        <td><code>%f / %.2f</code></td>
+      </tr>
+      <tr>
+        <td><b>Double</b></td>
+        <td><code>double salary;</code></td>
+        <td><code>%lf</code></td>
+        <td><code>%lf / %.2lf</code></td>
+      </tr>
+      <tr>
+        <td><b>Character</b></td>
+        <td><code>char grade;</code></td>
+        <td><code> %c</code> (note the space)</td>
+        <td><code>%c</code></td>
+      </tr>
+      <tr>
+        <td><b>String</b></td>
+        <td><code>char name[50];</code></td>
+        <td><code>%s</code> (no &amp;)</td>
+        <td><code>%s</code></td>
+      </tr>
+    </table>
+
+    <div class="revision-footer-pill-pink">
+      &#128221; One-Line Revision: Match the format specifier to the exact data type every time — %d/int,
+      %f/float, %lf/double, %c/char, %s/string — and remember &amp; for scanf() on everything except strings.
+    </div>
+
+    <div class="footer-page">- 15 -</div>
+  </div>
+
+</body>
+
+</html>

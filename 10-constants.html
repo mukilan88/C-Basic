@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Constants</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">10 - Constants</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To understand what a constant is, the different ways C lets us
+            define one, and when to use each method.</div>
+
+        <div class="section-tag">1. What is a Constant?</div>
+        <p class="p-tight">A constant is a value that <b>cannot be changed</b> once the program is compiled — the
+            opposite of a variable, whose value can change while the program runs. Constants are useful for values
+            that are fixed by definition (like <code>3.14159</code> for &pi;) or values you want to protect from
+            being accidentally modified later in the code.</p>
+
+        <div class="section-tag">2. Three Ways to Define a Constant in C</div>
+
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">1. Literal Constant</div>
+                <div class="card-subtitle">A fixed value written directly into an expression — the simplest
+                    kind, already used throughout every earlier topic.</div>
+                <div class="code-snippet">
+                    <span class="highlight-blue">int</span> total = a + <span class="text-green">10</span>;
+                </div>
+                Here <code>10</code> is a literal integer constant.
+            </div>
+            <div class="card-box">
+                <div class="card-title">2. const Keyword</div>
+                <div class="card-subtitle">Declares a normal, typed variable that the compiler will refuse to
+                    let you modify after initialisation.</div>
+                <div class="code-snippet">
+                    <span class="highlight-purple">const</span> <span class="highlight-blue">float</span> PI = 3.14159;
+                </div>
+                Any later attempt like <code>PI = 3.2;</code> causes a <b>compile-time error</b>.
+            </div>
+        </div>
+
+        <div class="card-box" style="margin: 14px 0;">
+            <div class="card-title">3. #define Preprocessor Macro</div>
+            <div class="card-subtitle">Defines a symbolic name that the <b>preprocessor</b> (Topic 2) textually
+                replaces with the given value, everywhere it appears, before compilation even starts.</div>
+            <div class="code-snippet">
+                <span class="highlight-blue">#define</span> PI 3.14159<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">float</span> area = PI * r * r;<br>
+                &nbsp;&nbsp;...<br>
+                }
+            </div>
+            Before compilation, every occurrence of <code>PI</code> is literally swapped for <code>3.14159</code>
+            in the source text — <code>PI</code> itself has no type and is not really a "variable" at all.
+        </div>
+
+        <div class="section-tag">3. const vs #define — Which One to Use?</div>
+        <table class="custom-table">
+            <tr>
+                <th>Feature</th>
+                <th><code>const</code></th>
+                <th><code>#define</code></th>
+            </tr>
+            <tr>
+                <td>Processed by</td>
+                <td>Compiler</td>
+                <td>Preprocessor (before compilation)</td>
+            </tr>
+            <tr>
+                <td>Has a data type</td>
+                <td>Yes (e.g. <code>float</code>, <code>int</code>)</td>
+                <td>No — pure text substitution</td>
+            </tr>
+            <tr>
+                <td>Follows scope rules</td>
+                <td>Yes (local/global like a variable)</td>
+                <td>No — applies everywhere below it in the file</td>
+            </tr>
+            <tr>
+                <td>Uses memory</td>
+                <td>Yes, like a normal variable</td>
+                <td>No, it doesn't exist after preprocessing</td>
+            </tr>
+            <tr>
+                <td>Type-checked by compiler</td>
+                <td>Yes — safer</td>
+                <td>No — can cause subtle bugs</td>
+            </tr>
+            <tr>
+                <td>Recommended for</td>
+                <td>Most modern C code (safer, debuggable)</td>
+                <td>Simple global constants, especially in older-style code</td>
+            </tr>
+        </table>
+
+        <div class="star-box">
+            <b>&#128161; Modern Recommendation:</b> Prefer <code>const</code> over <code>#define</code> when
+            possible. Because <code>const</code> variables have a real type and obey scope, the compiler can catch
+            type-mismatch mistakes that <code>#define</code> would silently let through (since <code>#define</code>
+            is just blind text replacement, with zero type awareness).
+        </div>
+
+        <div class="section-tag">4. Constant Types (Recap from Tokens)</div>
+        <table class="custom-table">
+            <tr>
+                <th>Type</th>
+                <th>Example</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td>Integer Constant</td>
+                <td><code>10</code>, <code>-25</code>, <code>0</code></td>
+                <td>No decimal point</td>
+            </tr>
+            <tr>
+                <td>Real / Floating-Point Constant</td>
+                <td><code>3.14</code>, <code>-0.5</code></td>
+                <td>Has a decimal point</td>
+            </tr>
+            <tr>
+                <td>Character Constant</td>
+                <td><code>'A'</code>, <code>'7'</code></td>
+                <td>Single character, single quotes</td>
+            </tr>
+            <tr>
+                <td>String Constant</td>
+                <td><code>"Voflic"</code></td>
+                <td>Multiple characters, double quotes</td>
+            </tr>
+        </table>
+
+        <div class="cloud-note">
+            <b>Common beginner slip:</b> writing <code>#define PI 3.14159;</code> with a trailing semicolon. Since
+            <code>#define</code> is pure text replacement, that semicolon gets copied in too — turning
+            <code>area = PI * r * r;</code> into <code>area = 3.14159; * r * r;</code>, which is a syntax error.
+            <code>#define</code> lines should <b>not</b> end with a semicolon.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: A constant's value never changes — write it directly as a literal, protect
+            a typed variable with <code>const</code>, or define a text macro with <code>#define</code>
+            (no semicolon, no type-checking).
+        </div>
+
+        <div class="footer-page">- 10 -</div>
+    </div>
+
+</body>
+
+</html>

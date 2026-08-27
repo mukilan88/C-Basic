@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C Programming - Data Types Overview</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="punch-hole hole1"></div>
+    <div class="punch-hole hole2"></div>
+    <div class="punch-hole hole3"></div>
+
+    <h1 class="main-title">C Programming</h1>
+    <div class="sub-title">06 - Data Types (Part 1 of 3): Overview &amp; Basic Types</div>
+
+    <div class="aim-box">&#10022; <u>Aim:</u> To understand what a data type is and to learn the five basic data
+      types every C program is built from.</div>
+
+    <div class="section-tag">1. What is a Data Type?</div>
+    <p class="p-tight">Every variable in C must be given a <b>data type</b> before it can be used. The data type
+      tells the compiler two things: <b>(1)</b> how many bytes of memory to reserve for the variable, and
+      <b>(2)</b> what kind of value it is allowed to hold (a whole number, a decimal number, a single letter, etc.).
+      Without a data type, the compiler would not know how to interpret the bits stored in memory.</p>
+
+    <table class="custom-table">
+      <tr>
+        <th>Data Type</th>
+        <th>Used for</th>
+        <th>Example Value</th>
+      </tr>
+      <tr>
+        <td><b>int</b></td>
+        <td>Whole numbers (no decimal point)</td>
+        <td>20, -5, 1000</td>
+      </tr>
+      <tr>
+        <td><b>float</b></td>
+        <td>Decimal numbers, ~6 digits of accuracy</td>
+        <td>5.5, 3.14</td>
+      </tr>
+      <tr>
+        <td><b>double</b></td>
+        <td>Decimal numbers needing more accuracy</td>
+        <td>25000.75</td>
+      </tr>
+      <tr>
+        <td><b>char</b></td>
+        <td>A single character</td>
+        <td>'A', '9', '$'</td>
+      </tr>
+      <tr>
+        <td><b>char name[50]</b></td>
+        <td>A group of characters (a word/string)</td>
+        <td>"Ramya"</td>
+      </tr>
+    </table>
+
+    <div class="star-box">
+      <b>&#128161; Why do we have both float and double?</b><br>
+      Both store decimal numbers, but <b>double</b> reserves twice the memory (8 bytes vs 4 bytes) and can store a
+      decimal value far more precisely (about 15 digits vs about 6 digits). Use <b>double</b> whenever accuracy
+      matters, such as for money (salary) or scientific calculations.
+    </div>
+
+    <div class="section-tag">2. The Two Broad Families of Data Types</div>
+    <div class="grid-2">
+      <div class="card-box">
+        <div class="card-title">&#128290; Integer Family</div>
+        <div class="card-subtitle">Store whole numbers only — no decimal point, ever.</div>
+        <code>int</code>, <code>short int</code>, <code>long int</code>, <code>long long int</code>, and their
+        <code>unsigned</code> versions. Every one of these has multiple "flavours" for controlling size and sign —
+        covered in full in Part 2 of this topic.
+      </div>
+      <div class="card-box">
+        <div class="card-title">&#128290; Floating-Point Family</div>
+        <div class="card-subtitle">Store numbers that may include a decimal point.</div>
+        <code>float</code>, <code>double</code>, and <code>long double</code> — differing only in how much memory
+        (and therefore how much precision) each reserves.
+      </div>
+    </div>
+
+    <div class="cloud-note">
+      <b>What about char?</b><br>
+      <code>char</code> technically belongs to the integer family too — internally, a character is just stored as
+      a small integer (its ASCII code, e.g. <code>'A'</code> is stored as 65). C simply lets us treat that number
+      as a printable character using the <code>%c</code> format specifier.
+    </div>
+
+    <div class="section-tag">3. What You'll Learn Next</div>
+    <p class="p-tight">This topic continues in two more parts, both zooming into details this overview doesn't
+      cover:</p>
+    <ul class="p-tight">
+      <li><b>Part 2 (Topic 7):</b> the full family of integer size modifiers — <code>short</code>,
+        <code>long</code>, <code>long long</code>, <code>signed</code>/<code>unsigned</code> — and their exact
+        format specifiers.</li>
+      <li><b>Part 3 (Topic 8):</b> the exact memory size and numeric range of every data type, plus the
+        <code>sizeof()</code> operator to verify sizes on your own machine.</li>
+    </ul>
+
+    <div class="revision-footer-pill-pink">
+      &#128221; One-Line Revision: int &rarr; whole number, float &rarr; decimal, double &rarr; precise decimal,
+      char &rarr; single character (really a small integer), string (char array) &rarr; group of characters.
+    </div>
+
+    <div class="footer-page">- 6 -</div>
+  </div>
+
+</body>
+
+</html>

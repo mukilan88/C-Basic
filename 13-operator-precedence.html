@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming Notes - Page 6: Operator Precedence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C PROGRAMMING</h1>
+        <div class="sub-title">TOPIC 13: OPERATOR PRECEDENCE</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand how operator precedence and associativity determine the exact
+            evaluation order of an expression that mixes multiple operators, and how parentheses let us override
+            the default order.
+        </div>
+
+        <div class="section-tag">1. What is Operator Precedence?</div>
+        <p class="page-description">
+            When an expression contains more than one operator, C does not simply evaluate left to right —
+            it follows a strict priority order called <b>operator precedence</b>, which decides
+            <b>which operator is evaluated first</b>. Operators with higher precedence "bind tighter" and are
+            calculated before operators with lower precedence, exactly like the "BODMAS"/"PEMDAS" rule you learnt
+            in mathematics (multiplication before addition, for example).
+        </p>
+
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">int</span> result;<br>
+                &nbsp;&nbsp;result = 10 + 5 * 2;<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"%d"</span>, result);<br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box explanation-box-teal">
+                <b>Output &amp; Trace:</b><br>
+                Step 1: <code>*</code> has higher precedence than <code>+</code>, so <code>5 * 2</code> is
+                calculated first &rarr; <b>10</b><br>
+                Step 2: Then the addition happens &rarr; <code>10 + 10</code> &rarr; <b>20</b><br><br>
+                Final Output: <b>20</b>
+            </div>
+        </div>
+
+        <div class="cloud-note">
+            <b>What if we actually wanted addition to happen first?</b><br>
+            Wrap the part you want evaluated first inside parentheses:
+            <code>result = (10 + 5) * 2;</code> &rarr; now <code>10 + 5</code> is forced to happen first
+            (<b>15</b>), then multiplied by 2, giving <b>30</b> instead of 20. Parentheses always have the
+            <b>highest</b> precedence of all, which is exactly why they are the standard tool for making your
+            intended evaluation order explicit and bug-free.
+        </div>
+
+        <div class="section-tag">2. What is Associativity?</div>
+        <p class="page-description-sm">
+            Precedence decides <i>which operator</i> goes first when operators <b>differ</b>. But what happens
+            when two operators of the <b>same</b> precedence appear next to each other, like
+            <code>20 - 5 - 3</code>? That's where <b>associativity</b> comes in — it decides the <b>direction</b>
+            (left-to-right or right-to-left) in which same-priority operators are grouped.
+            <code>20 - 5 - 3</code> is left-to-right associative, so it's grouped as
+            <code>(20 - 5) - 3 = 12</code>, not <code>20 - (5 - 3) = 18</code>.
+        </p>
+
+        <div class="section-tag">3. Precedence &amp; Associativity Hierarchy Table</div>
+        <table class="custom-table">
+            <tr>
+                <th>Priority</th>
+                <th>Operator Category</th>
+                <th>Operators</th>
+                <th>Associativity</th>
+            </tr>
+            <tr>
+                <td><b>1 (Highest)</b></td>
+                <td>Parentheses / Postfix</td>
+                <td><code>() [] . -&gt; ++(postfix) --(postfix)</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>2</b></td>
+                <td>Unary / Prefix</td>
+                <td><code>+ - ! ~ ++(prefix) --(prefix) sizeof &amp; *</code></td>
+                <td>Right to Left</td>
+            </tr>
+            <tr>
+                <td><b>3</b></td>
+                <td>Multiplicative</td>
+                <td><code>* / %</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>4</b></td>
+                <td>Additive</td>
+                <td><code>+ -</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>5</b></td>
+                <td>Shift</td>
+                <td><code>&lt;&lt; &gt;&gt;</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>6</b></td>
+                <td>Relational</td>
+                <td><code>&lt; &lt;= &gt; &gt;=</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>7</b></td>
+                <td>Equality</td>
+                <td><code>== !=</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>8</b></td>
+                <td>Bitwise AND</td>
+                <td><code>&amp;</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>9</b></td>
+                <td>Bitwise XOR</td>
+                <td><code>^</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>10</b></td>
+                <td>Bitwise OR</td>
+                <td><code>|</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>11</b></td>
+                <td>Logical AND</td>
+                <td><code>&amp;&amp;</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>12</b></td>
+                <td>Logical OR</td>
+                <td><code>||</code></td>
+                <td>Left to Right</td>
+            </tr>
+            <tr>
+                <td><b>13</b></td>
+                <td>Ternary (Conditional)</td>
+                <td><code>?:</code></td>
+                <td>Right to Left</td>
+            </tr>
+            <tr>
+                <td><b>14 (Lowest)</b></td>
+                <td>Assignment</td>
+                <td><code>= += -= *= /= %=</code></td>
+                <td>Right to Left</td>
+            </tr>
+        </table>
+
+        <div class="star-box">
+            <b>&#9888; Correction / Extra Detail:</b> The original quick-reference table only listed 10 broad
+            groups and merged all bitwise operators together with logical operators. In real C precedence rules,
+            bitwise AND (<code>&amp;</code>), XOR (<code>^</code>), and OR (<code>|</code>) each sit at their
+            <b>own, separate</b> priority level — all below relational/equality but above logical
+            <code>&amp;&amp;</code>/<code>||</code>. The ternary operator <code>?:</code> is also lower priority
+            than all of those, and assignment is the lowest of all (besides the comma operator, which is beyond
+            this topic). The full 14-row table above is the complete and accurate version.
+        </div>
+
+        <div class="section-tag">4. Worked Example Using Both Rules Together</div>
+        <p class="page-description-sm">Consider: <code>int x = 2 + 3 * 4 &gt; 10 &amp;&amp; 5 == 5;</code></p>
+        <div class="code-container">
+            <div class="explanation-box explanation-box-teal">
+                <div class="exp-line">Step 1 (Multiplicative, priority 3): <code>3 * 4</code> &rarr; <b>12</b></div>
+                <div class="exp-line">Step 2 (Additive, priority 4): <code>2 + 12</code> &rarr; <b>14</b></div>
+                <div class="exp-line">Step 3 (Relational, priority 6): <code>14 &gt; 10</code> &rarr; <b>1</b>
+                    (true)</div>
+                <div class="exp-line">Step 4 (Equality, priority 7): <code>5 == 5</code> &rarr; <b>1</b> (true)</div>
+                <div class="exp-line">Step 5 (Logical AND, priority 11): <code>1 &amp;&amp; 1</code> &rarr;
+                    <b>1</b> (true)</div>
+                <div class="exp-line">Step 6 (Assignment, lowest priority): <code>x = 1</code></div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            &#128161; <b>Pro Tip &mdash; Don't Memorise, Use Parentheses:</b><br>
+            Even experienced programmers rarely memorise every row of this table. The safest and most readable
+            habit is: whenever an expression mixes more than two different operator types, add parentheses to
+            make your intended order <b>explicit</b> — e.g. <code>(10 + 5) * 2</code> instead of relying on
+            everyone remembering that <code>*</code> beats <code>+</code>. This prevents bugs and makes code
+            easier for others (and your future self) to read.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Revision:</b> Precedence = which operator goes first when they differ |
+            Associativity = which direction to group when they're equal | Parentheses always win and should be
+            used generously for clarity.
+        </div>
+
+        <div class="footer-page">- 13 -</div>
+    </div>
+
+</body>
+
+</html>

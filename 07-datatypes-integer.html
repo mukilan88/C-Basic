@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Integer Data Types & Size Modifiers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">07 - Data Types (Part 2 of 3): Integer Types &amp; Size Modifiers</div>
+
+        <div class="aim-box">&#127919; <u>What will we learn?</u> How C offers several "flavours" of the integer
+            type (short, normal, long, long long — each signed or unsigned) so we can pick the right size for the
+            numbers we need to store, without wasting memory.</div>
+
+        <div class="section-tag">1. Why Do We Need Different Integer Sizes?</div>
+        <p class="p-tight">A plain <code>int</code> is usually enough, but sometimes we need to save memory (e.g.
+            storing thousands of small numbers, so <code>short</code> is enough) or we need to store numbers far
+            bigger than <code>int</code> can hold (e.g. a national population, so we need <code>long long</code>).
+            The <b>size modifiers</b> — <code>short</code>, <code>long</code>, <code>long long</code>, and
+            <code>signed</code>/<code>unsigned</code> — let us control exactly how much memory a whole number
+            uses and whether it can be negative.</p>
+
+        <div class="section-tag">2. Integer Types &amp; Meaning</div>
+        <div class="types-grid">
+            <div class="type-card">
+                <b>1. short int</b> (Small whole number)<br>
+                <code>short int a = 10;</code><br>
+                Format Specifier: <span class="specifier-tag">%hd</span>
+            </div>
+            <div class="type-card">
+                <b>2. unsigned short int</b> (Positive only, small)<br>
+                <code>unsigned short int b = 50;</code><br>
+                Format Specifier: <span class="specifier-tag">%hu</span>
+            </div>
+            <div class="type-card">
+                <b>3. int / signed int</b> (Normal integer, most common)<br>
+                <code>int c = -200;</code><br>
+                Format Specifier: <span class="specifier-tag">%d</span>
+            </div>
+            <div class="type-card">
+                <b>4. unsigned int</b> (Positive normal integer)<br>
+                <code>unsigned int d = 400;</code><br>
+                Format Specifier: <span class="specifier-tag">%u</span>
+            </div>
+            <div class="type-card">
+                <b>5. long int</b> (Large whole number)<br>
+                <code>long int e = 100000L;</code><br>
+                Format Specifier: <span class="specifier-tag">%ld</span>
+            </div>
+            <div class="type-card">
+                <b>6. unsigned long int</b> (Large positive only)<br>
+                <code>unsigned long int f = 200000UL;</code><br>
+                Format Specifier: <span class="specifier-tag">%lu</span>
+            </div>
+            <div class="type-card">
+                <b>7. long long int</b> (Very large whole number)<br>
+                <code>long long int g = 9000000000LL;</code><br>
+                Format Specifier: <span class="specifier-tag">%lld</span>
+            </div>
+            <div class="type-card">
+                <b>8. unsigned long long int</b> (Very large, positive only)<br>
+                <code>unsigned long long int h = 18000000000ULL;</code><br>
+                Format Specifier: <span class="specifier-tag">%llu</span>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#128161; What do "signed" and "unsigned" actually mean?</b><br>
+            Every integer type reserves a fixed number of bits. <b>signed</b> (the default) splits that range
+            between negative and positive numbers, so it can represent both. <b>unsigned</b> gives up the ability
+            to store negatives, and in exchange uses that freed-up range to store <i>larger positive</i> numbers —
+            roughly double the positive range of the signed version. Use <code>unsigned</code> only when you are
+            certain the value can never be negative (e.g. a count of students, an array index, a byte size).
+        </div>
+
+        <div class="section-tag">3. Size &amp; Range Table (typical modern 64-bit system, e.g. GCC on Linux)</div>
+        <table class="custom-table">
+            <tr>
+                <th>Data Type</th>
+                <th>Size (Bytes)</th>
+                <th>Format</th>
+                <th>Range</th>
+            </tr>
+            <tr>
+                <td><b>short int</b></td>
+                <td>2</td>
+                <td><code>%hd</code></td>
+                <td>-32,768 to 32,767</td>
+            </tr>
+            <tr>
+                <td><b>unsigned short int</b></td>
+                <td>2</td>
+                <td><code>%hu</code></td>
+                <td>0 to 65,535</td>
+            </tr>
+            <tr>
+                <td><b>int</b></td>
+                <td>4</td>
+                <td><code>%d</code></td>
+                <td>-2,147,483,648 to 2,147,483,647</td>
+            </tr>
+            <tr>
+                <td><b>unsigned int</b></td>
+                <td>4</td>
+                <td><code>%u</code></td>
+                <td>0 to 4,294,967,295</td>
+            </tr>
+            <tr>
+                <td><b>long int</b></td>
+                <td>8 (4 on some older/Windows compilers)</td>
+                <td><code>%ld</code></td>
+                <td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (on 8-byte systems)</td>
+            </tr>
+            <tr>
+                <td><b>unsigned long int</b></td>
+                <td>8 (4 on some older/Windows compilers)</td>
+                <td><code>%lu</code></td>
+                <td>0 to 18,446,744,073,709,551,615 (on 8-byte systems)</td>
+            </tr>
+            <tr>
+                <td><b>long long int</b></td>
+                <td>8</td>
+                <td><code>%lld</code></td>
+                <td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+            </tr>
+            <tr>
+                <td><b>unsigned long long int</b></td>
+                <td>8</td>
+                <td><code>%llu</code></td>
+                <td>0 to 18,446,744,073,709,551,615</td>
+            </tr>
+        </table>
+
+        <div class="star-box">
+            <b>&#9888; Correction / Important Note:</b> The exact byte size of <code>int</code> and <code>long
+            int</code> is technically <b>compiler and system dependent</b> — the C standard only guarantees a
+            <i>minimum</i> size. On almost every modern system you will use (64-bit Linux/GCC, which Voflic
+            students typically compile on), <code>int</code> is 4 bytes and <code>long int</code> is 8 bytes, as
+            shown above. Always confirm with the <code>sizeof()</code> operator (covered in the next topic) rather
+            than memorising numbers blindly.
+        </div>
+
+        <div class="section-tag">4. Simple C Program &amp; Output</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">short int</span> a = 10;<br>
+                &nbsp;&nbsp;<span class="highlight-blue">int</span> b = 100;<br>
+                &nbsp;&nbsp;<span class="highlight-blue">long int</span> c = 1000;<br>
+                &nbsp;&nbsp;<span class="highlight-blue">long long int</span> d = 10000;<br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">unsigned int</span> e = 500;<br><br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"short int = %hd\n"</span>, a);<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"int = %d\n"</span>, b);<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"long int = %ld\n"</span>, c);<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"long long int = %lld\n"</span>, d);<br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"unsigned int = %u\n"</span>, e);<br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box explanation-box-teal">
+                <b>Output:</b><br>
+                short int = 10<br>
+                int = 100<br>
+                long int = 1000<br>
+                long long int = 10000<br>
+                unsigned int = 500<br><br>
+                <b>Note:</b> Even though these small values (10, 100, 1000...) would fit into any of the types,
+                declaring them as <code>short</code>, <code>long</code>, <code>long long</code> here is only to
+                demonstrate the correct <b>declaration syntax</b> and matching <b>format specifier</b> for each
+                type — not because these particular numbers need that much space.
+            </div>
+        </div>
+
+        <div class="cloud-note">
+            <b>Why does the literal number need a suffix like L, UL, LL, ULL?</b><br>
+            By default, a plain number like <code>100000</code> is treated by the compiler as an <code>int</code>.
+            If that number is too big to fit in an <code>int</code> but we are assigning it to a <code>long
+            long</code>, the suffix tells the compiler "treat this literal itself as a long/long long/unsigned
+            value" so no data is lost during the calculation, even before it reaches the variable.
+            <ul>
+                <li><code>100000L</code> &rarr; treat as <code>long</code></li>
+                <li><code>200000UL</code> &rarr; treat as <code>unsigned long</code></li>
+                <li><code>9000000000LL</code> &rarr; treat as <code>long long</code></li>
+                <li><code>18000000000ULL</code> &rarr; treat as <code>unsigned long long</code></li>
+            </ul>
+        </div>
+
+        <div class="star-box">
+            <b>&#128161; Important Rules to Remember:</b><br>
+            • <b>signed</b> = stores both negative and positive numbers (this is the default if you don't write
+            "unsigned").<br>
+            • <b>unsigned</b> = stores ONLY positive numbers (0 and above), which roughly doubles the maximum
+            positive value compared to the signed version.<br>
+            • Always match the printf()/scanf() format specifier to the exact variable type — mismatching them
+            (e.g. printing a <code>long long</code> with <code>%d</code>) gives wrong/garbage output, especially
+            for large numbers.<br>
+            • Use the correct suffix for large literals: <code>L</code> (long), <code>UL</code> (unsigned long),
+            <code>LL</code> (long long), <code>ULL</code> (unsigned long long).
+        </div>
+
+        <div class="footer-page">- 7 -</div>
+    </div>
+
+</body>
+
+</html>

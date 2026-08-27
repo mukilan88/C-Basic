@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Comments and Documentation</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">04 - Comments and Documentation</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To learn how to write comments in C, why documenting code
+            matters, and the rules that keep comments from breaking your program.</div>
+
+        <div class="section-tag">1. What is a Comment?</div>
+        <p class="p-tight">A comment is text in your source code that the <b>compiler completely ignores</b>. It
+            exists purely for humans — to explain what a piece of code does, why a decision was made, or to
+            temporarily disable a line while testing. C supports two comment styles.</p>
+
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">1. Single-Line Comment <code>//</code></div>
+                <div class="card-subtitle">Everything from <code>//</code> to the end of that line is ignored.</div>
+                <div class="code-snippet">
+                    <span class="highlight-blue">int</span> age = 20; <span class="highlight-purple">// stores the student's age</span>
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="card-title">2. Multi-Line Comment <code>/* */</code></div>
+                <div class="card-subtitle">Everything between <code>/*</code> and <code>*/</code> is ignored,
+                    even across several lines.</div>
+                <div class="code-snippet">
+                    <span class="highlight-purple">/* This program calculates<br>
+                    the average of three numbers<br>
+                    entered by the user. */</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Example in Context</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-purple">/* ------------------------------------------
+                Program: Simple Interest Calculator
+                Author: Voflic Academy
+                ------------------------------------------ */</span><br>
+                <span class="highlight-blue">#include</span> &lt;stdio.h&gt;<br><br>
+                <span class="highlight-blue">int</span> main() {<br>
+                &nbsp;&nbsp;<span class="highlight-blue">float</span> p, r, t, si;   <span class="highlight-purple">// p=principal, r=rate, t=time</span><br><br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"Enter principal, rate, time: "</span>);<br>
+                &nbsp;&nbsp;scanf(<span class="highlight-red">"%f%f%f"</span>, &amp;p, &amp;r, &amp;t);<br><br>
+                &nbsp;&nbsp;<span class="highlight-purple">// Simple Interest formula: SI = (P * R * T) / 100</span><br>
+                &nbsp;&nbsp;si = (p * r * t) / 100;<br><br>
+                &nbsp;&nbsp;<span class="highlight-purple">// printf("Debug: si = %f\n", si);</span> <span class="highlight-purple">&larr; disabled line, kept for later debugging</span><br>
+                &nbsp;&nbsp;printf(<span class="highlight-red">"Simple Interest = %.2f\n"</span>, si);<br><br>
+                &nbsp;&nbsp;<span class="highlight-blue">return</span> 0;<br>
+                }
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line">The block comment at the top is <b>documentation</b> — a header describing
+                    the program's purpose and author, a common professional convention.</div>
+                <div class="exp-line">The single-line comment after variable declarations explains what each
+                    short variable name (<code>p</code>, <code>r</code>, <code>t</code>) actually stands for —
+                    very useful since single-letter names aren't self-explanatory.</div>
+                <div class="exp-line">The comment above the formula explains <b>why</b> the calculation looks
+                    the way it does — this kind of comment is more valuable than one that just repeats what the
+                    code obviously does.</div>
+                <div class="exp-line">The commented-out <code>printf("Debug: ...")</code> shows a very common
+                    real technique: temporarily "turning off" a line of code without deleting it, often used
+                    while debugging (see Topic 16).</div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#9888; Rules and Common Mistakes</b>
+            <ul>
+                <li><b>Comments cannot be nested</b> — writing <code>/* outer /* inner */ still-outer */</code>
+                    will cause an error, because the first <code>*/</code> closes the comment early, leaving
+                    <code>still-outer */</code> as invalid code.</li>
+                <li>A <code>//</code> comment only lasts until the end of that physical line — if it accidentally
+                    continues onto the next line without another <code>//</code>, that next line is treated as
+                    real code again.</li>
+                <li>Comments are completely removed during the <b>Preprocessing</b> stage (Topic 2) — they have
+                    zero effect on the compiled program's size or speed.</li>
+                <li>Over-commenting obvious code (e.g. <code>i++; // increase i by one</code>) adds noise instead
+                    of value — good comments explain <b>why</b>, not just restate <b>what</b> the code already
+                    makes clear.</li>
+            </ul>
+        </div>
+
+        <div class="cloud-note">
+            <b>Why does "Documentation" matter beyond just comments?</b><br>
+            Good documentation also includes meaningful variable names, consistent indentation, and a clear
+            structure (Topic 1) — comments are one tool among several that make code understandable to someone
+            else (or to you, six months later, having forgotten your own logic).
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: <code>//</code> comments one line; <code>/* */</code> comments a block;
+            both are ignored by the compiler and exist purely to make code understandable for humans.
+        </div>
+
+        <div class="footer-page">- 4 -</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Tokens</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">05 - Tokens (Keywords, Identifiers, Constants, Strings)</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To understand what a "token" is — the smallest meaningful piece
+            of a C program — and to learn its four core categories.</div>
+
+        <div class="section-tag">1. What is a Token?</div>
+        <p class="p-tight">When the compiler reads your source code, it doesn't see it as raw text — it breaks
+            the line into the smallest individual units that still carry meaning, called <b>tokens</b>. Think of
+            tokens the way words are the building blocks of a sentence: the compiler groups characters into
+            tokens first, then figures out how those tokens combine into valid statements.</p>
+
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">int</span> age = 25;
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line">This single line is broken by the compiler into <b>5 tokens</b>:</div>
+                <div class="exp-line"><code>int</code> &rarr; a <b>Keyword</b></div>
+                <div class="exp-line"><code>age</code> &rarr; an <b>Identifier</b></div>
+                <div class="exp-line"><code>=</code> &rarr; an <b>Operator</b></div>
+                <div class="exp-line"><code>25</code> &rarr; a <b>Constant</b></div>
+                <div class="exp-line"><code>;</code> &rarr; a <b>Punctuator/Separator</b> (marks end of statement)</div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Category 1: Keywords</div>
+        <p class="p-tight">Keywords are <b>reserved words</b> that already have a fixed, special meaning built
+            into the C language. You cannot use a keyword as a variable name, function name, or any other
+            identifier.</p>
+        <table class="custom-table">
+            <tr>
+                <th colspan="8" style="text-align:center;">The 32 Standard C Keywords</th>
+            </tr>
+            <tr>
+                <td><code>auto</code></td><td><code>break</code></td><td><code>case</code></td><td><code>char</code></td>
+                <td><code>const</code></td><td><code>continue</code></td><td><code>default</code></td><td><code>do</code></td>
+            </tr>
+            <tr>
+                <td><code>double</code></td><td><code>else</code></td><td><code>enum</code></td><td><code>extern</code></td>
+                <td><code>float</code></td><td><code>for</code></td><td><code>goto</code></td><td><code>if</code></td>
+            </tr>
+            <tr>
+                <td><code>int</code></td><td><code>long</code></td><td><code>register</code></td><td><code>return</code></td>
+                <td><code>short</code></td><td><code>signed</code></td><td><code>sizeof</code></td><td><code>static</code></td>
+            </tr>
+            <tr>
+                <td><code>struct</code></td><td><code>switch</code></td><td><code>typedef</code></td><td><code>union</code></td>
+                <td><code>unsigned</code></td><td><code>void</code></td><td><code>volatile</code></td><td><code>while</code></td>
+            </tr>
+        </table>
+        <div class="star-box">
+            <b>&#128161;</b> Keywords are always written in <b>lowercase</b> in standard C, and you have already
+            used many of them: <code>int</code>, <code>float</code>, <code>char</code>, <code>double</code>,
+            <code>return</code>, <code>if</code>, <code>while</code>, <code>for</code>.
+        </div>
+
+        <div class="section-tag">3. Category 2: Identifiers</div>
+        <p class="p-tight">Identifiers are the <b>names you invent</b> for variables, functions, arrays, and so
+            on — like <code>age</code>, <code>total</code>, <code>calculateArea</code>.</p>
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">&#9989; Valid Identifier Rules</div>
+                <ul class="trap-list">
+                    <li>Can contain letters, digits, and underscore <code>_</code></li>
+                    <li>Must <b>start</b> with a letter or underscore, never a digit</li>
+                    <li>Cannot be a reserved keyword</li>
+                    <li>Case-sensitive: <code>Age</code> and <code>age</code> are two different identifiers</li>
+                    <li>No spaces or special symbols like <code>@</code>, <code>-</code>, <code>%</code></li>
+                </ul>
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#10060; Invalid Identifier Examples</div>
+                <ul class="trap-list">
+                    <li><code>2age</code> &rarr; starts with a digit</li>
+                    <li><code>my-age</code> &rarr; hyphen not allowed</li>
+                    <li><code>float</code> &rarr; it's a keyword</li>
+                    <li><code>student age</code> &rarr; contains a space</li>
+                    <li><code>total$</code> &rarr; <code>$</code> is not permitted</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Category 3: Constants</div>
+        <p class="p-tight">Constants are <b>fixed literal values</b> that do not change — they appear directly in
+            the code as-is (covered in full depth in Topic 10).</p>
+        <table class="custom-table">
+            <tr>
+                <th>Constant Type</th>
+                <th>Example</th>
+            </tr>
+            <tr><td>Integer Constant</td><td><code>25</code>, <code>-10</code>, <code>0</code></td></tr>
+            <tr><td>Floating-Point Constant</td><td><code>3.14</code>, <code>-0.5</code></td></tr>
+            <tr><td>Character Constant</td><td><code>'A'</code>, <code>'9'</code>, <code>'$'</code></td></tr>
+            <tr><td>String Constant</td><td><code>"Hello"</code>, <code>"Ramya"</code></td></tr>
+        </table>
+
+        <div class="section-tag">5. Category 4: Strings</div>
+        <p class="p-tight">A <b>string literal</b> is a sequence of characters enclosed in <b>double quotes</b>
+            <code>" "</code>, treated by the compiler as a single token — even though it may contain multiple
+            characters. Note the distinction from a single character constant, which uses <b>single quotes</b>
+            <code>' '</code>.</p>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-blue">char</span> grade = <span class="highlight-red">'A'</span>;    <span class="highlight-purple">// character constant — single quotes</span><br>
+                <span class="highlight-blue">char</span> name[] = <span class="highlight-red">"Ramya"</span>; <span class="highlight-purple">// string literal — double quotes</span>
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line"><code>'A'</code> is stored as a single byte (its ASCII numeric code).</div>
+                <div class="exp-line"><code>"Ramya"</code> is actually stored as an <b>array of characters</b>:
+                    <code>R, a, m, y, a, \0</code> — C automatically appends a hidden <code>\0</code> (null
+                    character) to mark where the string ends.</div>
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: A token is the smallest meaningful unit of code — Keywords (reserved
+            words), Identifiers (your own names), Constants (fixed literal values), and Strings (quoted text) are
+            four of the main token categories, alongside Operators and Punctuators.
+        </div>
+
+        <div class="footer-page">- 5 -</div>
+    </div>
+
+</body>
+
+</html>

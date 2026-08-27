@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Interactive and Script Mode</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+    <script src="notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">C Programming</h1>
+        <div class="sub-title">03 - Interactive and Script Mode</div>
+
+        <div class="aim-box">&#127919; <u>Aim:</u> To understand the two common ways of writing and running a C
+            program — quick interactive/online compilation versus the traditional script (file-based) workflow —
+            and when to use each.</div>
+
+        <div class="section-tag">1. Two Ways to Work With C</div>
+        <p class="p-tight">Unlike some languages (like Python) that have a true line-by-line interactive shell, C
+            is always compiled as a whole before it runs. So "interactive mode" for C usually refers to using an
+            <b>online/browser-based compiler</b> that hides the compile step from you, versus writing a real
+            <code>.c</code> <b>script file</b> on disk and compiling it yourself in a terminal — the professional,
+            real-world workflow.</p>
+
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">&#127760; Interactive / Online Mode</div>
+                <div class="card-subtitle">Type code directly into a website (e.g. an online C compiler/IDE), click
+                    "Run," and see output instantly — no installation, no terminal.</div>
+                <b>Good for:</b>
+                <ul class="trap-list">
+                    <li>Quick experiments, testing a single concept</li>
+                    <li>Students without a compiler installed on their PC</li>
+                    <li>Sharing a short snippet with someone else instantly</li>
+                </ul>
+                <b>Limitations:</b>
+                <ul class="trap-list">
+                    <li>Not suitable for multi-file, real-world projects</li>
+                    <li>Depends on internet access</li>
+                    <li>Doesn't teach the real compile/run commands used on the job</li>
+                </ul>
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128190; Script (File-Based) Mode</div>
+                <div class="card-subtitle">Write code in a text editor, save it as a <code>.c</code> file on your
+                    computer, then compile and run it using terminal commands (as shown in Topic 2).</div>
+                <b>Good for:</b>
+                <ul class="trap-list">
+                    <li>Real projects with multiple files</li>
+                    <li>Learning the actual professional workflow (editor + compiler + terminal)</li>
+                    <li>Works completely offline once the compiler is installed</li>
+                </ul>
+                <b>Limitations:</b>
+                <ul class="trap-list">
+                    <li>Requires installing a compiler (like GCC) first</li>
+                    <li>A few extra steps (save, compile, run) compared to clicking one "Run" button</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-tag">2. The Script Mode Workflow, Step by Step</div>
+        <div class="code-container">
+            <div class="code-box">
+                <span class="highlight-purple"># 1. Write your code in an editor (VS Code, Notepad++, etc.)</span><br>
+                <span class="highlight-purple">#    and save it with a .c extension</span><br>
+                program.c<br><br>
+                <span class="highlight-purple"># 2. Open a terminal in the same folder and compile</span><br>
+                gcc program.c -o program<br><br>
+                <span class="highlight-purple"># 3. Run the compiled executable</span><br>
+                ./program
+            </div>
+            <div class="explanation-box">
+                <div class="exp-line">This is exactly the three-step cycle you will repeat every single time you
+                    write and test a C program from now on: <b>edit &rarr; compile &rarr; run</b>.</div>
+                <div class="exp-line">If step 2 shows errors, you go back to step 1, fix them, and compile again
+                    — the executable from step 3 is only created if compilation succeeds cleanly.</div>
+                <div class="exp-line">This same cycle scales up naturally to large real-world software projects
+                    with hundreds of files — online compilers cannot realistically handle that scale.</div>
+            </div>
+        </div>
+
+        <div class="star-box">
+            <b>&#128161; Which one should Voflic students use?</b><br>
+            Use an <b>online compiler</b> when you just want to quickly test a small idea during class. But for
+            serious practice and assignments, switch to the <b>script mode</b> workflow (a real code editor +
+            GCC installed locally) as early as possible — it's what you'll use in every real job, internship, and
+            larger project, and it forces you to get comfortable with the terminal and the actual compile
+            commands from Topic 2.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; One-Line Revision: Interactive/online mode = fast, no setup, good for quick tests; Script
+            mode = save a real <code>.c</code> file and compile/run it yourself in a terminal — the standard
+            professional workflow.
+        </div>
+
+        <div class="footer-page">- 3 -</div>
+    </div>
+
+</body>
+
+</html>
