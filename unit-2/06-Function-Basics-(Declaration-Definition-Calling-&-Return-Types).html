@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 6: Function Basics (Declaration, Definition, Calling & Return Types)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">06A - Function Basics (Declaration, Definition &amp; Calling)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To break large codebases into reusable sub-programs using functions, and master
+            parameter passing and return types.
+        </div>
+
+        <div class="section-tag">1. What is a Function? &amp; Its 3 Core Pillars</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            A <b>function</b> is an independent, self-contained block of code designed to perform a specific task.
+            Instead of writing duplicate logic multiple times, you write it once inside a function and invoke it
+            whenever needed.
+        </p>
+
+        <div class="grid-3">
+            <!-- 1. Declaration -->
+            <div class="pillar-card">
+                <div class="pillar-title">&#128227; 1. Declaration (Prototype)</div>
+                Tells the compiler the function's name, return type, and parameters <b>before</b> <code>main()</code>.
+                <div class="code-snippet" style="font-size:10px;">
+                    <span style="color:#1565c0;">int</span> add(<span style="color:#1565c0;">int</span>, <span
+                        style="color:#1565c0;">int</span>); <span style="color:#d32f2f;">// ends with ;</span>
+                </div>
+            </div>
+
+            <!-- 2. Call -->
+            <div class="pillar-card">
+                <div class="pillar-title">&#9742; 2. Function Call</div>
+                Transfers execution control from <code>main()</code> to the function to perform work.
+                <div class="code-snippet" style="font-size:10px;">
+                    result = add(10, 20);
+                </div>
+            </div>
+
+            <!-- 3. Definition -->
+            <div class="pillar-card">
+                <div class="pillar-title">&#128295; 3. Function Definition</div>
+                Contains the actual body and lines of code that execute the logic.
+                <div class="code-snippet" style="font-size:10px;">
+                    <span style="color:#1565c0;">int</span> add(<span style="color:#1565c0;">int</span> a, <span
+                        style="color:#1565c0;">int</span> b) {<br>
+                    &nbsp;&nbsp;<span style="color:#ad1457;">return</span> a + b;<br>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Complete Practical Program</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                <span style="color:#1565c0;">int</span> calculateSum(<span style="color:#1565c0;">int</span> a, <span
+                    style="color:#1565c0;">int</span> b); <span style="color:#2e7d32;">// 1. Prototype</span><br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> sum = calculateSum(15, 25); <span
+                    style="color:#2e7d32;">// 2. Call</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, sum);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }<br><br>
+                <span style="color:#2e7d32;">// 3. Definition</span><br>
+                <span style="color:#1565c0;">int</span> calculateSum(<span style="color:#1565c0;">int</span> a, <span
+                    style="color:#1565c0;">int</span> b) {<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> a + b;<br>
+                }
+            </div>
+            <div>
+                <div class="terminal-box">
+                    Output: <span>Sum = 40</span>
+                </div>
+                <div
+                    style="background:#e8eaf6; border:1px solid #3f51b5; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#1a237e;">
+                    <b>Execution Path:</b><br>
+                    1. <code>main()</code> starts running.<br>
+                    2. Hits <code>calculateSum(15, 25)</code>.<br>
+                    3. CPU jumps down to definition, calculates <code>15 + 25 = 40</code>.<br>
+                    4. <code>return 40;</code> hands value back to <code>sum</code> in <code>main()</code>.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. The 4 Combinations of Parameters &amp; Return Types</div>
+        <table class="styled-table">
+            <tr>
+                <th>Category</th>
+                <th>Function Header Example</th>
+                <th>Description / Student Notes</th>
+            </tr>
+            <tr>
+                <td><b>No Argument, No Return</b></td>
+                <td><code>void greet(void);</code></td>
+                <td>Pure action only (e.g., printing a banner message).</td>
+            </tr>
+            <tr>
+                <td><b>With Argument, No Return</b></td>
+                <td><code>void printAge(int age);</code></td>
+                <td>Takes input data from caller, prints inside without sending a value back.</td>
+            </tr>
+            <tr>
+                <td><b>No Argument, With Return</b></td>
+                <td><code>int getFixedCode(void);</code></td>
+                <td>Generates/reads a value independently and returns it to caller.</td>
+            </tr>
+            <tr>
+                <td><b>With Argument, With Return</b></td>
+                <td><code>int square(int n);</code></td>
+                <td><b>Most common:</b> Takes input data, calculates, and returns computed result.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Semicolon Alert:</b><br>
+                Function declarations (prototypes) <b>must</b> end with a semicolon (<code>int add();</code>), but
+                function definitions <b>must never</b> have one before their curly braces <code>{ }</code>!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Actual vs Formal Parameters:</b><br>
+                &#8226; <b>Actual Arguments:</b> The real values passed in the call: <code>add(15, 25)</code>.<br>
+                &#8226; <b>Formal Parameters:</b> The receiver variables in the header: <code>add(int a, int b)</code>.
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Declare first, call inside <code>main()</code>, and define the work in
+            the body; <code>return</code> sends the computed answer back.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 6A -</div>
+    </div>
+
+</body>
+
+</html>

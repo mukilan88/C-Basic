@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 2: Decision Making (switch Statement)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">02 - Decision Making (switch Statement)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To learn multi-way branching using <code>switch</code>, understand the role of
+            <code>case</code>, <code>break</code>, and <code>default</code>, and avoid fall-through errors.
+        </div>
+
+        <div class="section-tag">1. What is a switch Statement?</div>
+        <p style="margin: 2px 0 6px 0; font-size: 13px;">
+            When you need to choose one action out of many fixed choices (like selecting a menu option from 1 to 7),
+            writing multiple <code>else-if</code> statements becomes messy. A <b>switch statement</b> tests an integer
+            or character variable against multiple constant values called <b>cases</b>.
+        </p>
+
+        <div class="grid-2">
+            <!-- Syntax and Components -->
+            <div class="card-box">
+                <div class="card-title">&#128260; Anatomy of switch</div>
+                <div style="font-size:12px; line-height: 1.45;">
+                    &#8226; <b>switch(exp):</b> Expression must evaluate to an <code>int</code> or
+                    <code>char</code>.<br>
+                    &#8226; <b>case constant:</b> Target value with a colon (<code>:</code>).<br>
+                    &#8226; <b>break;</b> Jumps out of the switch block once the matching case runs.<br>
+                    &#8226; <b>default:</b> Runs if no matching case is found (like the final <code>else</code>).
+                </div>
+            </div>
+
+            <!-- Fall-through trap -->
+            <div class="card-box">
+                <div class="card-title">&#9888; What is Fall-Through?</div>
+                <div style="font-size:12px; line-height: 1.45;">
+                    If you forget to write <code>break;</code> at the end of a case, C will keep running into the next
+                    cases automatically &mdash; even if their values do not match!
+                </div>
+                <div class="trap-box" style="margin-top:4px;">
+                    Always end every case with <b><code>break;</code></b> unless you intentionally want cases to share
+                    identical logic.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Complete Practical Program &ndash; Day of the Week</div>
+        <div class="code-snippet">
+            <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+            <span style="color:#1565c0;">int</span> main() {<br>
+            <span style="color:#1565c0;">int</span> day = 2;<br>
+            &nbsp;<span style="color:#ad1457;">switch</span> (day) {<br>
+            &nbsp;&nbsp;<span style="color:#ad1457;">case</span> 1:<br>
+            &emsp;&emsp;printf(<span style="color:#2e7d32;">"Monday\n"</span>);<br>
+            &emsp;&emsp;<span style="color:#ad1457;">break</span>;<br>
+            &nbsp;&nbsp;<span style="color:#ad1457;">case</span> 2:<br>
+            &emsp;&emsp;printf(<span style="color:#2e7d32;">"Tuesday\n"</span>);<br>
+            &emsp;&emsp;<span style="color:#ad1457;">break</span>;<br>
+            &nbsp;&nbsp;<span style="color:#ad1457;">case</span> 3:<br>
+            &emsp;&emsp;printf(<span style="color:#2e7d32;">"Wednesday\n"</span>);<br>
+            &emsp;&emsp;<span style="color:#ad1457;">break</span>;<br>
+            &nbsp;&nbsp;<span style="color:#ad1457;">default</span>:<br>
+            &emsp;&emsp;printf(<span style="color:#2e7d32;">"Invalid day number!\n"</span>);<br>
+            &nbsp;}&nbsp;<br>
+            <span style="color:#1565c0;">return</span> 0;<br>
+            }<br>
+        </div>
+        <div class="terminal-box">
+            Output: <span>Tuesday</span>
+        </div>
+
+        <div class="section-tag">3. switch vs else-if Ladder</div>
+        <table class="styled-table">
+            <tr>
+                <th>Feature</th>
+                <th>switch Statement</th>
+                <th>else-if Ladder</th>
+            </tr>
+            <tr>
+                <td><b>Expression Checked</b></td>
+                <td>Only single integer or character constant.</td>
+                <td>Any relational or logical condition (<code>a &gt; 5 &amp;&amp; b &lt; 10</code>).</td>
+            </tr>
+            <tr>
+                <td><b>Floating Points</b></td>
+                <td>&#10060; Not allowed (no <code>float</code> or <code>double</code>).</td>
+                <td>&#9989; Allowed (<code>marks &gt;= 75.5</code>).</td>
+            </tr>
+            <tr>
+                <td><b>Readability</b></td>
+                <td>Very clean for fixed menus / options.</td>
+                <td>Can become messy with too many branches.</td>
+            </tr>
+            <tr>
+                <td><b>Exit Control</b></td>
+                <td>Needs explicit <code>break;</code> to exit block.</td>
+                <td>Exits automatically after executing matching branch.</td>
+            </tr>
+        </table>
+
+        <div class="rule-box">
+            &#129504; <b>Golden Rules of switch:</b><br>
+            1. Case values must be <b>constant values or literals</b> (e.g., <code>case 1:</code> or
+            <code>case 'A':</code>), never variables like <code>case x:</code>.<br>
+            2. Two cases cannot have duplicate values in the same switch block.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> <code>switch</code> tests fixed integer/character values; each
+            <code>case</code> needs <code>break;</code>, and <code>default</code> acts as the safety net.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 2 -</div>
+    </div>
+
+</body>
+
+</html>

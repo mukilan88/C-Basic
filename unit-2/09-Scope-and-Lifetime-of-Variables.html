@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 9: Scope and Lifetime of Variables</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">09 - Scope and Lifetime of Variables</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand variable visibility (Scope), how long variables survive in memory
+            (Lifetime), and how storage classes define their behavior.
+        </div>
+
+        <div class="section-tag">1. Scope vs. Lifetime &ndash; Fundamental Concepts</div>
+        <div class="definitions-grid">
+            <div class="def-box">
+                <div class="def-title">&#128065; Scope (Visibility / Where?)</div>
+                The specific region of code where a variable can be seen, read, or modified (e.g., inside one function
+                vs. the entire file).
+            </div>
+            <div class="def-box">
+                <div class="def-title">&#9203; Lifetime (Duration / How Long?)</div>
+                The period of time during program execution that a variable stays allocated in RAM before being
+                destroyed.
+            </div>
+        </div>
+
+        <div class="section-tag">2. Local vs. Global Variables &ndash; Code Example</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> global_var = 100; <span style="color:#2e7d32;">// Global Scope
+                    (accessible anywhere)</span><br><br>
+                <span style="color:#1565c0;">void</span> demoFunction() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> local_var = 10; &nbsp;<span
+                    style="color:#2e7d32;">// Local to demoFunction only</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Inside: local=%d, global=%d\n"</span>, local_var,
+                global_var);<br>
+                }<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;demoFunction();<br>
+                &nbsp;&nbsp;<span style="color:#2e7d32;">// printf("%d", local_var); // ERROR! local_var is dead
+                    here</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Main: global=%d\n"</span>, global_var);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Output:</b><br>
+                    Inside: local=10, global=100<br>
+                    Main: global=<span>100</span>
+                </div>
+                <div class="card-box" style="margin-top:6px; font-size:11.5px;">
+                    <div class="card-title">&#128269; What Happened?</div>
+                    &#8226; <code>local_var</code> was born when <code>demoFunction()</code> was called and destroyed
+                    when it returned.<br>
+                    &#8226; <code>global_var</code> remained alive across the whole program.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Summary Table: Local vs. Global Variables</div>
+        <table class="styled-table">
+            <tr>
+                <th>Feature</th>
+                <th>Local Variable</th>
+                <th>Global Variable</th>
+            </tr>
+            <tr>
+                <td><b>Where Declared?</b></td>
+                <td>Inside a function or block <code>{ }</code>.</td>
+                <td>Outside all functions (top of the file).</td>
+            </tr>
+            <tr>
+                <td><b>Scope (Visibility)</b></td>
+                <td>Visible only inside its enclosing <code>{ }</code>.</td>
+                <td>Visible throughout all functions in the program.</td>
+            </tr>
+            <tr>
+                <td><b>Lifetime (Memory)</b></td>
+                <td>Created on function entry, destroyed on return.</td>
+                <td>Stays in memory from program start to end.</td>
+            </tr>
+            <tr>
+                <td><b>Default Initial Value</b></td>
+                <td><b>Garbage value</b> (random junk numbers).</td>
+                <td><b>Zero (0)</b> automatically initialized.</td>
+            </tr>
+        </table>
+
+        <div class="section-tag">4. The 4 Storage Classes in C</div>
+        <table class="styled-table">
+            <tr>
+                <th>Keyword</th>
+                <th>Storage Location</th>
+                <th>Default Value</th>
+                <th>Scope</th>
+                <th>Lifetime</th>
+            </tr>
+            <tr>
+                <td><b>auto</b></td>
+                <td>Stack RAM</td>
+                <td>Garbage</td>
+                <td>Local block</td>
+                <td>Function execution only (default for locals)</td>
+            </tr>
+            <tr>
+                <td><b>static</b></td>
+                <td>Data Segment</td>
+                <td>Zero (0)</td>
+                <td>Local block</td>
+                <td>Entire program duration (retains value!)</td>
+            </tr>
+            <tr>
+                <td><b>register</b></td>
+                <td>CPU Register</td>
+                <td>Garbage</td>
+                <td>Local block</td>
+                <td>Fastest access (no <code>&amp;</code> address operator)</td>
+            </tr>
+            <tr>
+                <td><b>extern</b></td>
+                <td>Data Segment</td>
+                <td>Zero (0)</td>
+                <td>Global</td>
+                <td>Shares global variables across multiple files</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-info">
+                <b>&#11088; The static Superpower:</b><br>
+                A <code>static int count = 0;</code> inside a function does <b>not reset</b> when the function finishes.
+                It retains its modified value for subsequent function calls!
+            </div>
+            <div class="alert-card alert-danger">
+                <b>&#9888; Exam Warning:</b><br>
+                Avoid unnecessary global variables! Any function can alter them, making debugging large programs
+                difficult. Always prefer local variables when possible.
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Scope determines where a variable is accessible; Lifetime determines how
+            long it exists in RAM.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 9 -</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 5: Jump Statements (break & continue)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">05 - Jump Statements (break &amp; continue)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To control and alter loop execution paths dynamically using jump statements,
+            specifically <code>break</code> and <code>continue</code>.
+        </div>
+
+        <div class="section-tag">1. What are Jump Statements?</div>
+        <p style="margin: 2px 0 4px 0; font-size: 12px;">
+            Normally, a loop runs predictably from start to finish. <b>Jump statements</b> let you override this flow:
+            you can immediately stop and exit the entire loop (<b><code>break</code></b>) or bypass only the remaining
+            statements of the current cycle and jump straight to the next pass (<b><code>continue</code></b>).
+        </p>
+
+        <div class="grid-2">
+            <!-- break Statement -->
+            <div class="card-box">
+                <div class="card-title">&#128721; 1. The break Statement (Emergency Exit)</div>
+                <div style="font-size:11.5px; color:#424242;">
+                    <b>Action:</b> Terminates the loop immediately and jumps out to the code below the loop block.
+                </div>
+                <div class="code-snippet">
+                    <span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 1; i &lt;= 5;
+                    i++) {<br>
+                    &nbsp;&nbsp;<span style="color:#ad1457;">if</span> (i == 3) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#d32f2f; font-weight:bold;">break;</span> <span
+                        style="color:#2e7d32;">// Exit loop entirely</span><br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"%d "</span>, i);<br>
+                    }
+                </div>
+                <div class="terminal-box">
+                    Output: <span>1 2 </span>
+                </div>
+                <small style="color:#c2185b; display:block; margin-top:2px;">
+                    &#9889; When <code>i == 3</code>, the loop stops completely. Numbers 3, 4, 5 are never processed!
+                </small>
+            </div>
+
+            <!-- continue Statement -->
+            <div class="card-box">
+                <div class="card-title">&#9197; 2. The continue Statement (Skip Pass)</div>
+                <div style="font-size:11.5px; color:#424242;">
+                    <b>Action:</b> Skips the rest of the current iteration and jumps directly to the update/next test.
+                </div>
+                <div class="code-snippet">
+                    <span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 1; i &lt;= 5;
+                    i++) {<br>
+                    &nbsp;&nbsp;<span style="color:#ad1457;">if</span> (i == 3) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#00897b; font-weight:bold;">continue;</span> <span
+                        style="color:#2e7d32;">// Skip only 3</span><br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"%d "</span>, i);<br>
+                    }
+                </div>
+                <div class="terminal-box">
+                    Output: <span>1 2 4 5 </span>
+                </div>
+                <small style="color:#004d40; display:block; margin-top:2px;">
+                    &#9889; Only <code>3</code> is skipped! The loop continues running normally for <code>4</code> and
+                    <code>5</code>.
+                </small>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Comprehensive Side-by-Side Comparison</div>
+        <table class="styled-table">
+            <tr>
+                <th>Comparison Parameter</th>
+                <th>break Statement</th>
+                <th>continue Statement</th>
+            </tr>
+            <tr>
+                <td><b>Primary Function</b></td>
+                <td>Terminates and destroys the loop completely.</td>
+                <td>Skips the current cycle and begins the next iteration.</td>
+            </tr>
+            <tr>
+                <td><b>Usable Contexts</b></td>
+                <td>Inside loops (<code>for</code>, <code>while</code>, <code>do-while</code>) and <code>switch</code>
+                    blocks.</td>
+                <td><b>Only</b> valid inside looping structures (not in <code>switch</code>).</td>
+            </tr>
+            <tr>
+                <td><b>Subsequent Iterations</b></td>
+                <td>All future iterations are cancelled.</td>
+                <td>Subsequent iterations run normally.</td>
+            </tr>
+            <tr>
+                <td><b>Real-World Analogy</b></td>
+                <td>Pulling the emergency fire alarm to leave the building.</td>
+                <td>Skipping a damaged song track to play the next song.</td>
+            </tr>
+        </table>
+
+        <div class="section-tag">3. Behavior Inside Nested Loops</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            An essential rule for first-year exams: Jump statements affect <b>only the innermost loop</b> in which they
+            reside!
+        </p>
+
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 1; i &lt;= 2; i++)
+                {<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> j = 1; j
+                &lt;= 3; j++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (j == 2) <span
+                    style="color:#d32f2f; font-weight:bold;">break;</span> <span style="color:#2e7d32;">// Exits inner
+                    loop only</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"(%d,%d) "</span>, i, j);<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128269; Output &amp; Explanation</div>
+                <div class="terminal-box">
+                    Output: <span>(1,1) (2,1) </span>
+                </div>
+                <small style="color:#4527a0; display:block; margin-top:4px;">
+                    Notice that <code>break</code> only stopped loop <code>j</code>. Loop <code>i</code> continued
+                    executing its second pass without interruption!
+                </small>
+            </div>
+        </div>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; while Loop + continue Trap:</b><br>
+                In a <code>while</code> loop, placing <code>continue</code> before the increment (<code>i++</code>)
+                causes an infinite loop because <code>i</code> never updates! Always place update statements carefully.
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Best Practice:</b><br>
+                Always enclose <code>break</code> and <code>continue</code> inside an <code>if</code> condition. Writing
+                them unconditionally makes any statements below them unreachable dead code!
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> <code>break</code> stops and exits the loop immediately;
+            <code>continue</code> skips only the current pass and moves directly to the next iteration.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 5 -</div>
+    </div>
+
+</body>
+
+</html>

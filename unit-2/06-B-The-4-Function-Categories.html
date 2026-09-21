@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 6B: The 4 Function Categories (Practical Code Examples)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">06B - The 4 Function Categories</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To master the 4 core design styles of functions with clear code snippets, execution
+            flow, and input/output behavior.
+        </div>
+
+        <div class="section-tag">1. Visual Code Blueprint for All 4 Types</div>
+
+        <div class="grid-2x2">
+            <!-- Approach 1 -->
+            <div class="card-box">
+                <div>
+                    <div class="card-title">&#128308; 1. No Argument, No Return</div>
+                    <div class="flow-indicator">&#128260; <b>Flow:</b> Function inputs, calculates &amp; prints
+                        internally.</div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">void</span> add() {<br>
+                        &nbsp;&nbsp;<span style="color:#1565c0;">int</span> a = 10, b = 20;<br>
+                        &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, a + b);<br>
+                        }<br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;add(); <span style="color:#2e7d32;">// main() passes nothing</span><br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                </div>
+                <div class="terminal-box">Output: <span>Sum = 30</span></div>
+            </div><br>
+
+            <!-- Approach 2 -->
+            <div class="card-box">
+                <div>
+                    <div class="card-title">&#128994; 2. With Argument, No Return</div>
+                    <div class="flow-indicator">&#128260; <b>Flow:</b> <code>main()</code> supplies data; function
+                        prints.</div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">void</span> add(<span style="color:#1565c0;">int</span> a, <span
+                            style="color:#1565c0;">int</span> b) {<br>
+                        &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, a + b);<br>
+                        }<br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;add(10, 20); <span style="color:#2e7d32;">// Passes values</span><br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                </div>
+                <div class="terminal-box">Output: <span>Sum = 30</span></div>
+            </div><br>
+
+            <!-- Approach 3 -->
+            <div class="card-box">
+                <div>
+                    <div class="card-title">&#128309; 3. No Argument, With Return</div>
+                    <div class="flow-indicator">&#128260; <b>Flow:</b> Function computes internally &amp; sends answer
+                        back.</div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">int</span> add() {<br>
+                        &nbsp;&nbsp;<span style="color:#1565c0;">int</span> a = 10, b = 20;<br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> a + b; <span style="color:#2e7d32;">//
+                            Sends 30 back</span><br>
+                        }<br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;<span style="color:#1565c0;">int</span> res = add();<br>
+                        &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, res);<br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                </div>
+                <div class="terminal-box">Output: <span>Sum = 30</span></div>
+            </div><br>
+
+            <!-- Approach 4 -->
+            <div class="card-box">
+                <div>
+                    <div class="card-title">&#128995; 4. With Argument, With Return</div>
+                    <div class="flow-indicator">&#128260; <b>Flow:</b> <code>main()</code> gives inputs; function
+                        returns answer.</div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">int</span> add(<span style="color:#1565c0;">int</span> a, <span
+                            style="color:#1565c0;">int</span> b) {<br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> a + b; <span style="color:#2e7d32;">//
+                            Computes &amp; returns</span><br>
+                        }<br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;<span style="color:#1565c0;">int</span> res = add(10, 20);<br>
+                        &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, res);<br>
+                        &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                </div>
+                <div class="terminal-box">Output: <span>Sum = 30</span></div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Comprehensive Comparison Table</div>
+        <table class="styled-table">
+            <tr>
+                <th>Category</th>
+                <th>Data Flow Direction</th>
+                <th>Return Type</th>
+                <th>Calling Syntax</th>
+                <th>Real-World Analogy</th>
+            </tr>
+            <tr>
+                <td><b>No Arg, No Return</b></td>
+                <td>Self-contained inside function</td>
+                <td><code>void</code></td>
+                <td><code>greet();</code></td>
+                <td>Ringing an alarm bell</td>
+            </tr>
+            <tr>
+                <td><b>With Arg, No Return</b></td>
+                <td><code>main()</code> &rarr; Function</td>
+                <td><code>void</code></td>
+                <td><code>displayAge(18);</code></td>
+                <td>Putting coins into a vending display</td>
+            </tr>
+            <tr>
+                <td><b>No Arg, With Return</b></td>
+                <td>Function &rarr; <code>main()</code></td>
+                <td><code>int</code>, <code>float</code>, etc.</td>
+                <td><code>code = getCode();</code></td>
+                <td>Rolling a dice and noting the result</td>
+            </tr>
+            <tr>
+                <td><b>With Arg, With Return</b></td>
+                <td>Two-way (<code>main()</code> &harr; Function)</td>
+                <td><code>int</code>, <code>float</code>, etc.</td>
+                <td><code>ans = square(5);</code></td>
+                <td>Giving raw fruit to a juicer to get juice</td>
+            </tr>
+        </table>
+
+        <div class="mental-rule-box">
+            &#129504; <b>Simple Student Rules:</b><br>
+            &#8226; <b>Argument:</b> Information sent <i>INTO</i> the function via parentheses <code>(...)</code>.<br>
+            &#8226; <b>Return Value:</b> The single answer sent <i>BACK</i> to the caller using <code>return</code>.<br>
+            &#8226; If nothing is returned, the return type is always written as <b><code>void</code></b>.
+        </div>
+
+        <div
+            style="background: rgba(238, 242, 255, 0.95); border: 1.5px solid #4f46e5; border-radius: 6px; padding: 6px 10px; margin: 4px 0; font-size: 11px; color: #312e81;">
+            <b>&#128221; Key Exam Insights &amp; Advanced Design Rules:</b><br>
+            &#8226; <b>Single Return Constraint:</b> A C function can return at most <b>one</b> value directly using
+            <code>return</code>. To return multiple values, use pointers (Call by Reference) or structures.<br>
+            &#8226; <b>Stack Memory Lifecycle:</b> Local variables inside functions exist on the stack frame and are
+            destroyed immediately when <code>return</code> executes or the closing brace <code>}</code> is hit.<br>
+            &#8226; <b>Parameter Matching:</b> Actual arguments passed in <code>main()</code> and formal parameters in
+            the function definition must match in <b>number, order, and data type</b>.<br>
+            &#8226; <b>Reusability &amp; Testing:</b> Category 4 (<i>With Arg, With Return</i>) is preferred in software
+            design because it decouples calculations from printing, allowing unit tests and reusability.
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Arguments supply input data to functions; return types specify what data
+            the function delivers back to the caller.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 6B -</div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 7B: Parameter Passing (Call by Reference)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">07B - Parameter Passing (Call by Reference) (USING POINTERS)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand how to pass memory addresses (references) to functions using pointers,
+            enabling the function to directly modify the original variables in <code>main()</code>.
+        </div>
+
+        <div class="section-tag">1. What is Call by Reference?</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            In <b>Call by Reference</b>, instead of sending a copy of the value, we pass the <b>memory address
+                (<code>&amp;x</code>)</b> of the variable. The function receives this address inside a <b>pointer
+                variable (<code>int *ptr</code>)</b>. Any change made through the dereference operator
+            (<code>*ptr</code>) directly updates the original variable in <code>main()</code>!
+        </p>
+
+        <div class="section-tag">2. Complete Practical Program &ndash; Swapping Two Numbers</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#2e7d32;">// Takes addresses of integers as pointer parameters</span><br>
+                <span style="color:#1565c0;">void</span> swap(<span style="color:#1565c0;">int</span> *a, <span
+                    style="color:#1565c0;">int</span> *b) {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> temp = *a; <span style="color:#2e7d32;">// temp gets
+                    value at address a</span><br>
+                &nbsp;&nbsp;*a = *b; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">//place value of b into
+                    address a</span><br>
+                &nbsp;&nbsp;*b = temp; &nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// place temp into address
+                    b</span><br>
+                }<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> x = 10, y = 20;<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Before swap: x=%d, y=%d\n"</span>, x, y);<br>
+                &nbsp;&nbsp;swap(&amp;x, &amp;y); <span style="color:#2e7d32;">// Pass memory addresses using
+                    &amp;</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"After swap: &nbsp;x=%d, y=%d\n"</span>, x, y);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Output:</b><br>
+                    Before swap: x=10, y=20<br>
+                    After swap: &nbsp;x=<span>20</span>, y=<span>10</span> &nbsp;<span
+                        style="color:#a5d6a7;">(Swapped!)</span>
+                </div>
+                <div
+                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#e65100;">
+                    <b>&#128269; Why did x &amp; y change?</b><br>
+                    <code>swap(&amp;x, &amp;y)</code> gave the function the keys to <code>x</code> and <code>y</code>'s
+                    original memory cells. Writing <code>*a = *b</code> modified the value directly inside memory slot
+                    <code>#2001</code>!
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Visual Memory Model: The Direct Key Analogy</div>
+        <div class="memory-box-container">
+            <div class="mem-slot">
+                <div class="mem-title">&#127968; Original Variable (x in main)</div>
+                Memory Address: <b><code>#2001</code></b><br>
+                Value: <b>10 &rarr; updated to 20</b><br>
+                <i>The original storage box in RAM.</i>
+            </div>
+            <div style="display:flex; align-items:center; font-weight:bold; color:#d81b60; font-size:13px;">
+                &larr; Pointer Points To &larr;
+            </div>
+            <div class="mem-slot">
+                <div class="mem-title">&#128273; Pointer Parameter (*a in swap)</div>
+                Stored Value: <b><code>#2001</code></b> (Address of x)<br>
+                Operation: <code>*a = 20;</code><br>
+                <i>Accesses box #2001 directly via pointer!</i>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Call by Value vs Call by Reference</div>
+        <table class="styled-table">
+            <tr>
+                <th>Comparison Parameter</th>
+                <th>Call by Value</th>
+                <th>Call by Reference</th>
+            </tr>
+            <tr>
+                <td><b>What is passed?</b></td>
+                <td>Copy of the value (e.g., <code>swap(x, y)</code>).</td>
+                <td>Memory address of the variable (e.g., <code>swap(&amp;x, &amp;y)</code>).</td>
+            </tr>
+            <tr>
+                <td><b>Parameter Declaration</b></td>
+                <td>Normal variable: <code>void swap(int a, int b)</code>.</td>
+                <td>Pointer variable: <code>void swap(int *a, int *b)</code>.</td>
+            </tr>
+            <tr>
+                <td><b>Original Variable Effect</b></td>
+                <td>Original variable in <code>main()</code> is <b>not affected</b>.</td>
+                <td>Original variable in <code>main()</code> is <b>directly updated</b>.</td>
+            </tr>
+            <tr>
+                <td><b>Primary Advantage</b></td>
+                <td>Safe; protects source data from being overwritten.</td>
+                <td>Can modify multiple variables and return multiple values.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Common Pointer Traps:</b><br>
+                1. Forgetting <code>&amp;</code> in function call: <code>swap(x, y);</code> passes values, causing type
+                mismatch!<br>
+                2. Forgetting <code>*</code> in function body: writing <code>a = b;</code> swaps memory addresses, not
+                the actual values!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Two Key Operators:</b><br>
+                &#8226; <b><code>&amp;</code> (Address-Of):</b> Extracts the memory address of a variable.<br>
+                &#8226; <b><code>*</code> (Dereference / Value-At):</b> Accesses or modifies the value at that stored
+                memory address.
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Call by Reference passes memory addresses using <code>&amp;</code> and
+            receives them with pointers <code>*</code>, allowing functions to directly modify the original variables.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 7B -</div>
+    </div>
+
+</body>
+
+</html>

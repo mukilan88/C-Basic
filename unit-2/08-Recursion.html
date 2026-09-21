@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 8: Recursion (Concepts & Base Condition)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">08 - Recursion</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand recursion (a function calling itself), identify the critical necessity
+            of a base condition, and trace execution stacks step-by-step.
+        </div>
+
+        <div class="section-tag">1. What is Recursion? &amp; Its 2 Essential Parts</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            <b>Recursion</b> is a programming technique where a function solves a problem by <b>calling a smaller
+                version of itself</b>. Every recursive function must contain two parts:
+        </p>
+
+        <div class="grid-2">
+            <div class="card-box">
+                <div class="card-title">&#128721; 1. The Base Condition (Stopping Point)</div>
+                The condition that terminates further recursive calls and returns a direct, simple answer without
+                calling the function again.
+                <div class="code-snippet" style="font-size:10.5px;">
+                    <span style="color:#ad1457;">if</span> (n == 1 || n == 0) <span style="color:#ad1457;">return</span>
+                    1;
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="card-title">&#128260; 2. The Recursive Step (Self Call)</div>
+                The statement where the function calls itself with a reduced parameter, progressing closer to the base
+                condition.
+                <div class="code-snippet" style="font-size:10.5px;">
+                    <span style="color:#ad1457;">return</span> n * factorial(n - 1);
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Practical Example: Factorial of a Number</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> factorial(<span style="color:#1565c0;">int</span> n) {<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">if</span> (n &lt;= 1) {
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Base
+                    Condition</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 1;<br>
+                &nbsp;&nbsp;} <span style="color:#ad1457;">else</span> {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> n * factorial(n - 1); <span
+                    style="color:#2e7d32;">// 2. Recursive Call</span><br>
+                &nbsp;&nbsp;}<br>
+                }<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> n = 4;<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Factorial of %d = %d\n"</span>, n, factorial(n));<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Output:</b><br>
+                    Factorial of 4 = <span>24</span>
+                </div>
+                <div
+                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#e65100;">
+                    <b>&#129504; Math Principle:</b><br>
+                    <code>4! = 4 &times; 3!</code><br>
+                    <code>3! = 3 &times; 2!</code><br>
+                    <code>2! = 2 &times; 1!</code><br>
+                    <code>1! = 1</code> (Base condition reached!)
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Visual Stack Flow: Winding vs Unwinding</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            Recursion works in two phases: <b>Winding</b> (calling down to the base case) and <b>Unwinding</b>
+            (multiplying back up):
+        </p>
+        <div class="stack-visual-container">
+            <div class="stack-step">
+                <div class="stack-step-title">&#128317; Step 1 (Call)</div>
+                <code>factorial(4)</code><br>
+                waits for <code>4 * fact(3)</code>
+            </div>
+            <div class="stack-step">
+                <div class="stack-step-title">&#128317; Step 2 (Call)</div>
+                <code>factorial(3)</code><br>
+                waits for <code>3 * fact(2)</code>
+            </div>
+            <div class="stack-step">
+                <div class="stack-step-title">&#128317; Step 3 (Call)</div>
+                <code>factorial(2)</code><br>
+                waits for <code>2 * fact(1)</code>
+            </div>
+            <div class="stack-step">
+                <div class="stack-step-title">&#127919; Base Hit</div>
+                <code>factorial(1)</code><br>
+                returns <b>1</b>
+            </div>
+            <div class="stack-step" style="background:#d1c4e9; border-color:#7e57c2;">
+                <div class="stack-step-title" style="color:#4527a0;">&#128316; Unwind (Return)</div>
+                <code>2 &times; 1 = 2</code><br>
+                <code>3 &times; 2 = 6</code><br>
+                <code>4 &times; 6 = <b>24</b></code>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Recursion vs Iteration (Loops)</div>
+        <table class="styled-table">
+            <tr>
+                <th>Comparison Parameter</th>
+                <th>Recursion</th>
+                <th>Iteration (Loops)</th>
+            </tr>
+            <tr>
+                <td><b>Execution Style</b></td>
+                <td>Function repeatedly calls itself.</td>
+                <td>A set of statements repeats using a loop counter.</td>
+            </tr>
+            <tr>
+                <td><b>Stopping Mechanism</b></td>
+                <td>Terminates when <b>Base Condition</b> becomes true.</td>
+                <td>Terminates when <b>Loop Condition</b> becomes false.</td>
+            </tr>
+            <tr>
+                <td><b>Memory Overhead</b></td>
+                <td>High (each call creates a new stack frame in memory).</td>
+                <td>Low (reuses same memory addresses for loop variables).</td>
+            </tr>
+            <tr>
+                <td><b>Code Cleanliness</b></td>
+                <td>Compact, elegant mathematical representations.</td>
+                <td>Longer code structure with counter updates.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Stack Overflow Danger:</b><br>
+                If you omit the base condition, the function calls itself infinitely until the computer runs out of
+                stack memory, resulting in a program crash (<b>Segmentation Fault / Stack Overflow</b>)!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Exam Memory Trick:</b><br>
+                Always write the base condition on the <b>very first line</b> inside your recursive function. Treat it
+                like the emergency brake on a train!
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Recursion is a function calling itself; it winds down until it hits the
+            base condition, then unwinds back up with the final answer.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 8 -</div>
+    </div>
+
+</body>
+
+</html>

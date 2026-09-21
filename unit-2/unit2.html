@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 1: Decision Making (if & if-else)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">01 - Decision Making (if &amp; if-else)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To learn how programs make decisions and execute specific blocks of code based on
+            conditions being True or False.
+        </div>
+
+        <div class="section-tag">1. What is Decision Making?</div>
+        <p style="margin: 3px 0 6px 0; font-size: 13px;">
+            In C, decision-making statements control the execution flow. A condition is evaluated:
+            if it is <b>True (non-zero)</b>, the designated code executes; if <b>False (0)</b>, that code is skipped.
+        </p>
+
+        <div class="grid-2">
+            <!-- Simple if -->
+            <div class="card-box">
+                <div class="card-title">&#128073; 1. Simple if Statement</div>
+                <div style="font-size:12px; color:#424242;">Executes the block <b>only</b> when the condition is True.
+                </div>
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">int</span> marks = 65;<br>
+                    <span style="color:#ad1457;">if</span> (marks &gt;= 50) {<br>
+                    &nbsp;&nbsp;printf(<span style="color:#ad1457;">"Passed!\n"</span>);<br>
+                    }
+                </div>
+                <div class="flow-box">
+                    <b>Flow:</b><br>
+                    Condition is True &rarr; Prints <i>"Passed!"</i><br>
+                    Condition is False &rarr; Ignores the block and moves on.
+                </div>
+            </div>
+
+            <!-- if-else -->
+            <div class="card-box">
+                <div class="card-title">&#9878; 2. if-else Statement</div>
+                <div style="font-size:12px; color:#424242;">Provides two clear paths: one for True, one for False.</div>
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">int</span> age = 16;<br>
+                    <span style="color:#ad1457;">if</span> (age &gt;= 18) {<br>
+                    &nbsp;&nbsp;printf(<span style="color:#ad1457;">"Eligible to vote\n"</span>);<br>
+                    } <span style="color:#ad1457;">else</span> {<br>
+                    &nbsp;&nbsp;printf(<span style="color:#ad1457;">"Not eligible\n"</span>);<br>
+                    }
+                </div>
+                <div class="terminal-box">
+                    Output: <span>Not eligible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Practical Example: Check Even or Odd</div>
+        <div class="code-snippet" style="font-size:12px;">
+            <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+            <span style="color:#1565c0;">int</span> main() {<br>
+            &nbsp;&nbsp;<span style="color:#1565c0;">int</span> num = 7;<br>
+            &nbsp;&nbsp;<span style="color:#ad1457;">if</span> (num % 2 == 0) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#ad1457;">"%d is Even\n"</span>, num);<br>
+            &nbsp;&nbsp;} <span style="color:#ad1457;">else</span> {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#ad1457;">"%d is Odd\n"</span>, num);<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;<span style="color:#1565c0;">return</span> 0;<br>
+            }
+        </div>
+
+        <div class="section-tag">3. Quick Syntax Guide</div>
+        <table class="styled-table">
+            <tr>
+                <th>Statement Type</th>
+                <th>When to Use?</th>
+                <th>Syntax Form</th>
+            </tr>
+            <tr>
+                <td><b>Simple if</b></td>
+                <td>When there is only one optional action.</td>
+                <td><code>if (condition) { ... }</code></td>
+            </tr>
+            <tr>
+                <td><b>if - else</b></td>
+                <td>When there are two mutually exclusive actions.</td>
+                <td><code>if (...) { ... } else { ... }</code></td>
+            </tr>
+            <tr>
+                <td><b>else-if Ladder</b></td>
+                <td>When there are 3 or more distinct conditions to test.</td>
+                <td><code>if (...) { } else if (...) { } else { }</code></td>
+            </tr>
+        </table>
+
+        <div class="trap-box">
+            <b>&#9888; Common Beginner Mistake:</b><br>
+            Do not put a semicolon right after the <code>if</code> condition: <code>if (a &gt; b);</code> &#10060;<br>
+            A semicolon terminates the statement immediately, causing the block below to run unconditionally!
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Revision:</b> <code>if</code> runs code when a condition is True; <code>else</code>
+            runs code when that condition is False.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 1 -</div>
+    </div>
+
+</body>
+
+</html>

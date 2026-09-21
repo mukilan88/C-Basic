@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 7: Parameter Passing (Call by Value)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">07A - Parameter Passing (Call by Value)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand how data is passed to functions in C using <b>Call by Value</b>, and why
+            modifications to formal parameters do not affect the original variables in <code>main()</code>.
+        </div>
+
+        <div class="section-tag">1. What is Call by Value?</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            In C, functions pass arguments by <b>value</b> by default. This means the compiler makes a <b>duplicate
+                photocopy</b> of the actual argument and places it into the formal parameter's separate memory box. Any
+            modifications made inside the called function change only that copy, leaving the original variable
+            completely untouched!
+        </p>
+
+        <div class="section-tag">2. Classic Experiment: Attempting to Swap Numbers (Fails in Call by Value)</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#2e7d32;">// Passes copies of values (Call by Value)</span><br>
+                <span style="color:#1565c0;">void</span> swap(<span style="color:#1565c0;">int</span> a, <span style="color:#1565c0;">int</span> b) {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> temp = a; <span style="color:#2e7d32;">// Swaps local copies only</span><br>
+                &nbsp;&nbsp;a = b;<br>
+                &nbsp;&nbsp;b = temp;<br>
+                }<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> x = 10, y = 20;<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Before swap: x=%d, y=%d\n"</span>, x, y);<br>
+                &nbsp;&nbsp;swap(x, y); <span style="color:#2e7d32;">// Passes copies of 10 and 20</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"After swap: &nbsp;x=%d, y=%d\n"</span>, x, y);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Output:</b><br>
+                    Before swap: x=10, y=20<br>
+                    After swap: &nbsp;x=<span>10</span>, y=<span>20</span> &nbsp;<span style="color:#ff8a80;">(Not Swapped!)</span>
+                </div>
+                <div
+                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#e65100;">
+                    <b>&#128269; Why did x &amp; y remain 10 &amp; 20?</b><br>
+                    <code>x</code> and <code>y</code> live inside <code>main()</code>'s memory stack frame. Parameters <code>a</code> and <code>b</code> receive only separate duplicate copies. Swapping <code>a</code> and <code>b</code> inside <code>swap()</code> alters only the copies, leaving <code>x</code> and <code>y</code> in <code>main()</code> completely untouched!
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Visual Memory Model: The Photocopy Analogy</div>
+        <div class="memory-box-container">
+            <div class="mem-slot">
+                <div class="mem-title">&#128196; Actual Arguments (in main)</div>
+                Memory: <code>x=#2001 (10)</code>, <code>y=#2002 (20)</code><br>
+                <i>Original variables in main &mdash; untouched!</i>
+            </div>
+            <div style="display:flex; align-items:center; font-weight:bold; color:#d81b60; font-size:14px;">
+                &rarr; Copies Sent &rarr;
+            </div>
+            <div class="mem-slot">
+                <div class="mem-title">&#128196; Formal Parameters (in swap)</div>
+                Memory: <code>a=#6004 (10)</code>, <code>b=#6005 (20)</code><br>
+                <i>Swapped inside function, then destroyed on exit.</i>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Actual Arguments vs Formal Parameters</div>
+        <table class="styled-table">
+            <tr>
+                <th>Comparison Parameter</th>
+                <th>Actual Arguments</th>
+                <th>Formal Parameters</th>
+            </tr>
+            <tr>
+                <td><b>Where are they defined?</b></td>
+                <td>Inside the function call statement in <code>main()</code>.</td>
+                <td>In the function declaration / header line.</td>
+            </tr>
+            <tr>
+                <td><b>Format</b></td>
+                <td>Can be variables, expressions, or constants: <code>swap(x, y)</code> or <code>swap(10, 20)</code>.
+                </td>
+                <td>Must be explicit variable declarations: <code>void swap(int a, int b)</code>.</td>
+            </tr>
+            <tr>
+                <td><b>Memory Allocation</b></td>
+                <td>Allocated when <code>main()</code> begins execution.</td>
+                <td>Created when the function is called; destroyed immediately upon <code>return</code>.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; The Swapping Trap:</b><br>
+                Writing a simple swap function like <code>swap(int a, int b)</code> using Call by Value <b>will not
+                    swap</b> the original variables in <code>main()</code>! (Swapping originals requires pointers / Call
+                by Reference).
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Why use Call by Value?</b><br>
+                <b>Safety &amp; Independence:</b> It ensures functions cannot accidentally corrupt or overwrite
+                important data inside caller functions like <code>main()</code>.
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Call by Value passes only a duplicate copy of the data; changes inside
+            the called function never affect original variables in <code>main()</code>.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 7A -</div>
+    </div>
+
+</body>
+
+</html>

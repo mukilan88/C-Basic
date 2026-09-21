@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 10: Header Files & Preprocessor Directives</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">10 - Header Files</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand header files (<code>.h</code>), explore how preprocessor directives
+            (<code>#include</code>, <code>#define</code>) function before compilation, and examine standard C libraries.
+        </div>
+
+        <div class="section-tag">1. What is a Header File? &amp; Preprocessor Directives</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            A <b>header file</b> (ending in <code>.h</code>) contains function declarations, macros, and definitions
+            shared across programs.
+            Lines starting with <b><code>#</code></b> are handled by the <b>C Preprocessor</b> &mdash; a tool that scans
+            and replaces text in your source file <i>before</i> the actual compiler generates machine code.
+        </p>
+
+        <div class="grid-2">
+            <!-- Built-in vs User-defined -->
+            <div class="card-box">
+                <div class="card-title">&#128218; Angle Brackets vs Quotes</div>
+                <div style="font-size:11.5px; line-height:1.45;">
+                    &#8226; <b><code>#include &lt;stdio.h&gt;</code></b>[cite: 1, 3]<br>
+                    Angle brackets tell the preprocessor to look inside the <b>system compiler directory</b> for
+                    standard libraries[cite: 1, 3].<br><br>
+                    &#8226; <b><code>#include "myfunctions.h"</code></b><br>
+                    Double quotes tell it to search the <b>current working directory</b> first for custom, user-created
+                    header files.
+                </div>
+            </div>
+
+            <!-- #define Macros -->
+            <div class="card-box">
+                <div class="card-title">&#9881; Macro Definition (#define)</div>
+                <div style="font-size:11.5px; line-height:1.45;">
+                    Used to create constant values or short shorthand functions without using memory:
+                </div>
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#define</span> PI 3.14159<br>
+                    <span style="color:#1565c0;">#define</span> SQUARE(x) ((x) * (x))
+                </div>
+                <small style="color:#5e35b1; display:block; margin-top:2px;">
+                    &#9889; The preprocessor simply substitutes text before compilation begins.
+                </small>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Practical Code Example &ndash; Standard Math &amp; Macros</div>
+        <div class="grid-2">
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt; <span style="color:#2e7d32;">// For printf
+                    &amp; scanf</span>[cite: 1, 3]<br>
+                <span style="color:#1565c0;">#include</span> &lt;math.h&gt; <span style="color:#2e7d32;">// For sqrt()
+                    &amp; pow()</span><br><br>
+                <span style="color:#1565c0;">#define</span> MAX_LIMIT 100<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">double</span> value = 16.0;<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">double</span> root = sqrt(value); <span
+                    style="color:#2e7d32;">// From math.h</span><br><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Square root of %.1f = %.2f\n"</span>, value, root);<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Max limit defined is: %d\n"</span>, MAX_LIMIT);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Output:</b><br>
+                    Square root of 16.0 = <span>4.00</span><br>
+                    Max limit defined is: <span>100</span>
+                </div>
+                <div
+                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#e65100;">
+                    <b>&#128269; Compilation Flow:</b><br>
+                    1. Preprocessor pastes contents of <code>stdio.h</code> &amp; <code>math.h</code> directly into your
+                    code[cite: 1, 3].<br>
+                    2. Replaces all instances of <code>MAX_LIMIT</code> with <code>100</code>.<br>
+                    3. Hands pure C code to the compiler to generate machine instructions.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Most Commonly Used Standard C Header Files</div>
+        <table class="styled-table">
+            <tr>
+                <th>Header File</th>
+                <th>Full Name</th>
+                <th>Key Functions Included</th>
+            </tr>
+            <tr>
+                <td><b><code>&lt;stdio.h&gt;</code></b>[cite: 1, 3]</td>
+                <td>Standard Input Output</td>
+                <td><code>printf()</code>, <code>scanf()</code>, <code>getchar()</code>, <code>fopen()</code>[cite: 1]
+                </td>
+            </tr>
+            <tr>
+                <td><b><code>&lt;stdlib.h&gt;</code></b></td>
+                <td>Standard General Utilities</td>
+                <td><code>malloc()</code>, <code>free()</code>, <code>exit()</code>, <code>rand()</code>,
+                    <code>abs()</code></td>
+            </tr>
+            <tr>
+                <td><b><code>&lt;string.h&gt;</code></b></td>
+                <td>String Manipulation</td>
+                <td><code>strlen()</code>, <code>strcpy()</code>, <code>strcat()</code>, <code>strcmp()</code></td>
+            </tr>
+            <tr>
+                <td><b><code>&lt;math.h&gt;</code></b></td>
+                <td>Mathematical Operations</td>
+                <td><code>sqrt()</code>, <code>pow()</code>, <code>ceil()</code>, <code>floor()</code>,
+                    <code>sin()</code></td>
+            </tr>
+            <tr>
+                <td><b><code>&lt;ctype.h&gt;</code></b></td>
+                <td>Character Type Classification</td>
+                <td><code>toupper()</code>, <code>tolower()</code>, <code>isdigit()</code>, <code>isalpha()</code></td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Never Put a Semicolon on Directives:</b><br>
+                Writing <code>#include &lt;stdio.h&gt;;</code> &#10060; or <code>#define PI 3.14;</code> &#10060;
+                produces severe syntax errors! Preprocessor directives are text-replacement instructions, not standard C
+                statements.
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Header Guard Pattern (Bonus Exam Tip):</b><br>
+                To stop duplicate inclusions of custom headers, developers wrap them in guards:<br>
+                <code>#ifndef MYFILE_H</code> &rarr; <code>#define MYFILE_H</code> &rarr; <code>#endif</code>
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Header files contain pre-built declarations; preprocessor directives
+            (<code>#</code>) copy definitions and expand macros before compilation starts[cite: 1, 3].
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 10 -</div>
+    </div>
+
+</body>
+
+</html>

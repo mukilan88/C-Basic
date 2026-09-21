@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 2 - Page 4: Looping (do-while & Nested Loops)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 2: C PROGRAMMING</h1>
+        <div class="sub-title">04 - Looping (do-while &amp; Nested Loops)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To explore exit-controlled loops using <code>do-while</code>, understand guaranteed
+            single execution, and master multi-dimensional nested loops.
+        </div>
+
+        <div class="section-tag">1. Exit-Controlled Loops: do-while</div>
+        <p style="margin: 2px 0 4px 0; font-size: 12px;">
+            In a <b>do-while loop</b>, the loop statements execute <b>first</b>, and the condition is tested
+            <b>afterwards</b> at the bottom. Because the test occurs at the end, the loop body is <b>guaranteed to run
+                at least once</b>, even if the condition is False right from the beginning!
+        </p>
+
+        <div class="grid-2">
+            <!-- do-while Syntax & Code -->
+            <div class="card-box">
+                <div class="card-title">&#128260; Guaranteed Single Run Example</div>
+                <div style="font-size:11.5px; color:#424242;">Notice that <code>i = 10</code> fails
+                    <code>i &lt; 5</code>, but still prints once:</div>
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">int</span> i = 10;<br>
+                    <span style="color:#ad1457;">do</span> {<br>
+                    &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Value: %d\n"</span>, i);<br>
+                    &nbsp;&nbsp;i++;<br>
+                    } <span style="color:#ad1457;">while</span> (i &lt; 5); <span style="color:#d32f2f;">// Notice the
+                        semicolon!</span>
+                </div>
+                <div class="terminal-box">
+                    Output: <span>Value: 10</span>
+                </div>
+            </div>
+
+            <!-- Practical Menu Loop -->
+            <div class="card-box">
+                <div class="card-title">&#128203; Primary Use Case: Interactive Menus</div>
+                <div style="font-size:11.5px; color:#424242;">Displaying options at least once before prompting the
+                    user:</div>
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">int</span> choice;<br>
+                    <span style="color:#ad1457;">do</span> {<br>
+                    &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"1.Play 2.Exit -> "</span>);<br>
+                    &nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;choice);<br>
+                    } <span style="color:#ad1457;">while</span> (choice != 2);
+                </div>
+                <small style="color:#5e35b1; display:block; margin-top:2px;">
+                    &#9889; Guarantees the menu shows up at least once on screen.
+                </small>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Entry-Controlled vs Exit-Controlled Comparison</div>
+        <table class="styled-table">
+            <tr>
+                <th>Comparison Parameter</th>
+                <th>while / for Loop (Entry-Controlled)</th>
+                <th>do-while Loop (Exit-Controlled)</th>
+            </tr>
+            <tr>
+                <td><b>Condition Check Point</b></td>
+                <td>Tested at the beginning (before entering body).</td>
+                <td>Tested at the end (after executing body).</td>
+            </tr>
+            <tr>
+                <td><b>Minimum Executions</b></td>
+                <td><b>0 times</b> (if condition starts as False).</td>
+                <td><b>1 time</b> (guaranteed at least once).</td>
+            </tr>
+            <tr>
+                <td><b>Ending Syntax</b></td>
+                <td>No semicolon after <code>while(cond)</code>.</td>
+                <td><b>Must end with semicolon:</b> <code>while(cond);</code></td>
+            </tr>
+            <tr>
+                <td><b>Best Suitable For</b></td>
+                <td>Searching, counting, iterating arrays.</td>
+                <td>Menu-driven CLI apps, re-prompting input.</td>
+            </tr>
+        </table>
+
+        <div class="section-tag">3. Nested Loops (Loop Inside a Loop)</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.5px;">
+            A <b>nested loop</b> has an outer loop and an inner loop. For <b>every single turn</b> of the outer loop,
+            the inner loop completes its entire cycle from start to finish.
+        </p>
+
+        <div class="grid-2">
+            <!-- Nested Pattern Code -->
+            <div class="code-snippet">
+                <span style="color:#2e7d32;">// Outer loop controls Rows (i)</span><br>
+                <span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 1; i &lt;= 3; i++)
+                {<br>
+                &nbsp;&nbsp;<span style="color:#2e7d32;">// Inner loop controls Columns (j)</span><br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> j = 1; j
+                &lt;= i; j++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"* "</span>);<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n"</span>); <span style="color:#2e7d32;">// Next line
+                    after inner loop</span><br>
+                }
+            </div>
+
+            <!-- Output & Trace -->
+            <div class="card-box">
+                <div class="card-title">&#128187; Visualizing Rows &amp; Columns</div>
+                <div class="terminal-box" style="font-size:12px; line-height:1.4;">
+                    * <br>
+                    * * <br>
+                    * * *
+                </div>
+                <small style="color:#4527a0; display:block; margin-top:4px;">
+                    Row 1 (<code>i=1</code>) &rarr; Inner runs 1 time &rarr; prints <code>*</code><br>
+                    Row 2 (<code>i=2</code>) &rarr; Inner runs 2 times &rarr; prints <code>* *</code><br>
+                    Row 3 (<code>i=3</code>) &rarr; Inner runs 3 times &rarr; prints <code>* * *</code>
+                </small>
+            </div>
+        </div>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Syntax Alert for do-while:</b><br>
+                Forgetting the final semicolon <code>while(cond);</code> causes a compiler error! Unlike
+                <code>while</code> and <code>for</code>, the <code>do-while</code> structure requires that closing
+                semicolon.
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Nested Loop Mental Model:</b><br>
+                Think of a clock: the outer loop is the <b>Hour Hand</b>, and the inner loop is the <b>Minute Hand</b>.
+                The minute hand must complete 60 full ticks before the hour hand moves by just 1!
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> <code>do-while</code> tests at exit and runs at least once; in nested
+            loops, the inner loop runs completely for every single outer iteration.
+        </div>
+
+        <div class="footer-page">- Unit 2 &bull; Page 4 -</div>
+    </div>
+
+</body>
+
+</html>
