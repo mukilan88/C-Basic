@@ -1,61 +1,106 @@
-C Programming Notes — Unit 1
+# 📖 C Programming Digital Notebook (Units 1, 2 & 3)
 
-A digital "notebook style" set of C programming notes covering the complete first-unit syllabus, built as standalone HTML pages with a shared stylesheet and interactive navigation.
+An interactive, digital **"handwritten-style notebook"** for learning C Programming. Designed with authentic lined paper visual aesthetics, floating navigation controls, dark mode, syntax-highlighted code snippets, memory diagrams, and instant downloadable PDF notes.
 
-📚 What This Is
+---
 
-Each topic is a single HTML page styled to look like a page from a physical notebook (dot-grid background, punch holes, red margin line) with syntax-highlighted code, annotated explanations, worked examples, and common-mistake call-outs. Pages are numbered to follow the syllabus in order and link to each other via a floating navigation bar.
+## 🌟 Key Features
 
-✅ Features
-Notebook visual theme — light & dark mode (toggle persists via browser storage)
-Prev / Next navigation bar with a jump-to-topic dropdown, plus left/right arrow key navigation
-Copy button on every code block
-Fully self-contained — no build step, just open index.html in a browser
-A merged PDF booklet (C-Programming-Notes-Unit1-Complete.pdf) for printing or offline reading
-📂 File Structure
-├── index.html                     01. Structure of a C Program
-├── 02-compilation.html            02. Compilation and Execution
-├── 03-interactive-script.html     03. Interactive and Script Mode
-├── 04-comments.html               04. Comments and Documentation
-├── 05-tokens.html                 05. Tokens (Keywords, Identifiers, Constants, Strings)
-├── 06-datatypes-overview.html     06. Data Types — Part 1: Overview
-├── 07-datatypes-integer.html      07. Data Types — Part 2: Integer Types & Size Modifiers
-├── 08-datatypes-size.html         08. Data Types — Part 3: Size, Range & sizeof()
-├── 09-variables.html              09. Variables
-├── 10-constants.html              10. Constants
-├── 11-typecasting.html            11. Type Casting
-├── 12-operators.html              12. Operators & Expressions
-├── 13-operator-precedence.html    13. Operator Precedence and Associativity
-├── 14-io-functions.html           14. Input/Output Functions
-├── 15-formatted-io.html           15. Formatted Input and Output (printf, scanf)
-├── 16-errors-debugging.html       16. Basic Error Messages and Debugging Techniques
-├── styles.css                     Shared notebook theme (light + dark mode)
-├── notes.js                       Navigation bar, theme toggle, copy buttons, keyboard nav
-├── C-Programming-Notes-Unit1-Complete.pdf   All 16 topics merged, in order
-└── LICENSE                        Apache License 2.0
-👀 How to View
+- 📝 **Authentic Digital Notebook Design**: Realistic lined notebook pages, margin lines, and 3 punch holes.
+- 🌓 **Light & Dark Mode**: Seamless theme switcher with automatic preference memory (`localStorage`).
+- 🧭 **Multi-Unit Navigation Bar**: Instant dropdown switching between Unit 1, Unit 2, and Unit 3, along with `Prev` / `Next` buttons and keyboard arrow key navigation (`←` / `→`).
+- 📋 **One-Click Code Copy**: Built-in `Copy` button on every C code snippet box.
+- 📱 **Fully Responsive**: Adapts gracefully across desktop screens, tablets, and mobile devices.
+- 📄 **Complete Unit PDF Booklets**: Downloadable, print-ready PDF booklets for offline studying.
 
-Option 1 — Locally: Download the whole folder and open index.html in any browser. All pages link to each other, so you can browse the full unit from there.
+---
 
-Option 2 — Host it: Push the folder to GitHub Pages, Netlify, or any static host — no server or build step required, since it's plain HTML/CSS/JS.
+## 📚 Syllabus & Unit Structure
 
-Option 3 — Print/offline: Open C-Programming-Notes-Unit1-Complete.pdf for a printable version of the full set.
+### 🟦 Unit 1: C Fundamentals & Basics
+- `01` **Structure of a C Program** (`index.html`)
+- `02` **Compilation & Execution** (`02-compilation.html`)
+- `03` **Interactive & Script Mode** (`03-interactive-script.html`)
+- `04` **Comments & Documentation** (`04-comments.html`)
+- `05` **Tokens** (Keywords, Identifiers, Constants, Strings) (`05-tokens.html`)
+- `06` **Data Types Overview** (`06-datatypes-overview.html`)
+- `07` **Integer Types & Size Modifiers** (`07-datatypes-integer.html`)
+- `08` **Size, Range & `sizeof()` Operator** (`08-datatypes-size.html`)
+- `09` **Variables & Scope** (`09-variables.html`)
+- `10` **Constants (`const` & `#define`)** (`10-constants.html`)
+- `11` **Type Casting (Implicit & Explicit)** (`11-typecasting.html`)
+- `12` **Operators & Expressions** (`12-operators.html`)
+- `13` **Operator Precedence & Associativity** (`13-operator-precedence.html`)
+- `14` **Input/Output Functions** (`14-io-functions.html`)
+- `15` **Formatted I/O (`printf`, `scanf`)** (`15-formatted-io.html`)
+- `16` **Errors & Debugging Techniques** (`16-errors-debugging.html`)
 
-🎯 Syllabus Coverage
+### 🟪 Unit 2: Control Statements & Functions
+- `01` **Decision Making (`if` & `if-else`)** (`unit2.html`)
+- `02` **Decision Making (`switch` Statement)**
+- `03` **Looping (`while` & `for` Loops)**
+- `04` **Looping (`do-while` & Nested Loops)**
+- `05` **Jump Statements (`break` & `continue`)**
+- `06A` **Function Basics (Declaration, Definition, Return Types)**
+- `06B` **The 4 Function Categories**
+- `07A` **Parameter Passing: Call by Value**
+- `07B` **Parameter Passing: Call by Reference**
+- `08` **Recursion**
+- `09` **Scope & Lifetime of Variables**
+- `10` **Header Files**
 
-Structure of C Program · Compilation and Execution · Interactive and Script Mode · Comments and Documentation · Tokens · Data Types · Variables · Constants · Type Casting · Operators · Operator Precedence and Associativity · Input/Output Functions · Formatted Input and Output · Basic Error Messages and Debugging Techniques
+### 🟩 Unit 3: Arrays, Pointers, Structures & Files
+- `01` **1D Arrays & Array Operations** (`unit3.html`)
+- `02` **2D Arrays & Matrices** (`02-2D-Array.html`)
+- `03` **String Basics & Memory Layout** (`03-String.html`)
+- `04` **Built-in String Functions (`strlen`, `strcpy`, `strcat`, `strcmp`)**
+- `05` **Pointers Basics & Dereferencing (`&`, `*`)** (`05-pointer.html`)
+- `06` **Pointer Arithmetic & Array Pointers**
+- `07` **Function Pointers & Callbacks** (`07-Function-Pointers.html`)
+- `08` **Dynamic Memory Allocation (`malloc`, `calloc`, `realloc`, `free`)**
+- `09` **Structures (`struct`)** (`09-Structures.html`)
+- `10` **Unions (`union` & Shared Memory)** (`10-Unions.html`)
+- `11` **Array of Structures** (`11-Array-of-Structures.html`)
+- `12` **File Operations (`fopen`, `fclose`, `fprintf`, `fscanf`)**
+- `13` **Text vs. Binary Files** (`13-Text-and-Binary-Files.html`)
+- `14` **File Pointers & Random Access (`fseek`, `ftell`, `rewind`)**
+- `15` **File Error Handling (`feof`, `ferror`, `perror`)**
+- `16` **Standard C Libraries Summary (`<math.h>`, `<ctype.h>`, `<stdlib.h>`)**
 
-🔧 Adding a New Topic
-Copy the closest existing page as a template (keep the <head> links to styles.css and notes.js and the .page / .punch-hole wrapper structure).
-Reuse existing CSS component classes where possible: .aim-box, .section-tag, .code-container + .code-box + .explanation-box, .star-box, .cloud-note, .custom-table / .styled-table, .grid-2 + .card-box, .revision-footer-pill, .footer-page.
-Add the new page's title and filename to the pages array at the top of notes.js (in the correct syllabus position) so it appears in the nav bar and dropdown.
-Regenerate the merged PDF if needed (each page can be converted individually and appended in order).
-📋 Tech Stack
+---
 
-Plain HTML5, CSS3 (custom properties for theming), and vanilla JavaScript — no frameworks, no build tools. Fonts via Google Fonts (Comic Neue, Fira Code, Caveat, Outfit).
+## 📂 Complete PDF Booklets
 
-📋 License
+Included ready-to-print or offline reading PDF ebooks:
+- 📕 [C-Programming-Notes-Unit1-Complete.pdf](C-Programming-Notes-Unit1-Complete.pdf)
+- 📗 [C-Programming-Notes-Unit2-Complete.pdf](C-Programming-Notes-Unit2-Complete.pdf)
+- 📘 [C-Programming-Notes-Unit3-Complete.pdf](C-Programming-Notes-Unit3-Complete.pdf)
 
-Apache License 2.0 — see LICENSE.
+---
 
-Made for Mukilan.
+## 🚀 How to Run & View
+
+### Option 1: Open Locally (No Installation Needed)
+1. Clone or download this repository.
+2. Open `index.html` in any web browser (Chrome, Edge, Firefox, Safari).
+3. Use the floating top navigation bar to jump between topics and units!
+
+### Option 2: Web Hosting (GitHub Pages / Vercel / Netlify)
+Push this folder to **GitHub Pages** or any static host. Since it uses pure HTML5, CSS3, and JavaScript, no build step or node server is required!
+
+---
+
+## 💻 Technology Stack
+
+- **HTML5**: Semantic web content layout.
+- **CSS3**: Custom design system using CSS Variables (`:root`), Grid, and Flexbox layout.
+- **Vanilla JavaScript**: Pure JS for navigation dropdowns, dark mode toggling, code copying, and keyboard event handlers.
+- **Typography (Google Fonts)**: `Comic Neue` (Notebook Text), `Fira Code` (Code Blocks), `Outfit` (UI Toolbar), and `Caveat` (Accent Notes).
+
+---
+
+## 📜 License & Attribution
+
+Distributed under the **Apache License 2.0**. See `LICENSE` for more information.
+
+*Created for Mukilan & C Programming Learners.*
