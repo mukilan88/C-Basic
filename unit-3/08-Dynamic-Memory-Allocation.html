@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 8: Dynamic Memory Allocation (malloc, calloc, realloc, free)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 8: DYNAMIC MEMORY ALLOCATION (DMA) &ndash; &lt;stdlib.h&gt;</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To break the fixed-size limitations of standard arrays by allocating, resizing,
+                and freeing heap memory at runtime using <code>malloc()</code>, <code>calloc()</code>,
+                <code>realloc()</code>, and <code>free()</code>.
+            </div>
+
+            <div class="section-tag">1. Static vs. Dynamic Allocation (Stack vs. Heap)</div>
+            <div class="mem-layout-box">
+                <div class="mem-seg stack-seg">
+                    <b style="color:#c62828;">&#128230; Static / Stack Memory:</b><br>
+                    &#8226; Fixed size decided at compile time (e.g., <code>int a[100];</code>).<br>
+                    &#8226; Cannot grow if more users enter; wastes space if empty.<br>
+                    &#8226; Automatically cleared when function ends.
+                </div>
+                <div class="mem-seg heap-seg">
+                    <b style="color:#2e7d32;">&#127959; Dynamic / Heap Memory:</b><br>
+                    &#8226; Exact size requested at runtime from OS using pointers.<br>
+                    &#8226; Persists until explicitly released using <code>free()</code>.<br>
+                    &#8226; Managed manually by programmer via <code>&lt;stdlib.h&gt;</code>.
+                </div>
+            </div>
+
+            <div class="section-tag">2. The 4 Core DMA Functions</div>
+            <div class="grid-4">
+                <!-- malloc -->
+                <div class="dma-card">
+                    <div>
+                        <div class="dma-title">1. malloc()</div>
+                        <b>Memory Allocation:</b> Allocates a single raw block of specified bytes.<br>
+                        <code
+                            style="font-size:8.8px; color:#1565c0;">ptr = (int*) malloc(n * sizeof(int));</code><br><br>
+                        Leaves memory with <b>garbage values</b>.
+                    </div>
+                </div>
+
+                <!-- calloc -->
+                <div class="dma-card">
+                    <div>
+                        <div class="dma-title">2. calloc()</div>
+                        <b>Contiguous Allocation:</b> Takes 2 arguments: number of items &amp; size per item.<br>
+                        <code
+                            style="font-size:8.8px; color:#1565c0;">ptr = (int*) calloc(n, sizeof(int));</code><br><br>
+                        Initializes all allocated bytes to <b>Zero (0)</b>!
+                    </div>
+                </div>
+
+                <!-- realloc -->
+                <div class="dma-card">
+                    <div>
+                        <div class="dma-title">3. realloc()</div>
+                        <b>Re-allocation:</b> Expands or shrinks an already allocated heap block.<br>
+                        <code style="font-size:8.8px; color:#1565c0;">ptr = realloc(ptr, new_size);</code><br><br>
+                        Preserves original data during resizing.
+                    </div>
+                </div>
+
+                <!-- free -->
+                <div class="dma-card">
+                    <div>
+                        <div class="dma-title">4. free()</div>
+                        <b>De-allocation:</b> Returns the allocated heap memory back to the Operating System.<br>
+                        <code style="font-size:8.8px; color:#1565c0;">free(ptr); ptr = NULL;</code><br><br>
+                        Prevents dangerous <b>Memory Leaks</b>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Complete Runtime Demonstration (Allocate, Input, Resize &amp; Free)</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                    <span style="color:#1565c0;">#include</span> &lt;stdlib.h&gt; <span style="color:#2e7d32;">//
+                        Required for DMA</span><br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> n = 3, *ptr, sum = 0;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Allocate heap space for 3
+                        integers</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ptr = (<span style="color:#1565c0;">int</span>*) malloc(n * <span
+                        style="color:#ad1457;">sizeof</span>(<span style="color:#1565c0;">int</span>));<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// Always check if memory allocation
+                        succeeded</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (ptr == NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Memory
+                        Allocation Failed!\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 1;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter %d elements:\n"</span>, n);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span
+                        style="color:#1565c0;">int</span> i = 0; i &lt; n; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>,
+                    &amp;ptr[i]);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum += ptr[i];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Initial Sum = %d\n"</span>,
+                    sum);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Expand array to 4 elements at
+                        runtime</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ptr = (<span style="color:#1565c0;">int</span>*) realloc(ptr, 4 * <span
+                        style="color:#ad1457;">sizeof</span>(<span style="color:#1565c0;">int</span>));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter 1 extra element: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;ptr[3]);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;sum += ptr[3];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Updated Total Sum = %d\n"</span>,
+                    sum);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. Free memory to prevent memory
+                        leak</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;free(ptr);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ptr = NULL;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Enter 3 elements:<br>
+                        <span class="inp">10 20 30</span><br>
+                        Initial Sum = 60<br><br>
+                        Enter 1 extra element: <span class="inp">40</span><br>
+                        <span class="out">Updated Total Sum = 100</span>
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; Why Typecast <code>(int*)</code>?</div>
+                        Functions like <code>malloc()</code> return a generic pointer (<code>void*</code>) because they
+                        only allocate raw bytes without knowing what data type you want to store.<br>
+                        Prefixing with <code>(int*)</code> typecasts the memory chunk into an integer array pointer!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">4. malloc() vs. calloc() Comparison</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Feature</th>
+                    <th><code>malloc()</code></th>
+                    <th><code>calloc()</code></th>
+                </tr>
+                <tr>
+                    <td><b>Syntax</b></td>
+                    <td><code>void* malloc(size_t total_bytes);</code></td>
+                    <td><code>void* calloc(size_t num_elements, size_t element_size);</code></td>
+                </tr>
+                <tr>
+                    <td><b>Parameters</b></td>
+                    <td>1 argument (total byte calculation)</td>
+                    <td>2 arguments (number of items, size of each item)</td>
+                </tr>
+                <tr>
+                    <td><b>Initial Values</b></td>
+                    <td>Contains random <b>garbage values</b></td>
+                    <td>Initializes every single allocated byte to <b>Zero (0)</b></td>
+                </tr>
+                <tr>
+                    <td><b>Speed</b></td>
+                    <td>Faster (does not spend CPU cycles clearing bytes)</td>
+                    <td>Slightly slower (clears all bytes to 0)</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; Memory Leak &amp; Dangling Pointer:</b><br>
+                    &#8226; <b>Memory Leak:</b> Forgetting to call <code>free(ptr)</code> consumes RAM permanently until
+                    program quits.<br>
+                    &#8226; <b>Dangling Pointer:</b> Accessing <code>ptr</code> after calling <code>free(ptr)</code>
+                    causes crashes! Always write <code>ptr = NULL;</code> immediately after freeing.
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Always Check for NULL:</b><br>
+                    If the computer runs out of RAM, <code>malloc()</code> returns <code>NULL</code>. Always verify
+                    <code>if (ptr == NULL)</code> before accessing array indices to prevent Segmentation Faults!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> <code>malloc()</code> allocates uninitialized bytes,
+                <code>calloc()</code> allocates zeroed memory, <code>realloc()</code> resizes existing heap blocks, and
+                <code>free()</code> releases memory back to the OS.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 8 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

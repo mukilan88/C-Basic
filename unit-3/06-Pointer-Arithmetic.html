@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 6: Pointer Arithmetic (Single Variables &amp; Arrays)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">PAGE 6: POINTER ARITHMETIC &amp; ARRAY TRAVERSAL</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To perform arithmetic operations on single values using dereferenced pointers (*p1 +
+            *p2), understand pointer scaling rules, and traverse 1D arrays using pointer offsets *(ptr + i).
+        </div>
+
+        <div class="section-tag">1. Arithmetic Operations on Single Values via Pointers</div>
+        <p style="margin: 1px 0 3px 0; font-size: 10.5px;">
+            By applying dereferencing (<code>*</code>), pointers allow us to perform standard arithmetic (addition,
+            subtraction, multiplication) directly on the values stored in separate memory locations:
+        </p>
+        <div class="grid-2">
+            <!-- Code Box: Single Variable Arithmetic -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> a, b, sum, diff, prod;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> *p1 = &amp;a, *p2 = &amp;b;<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter two numbers: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d %d"</span>, p1, p2); <span
+                    style="color:#2e7d32;">// p1=&amp;a, p2=&amp;b</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;sum = *p1 + *p2; <span style="color:#2e7d32;">// Dereferencing to add
+                    values</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;diff = *p1 - *p2; <span style="color:#2e7d32;">// Dereferencing to
+                    subtract</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;prod = (*p1) * (*p2);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Sum = %d\n"</span>, sum);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Difference = %d\n"</span>, diff);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Product = %d\n"</span>, prod);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output Box: Single Variable Arithmetic -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Output (Arithmetic on Values):</b><br>
+                    Enter two numbers: <span class="inp">20 8</span><br>
+                    Sum = <span class="out">28</span><br>
+                    Difference = <span class="out">12</span><br>
+                    Product = <span class="out">160</span>
+                </div>
+                <div class="card-box" style="margin-top:3px;">
+                    <div class="card-title">&#128269; Dereferencing vs Address Operations</div>
+                    &#8226; <b><code>*p1 + *p2</code></b>: Extracts stored numbers (20 + 8 = 28).<br>
+                    &#8226; <b><code>p1 + p2</code></b>: Attempting to add addresses directly is <b>illegal</b> in C!
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">2. Pointer Scaling Rule &amp; Address Jumps</div>
+        <p style="margin: 1px 0 3px 0; font-size: 10.5px;">
+            When you add an integer to a pointer (<code>ptr + 1</code>), C scales the shift by the size of the target
+            data type:<br>
+            <code
+                style="color:#0d47a1; font-weight:bold;">New Address = Current Address + (n &times; sizeof(data_type))</code>
+        </p>
+
+        <!-- Jump Visualizer -->
+        <div class="jump-strip-container">
+            <div style="font-weight:bold; font-size:9.5px; color:#004d40; margin-bottom:1px;">
+                &#128065; Visualizing <code>int *ptr = arr;</code> &rarr; Each step jumps by <b>+4 bytes</b>:
+            </div>
+            <div class="jump-strip">
+                <div class="jump-cell">
+                    <div class="cell-val">10</div>
+                    <div class="cell-ptr">*(ptr) = arr[0]</div>
+                    <div class="cell-addr">#2000</div>
+                </div>
+                <div class="jump-cell">
+                    <div class="cell-val">20</div>
+                    <div class="cell-ptr">*(ptr + 1) = arr[1]</div>
+                    <div class="cell-addr">#2004</div>
+                </div>
+                <div class="jump-cell">
+                    <div class="cell-val">30</div>
+                    <div class="cell-ptr">*(ptr + 2) = arr[2]</div>
+                    <div class="cell-addr">#2008</div>
+                </div>
+                <div class="jump-cell">
+                    <div class="cell-val">40</div>
+                    <div class="cell-ptr">*(ptr + 3) = arr[3]</div>
+                    <div class="cell-addr">#2012</div>
+                </div>
+            </div>
+            <div style="font-size:8.5px; color:#37474f; text-align:center; margin-top:1px;">
+                If <code>ptr = #2000</code>, then <code>ptr + 1 = #2004</code> (not #2001!), because
+                <code>sizeof(int) == 4</code>.
+            </div>
+        </div>
+
+        <div class="section-tag">3. Runtime Input &amp; Array Traversal using Pointers</div>
+        <div class="grid-2">
+            <!-- Code Box: Array Traversal -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> arr[4], n = 4;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> *ptr = arr; <span
+                    style="color:#2e7d32;">// Points to arr[0]</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter 4 integers:\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span>
+                i = 0; i &lt; n; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, (ptr +
+                i)); <span style="color:#2e7d32;">// No &amp; needed!</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nValues and Addresses in
+                    RAM:\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span>
+                i = 0; i &lt; n; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"At address %p:
+                    Value = %d\n"</span>,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span
+                    style="color:#1565c0;">void</span>*)(ptr + i), *(ptr + i));<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output Box: Array Traversal -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Output (Array Traversal):</b><br>
+                    Enter 4 integers:<br>
+                    <span class="inp">10 20 30 40</span><br><br>
+                    <span class="out">Values and Addresses in RAM:</span><br>
+                    At address 0x7ffd2000: Value = 10<br>
+                    At address 0x7ffd2004: Value = 20<br>
+                    At address 0x7ffd2008: Value = 30<br>
+                    At address 0x7ffd200c: Value = 40
+                </div>
+                <div class="card-box" style="margin-top:3px;">
+                    <div class="card-title">&#128269; Array-Pointer Equivalence</div>
+                    In C, bracket notation is just pointer arithmetic:<br>
+                    &#8226; <b><code>arr[i]</code></b> is evaluated as <b><code>*(arr + i)</code></b><br>
+                    &#8226; <b><code>&amp;arr[i]</code></b> is identical to <b><code>(arr + i)</code></b>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">4. Permitted vs. Illegal Pointer Operations</div>
+        <table class="styled-table">
+            <tr>
+                <th>Operation</th>
+                <th>Valid / Invalid?</th>
+                <th>Formula / Example Behavior</th>
+            </tr>
+            <tr>
+                <td><b>Increment (<code>ptr++</code>)</b></td>
+                <td>&#9989; Valid</td>
+                <td>Advances pointer forward by <code>sizeof(type)</code> bytes.</td>
+            </tr>
+            <tr>
+                <td><b>Decrement (<code>ptr--</code>)</b></td>
+                <td>&#9989; Valid</td>
+                <td>Steps pointer backward by <code>sizeof(type)</code> bytes.</td>
+            </tr>
+            <tr>
+                <td><b>Adding Integer (<code>ptr + n</code>)</b></td>
+                <td>&#9989; Valid</td>
+                <td>Moves pointer forward by <code>n &times; sizeof(type)</code> bytes.</td>
+            </tr>
+            <tr>
+                <td><b>Subtracting Pointers (<code>p2 - p1</code>)</b></td>
+                <td>&#9989; Valid</td>
+                <td>Returns the <b>number of elements</b> between two pointers.</td>
+            </tr>
+            <tr>
+                <td><b>Adding Two Pointers (<code>p1 + p2</code>)</b></td>
+                <td>&#10060; <b>ILLEGAL</b></td>
+                <td>Adding two RAM addresses has no physical meaning!</td>
+            </tr>
+            <tr>
+                <td><b>Multiplication / Division</b></td>
+                <td>&#10060; <b>ILLEGAL</b></td>
+                <td>Operations like <code>ptr * 2</code> or <code>ptr / 3</code> cause compiler errors.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Parentheses Precedence Trap:</b><br>
+                &#8226; <b><code>*ptr++</code></b> &rarr; Reads value first, then increments pointer address.<br>
+                &#8226; <b><code>(*ptr)++</code></b> &rarr; Increments the actual integer data value at that address!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Constant Array Pointer:</b><br>
+                An array name is a <b>constant pointer</b> to its base index. You can run <code>ptr++</code>, but you
+                <b>cannot</b> run <code>arr++</code> because <code>arr</code> cannot change its base memory location!
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Dereference pointers (<code>*p1 + *p2</code>) to compute arithmetic on
+            single values; pointer math (<code>ptr + i</code>) scales by data type size to traverse contiguous arrays.
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 6 -</div>
+    </div>
+
+</body>
+
+</html>

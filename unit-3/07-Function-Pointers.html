@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 7: Foundations of Function Pointers (Call by Value vs. Call by Reference)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 7C: PREREQUISITE TO FUNCTION POINTERS &ndash; PARAMETER PASSING MECHANICS</div>
+
+            <div class="aim-box">
+                &#127919; <b>Foundational Principle:</b> Before studying Function Pointers, students must master
+                parameter passing. In C, <i>strictly speaking, there is only Call by Value</i>. What is conventionally
+                termed "Call by Reference" is practically implemented by passing variable addresses using pointers.
+            </div>
+
+            <div class="section-tag">1. Side-by-Side Swapping Experiment</div>
+
+            <div class="grid-2">
+                <!-- Call by Value -->
+                <div class="card-box card-val">
+                    <div class="card-title" style="color:#b71c1c;">1. Call by Value (Passes Duplicate Copy)</div>
+                    <div style="font-size:10.5px; color:#424242; margin-bottom:3px;">
+                        Actual parameters are copied into separate formal parameter slots. Originals in caller scope
+                        remain unchanged.
+                    </div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                        <span style="color:#1565c0;">void</span> swap(<span style="color:#1565c0;">int</span> a, <span
+                            style="color:#1565c0;">int</span> b) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> temp;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;temp = a;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;a = b;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;b = temp;<br>
+                        }<br><br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> x = 10, y = 20;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Before swapping:\n"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"x = %d, y = %d\n"</span>, x,
+                        y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;swap(x, y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"After swapping:\n"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"x = %d, y = %d\n"</span>, x,
+                        y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                    <div class="terminal-box">
+                        Before swapping:<br>
+                        x = 10, y = 20<br>
+                        After swapping:<br>
+                        x = <span class="out">10</span>, y = <span class="out">20</span> &nbsp;(Values remained
+                        unchanged!)
+                    </div>
+                    <div class="trace-container">
+                        <b>Why did swapping not happen?</b><br>
+                        When calling <code>swap(x, y)</code>, values are cloned across functions:<br>
+                        <code>main(): x = 10 -------------> swap(): a = 10</code><br>
+                        <code>main(): y = 20 -------------> swap(): b = 20</code><br>
+                        Inside <code>swap()</code>: <code>a = 20, b = 10</code>. Only the copies exchange. The original
+                        variables remain <code>x = 10, y = 20</code>!
+                    </div>
+                </div>
+
+                <!-- Call by Reference -->
+                <div class="card-box card-ref">
+                    <div class="card-title" style="color:#1b5e20;">2. Call by Reference (Passes Memory Address)</div>
+                    <div style="font-size:10.5px; color:#424242; margin-bottom:3px;">
+                        Passing <code>&amp;x</code> and <code>&amp;y</code> allows the function to reach directly into
+                        the caller's memory via dereferencing.
+                    </div>
+                    <div class="code-snippet">
+                        <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                        <span style="color:#1565c0;">void</span> swap(<span style="color:#1565c0;">int</span> *a, <span
+                            style="color:#1565c0;">int</span> *b) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> temp;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;temp = *a;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;*a = *b;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;*b = temp;<br>
+                        }<br><br>
+                        <span style="color:#1565c0;">int</span> main() {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> x = 10, y = 20;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Before swapping:\n"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"x = %d, y = %d\n"</span>, x,
+                        y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;swap(&amp;x, &amp;y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"After swapping:\n"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"x = %d, y = %d\n"</span>, x,
+                        y);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                        }
+                    </div>
+                    <div class="terminal-box">
+                        Before swapping:<br>
+                        x = 10, y = 20<br>
+                        After swapping:<br>
+                        x = <span class="out">20</span>, y = <span class="out">10</span> &nbsp;(Swapping succeeded!)
+                    </div>
+                    <div class="trace-container" style="background:#e8f5e9; border-color:#81c784; color:#1b5e20;">
+                        <b>How does it work step-by-step?</b><br>
+                        <code>&amp;x</code> and <code>&amp;y</code> pass RAM addresses into pointers <code>a</code> and
+                        <code>b</code>.<br>
+                        &#8226; <code>*a</code> means: Go to address in <code>a</code> &rarr; accesses
+                        <code>x</code>.<br>
+                        &#8226; <b>Step 1:</b> <code>temp = *a;</code> &rarr; <code>temp = 10</code><br>
+                        &#8226; <b>Step 2:</b> <code>*a = *b;</code> &rarr; <code>x = 20</code> (updates original x)<br>
+                        &#8226; <b>Step 3:</b> <code>*b = temp;</code> &rarr; <code>y = 10</code> (updates original y)
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">2. Comprehensive Comparison Table &amp; Memory Rules</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Call by Value</th>
+                    <th>Call by Reference (Using Pointers)</th>
+                </tr>
+                <tr>
+                    <td><b>What is passed?</b></td>
+                    <td>Value (duplicate data copy)</td>
+                    <td>Address of the variable in RAM</td>
+                </tr>
+                <tr>
+                    <td><b>Uses pointer?</b></td>
+                    <td>No</td>
+                    <td>Yes (<code>int *a, int *b</code>)</td>
+                </tr>
+                <tr>
+                    <td><b>Original variable modified?</b></td>
+                    <td>No (caller variables remain untouched)</td>
+                    <td>Yes (direct mutation in memory)</td>
+                </tr>
+                <tr>
+                    <td><b>Function parameter type</b></td>
+                    <td>Normal variable: <code>int a</code></td>
+                    <td>Pointer variable: <code>int *a</code></td>
+                </tr>
+                <tr>
+                    <td><b>Function call syntax</b></td>
+                    <td><code>swap(x, y);</code></td>
+                    <td><code>swap(&amp;x, &amp;y);</code></td>
+                </tr>
+                <tr>
+                    <td><b>Accessing value inside body</b></td>
+                    <td>Direct evaluation: <code>a</code></td>
+                    <td>Dereference operator: <code>*a</code></td>
+                </tr>
+                <tr>
+                    <td><b>Easy-to-Remember Mantra</b></td>
+                    <td><b>Value &rarr; Copy &rarr; No change in original</b></td>
+                    <td><b>Address &rarr; Pointer &rarr; Original can be changed</b></td>
+                </tr>
+            </table>
+
+            <div class="section-tag">3. Important Symbols &amp; Transition to Function Pointers</div>
+            <div class="symbol-grid">
+                <table class="styled-table">
+                    <tr>
+                        <th>Expression</th>
+                        <th>Exact Conceptual Meaning</th>
+                    </tr>
+                    <tr>
+                        <td><code>x</code></td>
+                        <td>Direct value stored in variable <code>x</code> (e.g., <code>10</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><code>&amp;x</code></td>
+                        <td>Unique memory address where variable <code>x</code> resides</td>
+                    </tr>
+                    <tr>
+                        <td><code>int *p</code></td>
+                        <td>Declares <code>p</code> as a pointer variable pointing to an integer</td>
+                    </tr>
+                    <tr>
+                        <td><code>*p</code></td>
+                        <td><b>Dereferencing:</b> Fetches value at address held in <code>p</code></td>
+                    </tr>
+                </table>
+
+                <div class="ptr-box-visual">
+                    <div style="font-weight:bold; color:#004d40;">Memory Diagram for <code>int *p = &amp;x;</code></div>
+                    <div class="ascii-art">
+                        Address: #2004<br>
+                        x &rarr; [ 10 ]<br>
+                        &uarr;<br>
+                        p holds: #2004
+                    </div>
+                    <div>
+                        <code>p</code> = address of <code>x</code> &bull; <code>*p</code> = <code>10</code> &bull;
+                        <code>&amp;x</code> = address of <code>x</code>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background:#fffde7; border:1.5px solid #fbc02d; border-radius:5px; padding:6px 10px; margin:4px 0; font-size:10.5px;">
+                <b>&#128273; Connection to Function Pointers (Avoid this Confusion):</b><br>
+                &#8226; <b>Pointer to a Variable (<code>int *p;</code>):</b> Stores the address of a <i>data
+                    variable</i> in RAM.<br>
+                &#8226; <b>Pointer to a Function (<code>int (*fp)(int, int);</code>):</b> Stores the address of an
+                <i>executable function</i> in the Code Segment.<br>
+                Example: <code>int (*fp)(int, int) = add;</code> allows running <code>printf("%d", fp(10, 20));</code>
+                to output <b>30</b>!
+            </div>
+
+            <div class="section-tag">4. The Full Learning Pathway</div>
+            <div class="flow-steps">
+                <span>1. Functions</span> &rarr;
+                <span>2. Arguments &amp; Params</span> &rarr;
+                <span>3. Call by Value</span> &rarr;
+                <span>4. Pointers</span> &rarr;
+                <span>5. Call by Reference</span> &rarr;
+                <span>6. Function Pointers</span> &rarr;
+                <span>7. Callbacks</span>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary for Students:</b> Call by Value passes a copy of the value, whereas Call
+                by Reference passes the address of the variable using pointers, allowing the function to modify the
+                original variable.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 7C -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 11: Array of Structures (Multiple Records &amp; Traversal)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 11: ARRAYS OF STRUCTURES &ndash; MANAGING MULTIPLE RECORDS</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To scale user-defined structures by declaring an array of structures, manage
+                multiple real-world student/employee records using loops, read input at runtime, and visualize
+                contiguous record storage in memory.
+            </div>
+
+            <div class="section-tag">1. Concept &amp; Memory Layout of an Array of Structures</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                A single structure variable stores details of only <b>one entity</b>. To store records for a whole class
+                of 60 students or 100 employees, we create an <b>Array of Structures</b>.<br>
+                Syntax: <code style="color:#0d47a1; font-weight:bold;">struct StructureName array_name[size];</code>
+                &rarr; e.g., <code>struct Student s[3];</code> reserves memory for 3 contiguous student records in RAM.
+            </p>
+
+            <!-- Contiguous Memory Representation of Structure Array -->
+            <div class="struct-array-mem">
+                <div style="font-weight:bold; font-size:10px; color:#004d40; margin-bottom:2px;">
+                    &#128065; Contiguous Storage of <code>struct Student s[3]</code> (Each block = 1 complete record):
+                </div>
+                <div class="array-record-strip">
+                    <div class="record-block">
+                        <div class="record-title">s[0] (Record 1)</div>
+                        <div class="sub-fields">
+                            .id = 101<br>
+                            .name = "Arun"<br>
+                            .marks = 85.0<br>
+                            <span style="color:#c2185b;">Address: #2000</span>
+                        </div>
+                    </div>
+                    <div class="record-block">
+                        <div class="record-title">s[1] (Record 2)</div>
+                        <div class="sub-fields">
+                            .id = 102<br>
+                            .name = "Bala"<br>
+                            .marks = 92.5<br>
+                            <span style="color:#c2185b;">Address: #2028</span>
+                        </div>
+                    </div>
+                    <div class="record-block">
+                        <div class="record-title">s[2] (Record 3)</div>
+                        <div class="sub-fields">
+                            .id = 103<br>
+                            .name = "Charan"<br>
+                            .marks = 78.0<br>
+                            <span style="color:#c2185b;">Address: #2056</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center; font-size:9.5px; color:#37474f; margin-top:2px;">
+                    &#9889; Total Size = <code>3 &times; sizeof(struct Student)</code>. In RAM, <code>s[1]</code> begins
+                    immediately after <code>s[0]</code> finishes!
+                </div>
+            </div>
+
+            <div class="section-tag">2. Runtime Input &amp; Display Program (Loop Traversal)</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                    <span style="color:#1565c0;">struct</span> Student {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> id;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> name[20];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">float</span> marks;<br>
+                    };<br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">struct</span> Student s[2]; <span
+                        style="color:#2e7d32;">// Array of 2 records</span><br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Reading input for multiple
+                        records</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span
+                        style="color:#1565c0;">int</span> i = 0; i &lt; 2; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter ID, Name,
+                        Marks for Student %d:\n"</span>, i + 1);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d %s
+                        %f"</span>, &amp;s[i].id, s[i].name, &amp;s[i].marks);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Displaying all student records</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n--- Student Database
+                        ---\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span
+                        style="color:#1565c0;">int</span> i = 0; i &lt; 2; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"[%d] ID: %d |
+                        Name: %s | Marks: %.2f\n"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i + 1,
+                    s[i].id, s[i].name, s[i].marks);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span>
+                    0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Enter ID, Name, Marks for Student 1:<br>
+                        <span class="inp">101 Arun 85.0</span><br>
+                        Enter ID, Name, Marks for Student 2:<br>
+                        <span class="inp">102 Bala 92.5</span><br><br>
+                        <span class="out">--- Student Database ---</span><br>
+                        [1] ID: 101 | Name: Arun | Marks: 85.00<br>
+                        [2] ID: 102 | Name: Bala | Marks: 92.50
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; Syntax Anatomy: <code>s[i].member</code></div>
+                        &#8226; <b><code>s[i]</code>:</b> Selects the whole structure instance at array index
+                        <code>i</code>.<br>
+                        &#8226; <b><code>.member</code>:</b> Accesses the specific variable field inside that indexed
+                        structure.<br>
+                        &#8226; <b>Notice:</b> <code>&amp;s[i].id</code> passes the memory address of the integer field
+                        inside the <code>i</code>-th record.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Common Array of Structures Operations</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Purpose</th>
+                    <th>Code Logic Pattern</th>
+                </tr>
+                <tr>
+                    <td><b>Linear Search</b></td>
+                    <td>Find a record by specific ID or Name</td>
+                    <td><code>if (s[i].id == searchId) { printf("Found: %s", s[i].name); }</code></td>
+                </tr>
+                <tr>
+                    <td><b>Find Topper / Max</b></td>
+                    <td>Scan all records to find highest mark</td>
+                    <td><code>if (s[i].marks &gt; max) { max = s[i].marks; topperIdx = i; }</code></td>
+                </tr>
+                <tr>
+                    <td><b>Class Average</b></td>
+                    <td>Sum a specific numeric member across all records</td>
+                    <td><code>total += s[i].marks;</code> &rarr; <code>avg = total / n;</code></td>
+                </tr>
+                <tr>
+                    <td><b>Sorting</b></td>
+                    <td>Sort records based on a member field</td>
+                    <td>Swap complete structure: <code>struct Student temp = s[i]; s[i] = s[j]; s[j] = temp;</code></td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; Subscript vs Dot Precedence Trap:</b><br>
+                    Always write <code>s[i].id</code> and NOT <code>s.id[i]</code>!<br>
+                    &#8226; <b><code>s[i].id</code>:</b> The <code>id</code> field of the <code>i</code>-th student.<br>
+                    &#8226; <b><code>s.id[i]</code>:</b> Treats <code>id</code> itself as an array, which causes a
+                    syntax error!
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Direct Assignment Feature:</b><br>
+                    In C, you can copy an entire structure record to another in one single line:
+                    <code>s[0] = s[1];</code>! C automatically copies every individual field (including internal string
+                    arrays) byte-by-byte.
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> An Array of Structures stores multiple composite records side-by-side
+                in RAM; access individual fields using <code>array_name[i].member</code> inside standard loops.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 11 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 10: Unions in C (Shared Memory &amp; Struct vs Union)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 10: UNIONS (UNION) &ndash; SHARED MEMORY ALLOCATION</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To master user-defined types using the <code>union</code> keyword, understand the
+                shared memory concept, observe value corruption when accessing multiple members simultaneously, and
+                compare Structures vs. Unions.
+            </div>
+
+            <div class="section-tag">1. What is a Union? &amp; Shared Memory Architecture</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                A <b>Union</b> is a user-defined data type similar to a structure, with one fundamental difference:
+                <b>all members share the exact same memory space</b>.
+                While a struct allocates memory for <i>every</i> member, a union's total size equals only the size of
+                its <b>largest member</b>.<br>
+                Syntax: <code>union TemplateName { member1; member2; ... };</code> &rarr; <i>Only one member can hold a
+                    meaningful value at any given time!</i>
+            </p>
+
+            <!-- Visual Architecture: Struct vs Union Memory -->
+            <div class="mem-compare-container">
+                <div class="mem-type-box struct-box">
+                    <div class="mem-vis-title struct-vis-title">&#128230; struct Data (Independent Locations)</div>
+                    <div class="stack-blocks">
+                        <div class="block-part b-int">i (4B)</div>
+                        <div class="block-part b-float">f (4B)</div>
+                        <div class="block-part b-char">ch (1B)</div>
+                    </div>
+                    <div style="font-size:9.5px; color:#1565c0; margin-top:2px;">
+                        Total = 4 + 4 + 1 = <b>9+ Bytes</b> (Each has its own address)
+                    </div>
+                </div>
+
+                <div class="mem-type-box union-box">
+                    <div class="mem-vis-title union-vis-title">&#128260; union Data (One Shared Location)</div>
+                    <div class="union-shared-block">
+                        [ Shared 4 Bytes ] &larr; i / f / ch
+                    </div>
+                    <div style="font-size:9.5px; color:#c2185b; margin-top:2px;">
+                        Total = max(4, 4, 1) = <b>4 Bytes</b> (All start at the exact same address!)
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">2. Complete Runtime Input &amp; Overwrite Demonstration</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                    <span style="color:#1565c0;">union</span> Record {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> id;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">float</span> salary;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> grade;<br>
+                    };<br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">union</span> Record r;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Correct Usage: Use one member at a
+                        time</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter ID: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;r.id);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Stored ID = %d\n"</span>,
+                    r.id);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter Salary: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%f"</span>, &amp;r.salary); <span
+                        style="color:#2e7d32;">// Overwrites id!</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Stored Salary = %.2f\n"</span>,
+                    r.salary);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Observing Overwrite /
+                        Corruption</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n--- Inspecting Overwritten id
+                        ---\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"id value now: %d
+                        (Corrupted!)\n"</span>, r.id);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Size of union: %lu bytes\n"</span>,
+                    <span style="color:#ad1457;">sizeof</span>(r));<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Enter ID: <span class="inp">101</span><br>
+                        Stored ID = 101<br><br>
+                        Enter Salary: <span class="inp">45000.50</span><br>
+                        Stored Salary = 45000.50<br><br>
+                        <span class="out">--- Inspecting Overwritten id ---</span><br>
+                        id value now: <span class="corrupt">1194270848</span><br>
+                        Size of union: <span class="out">4 bytes</span>
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; Why Did ID Turn Into Garbage?</div>
+                        Because <code>id</code> and <code>salary</code> share the <b>exact same 4 bytes in RAM</b>!
+                        Writing <code>45000.50</code> stores IEEE-754 floating-point bits across those 4 bytes, wiping
+                        out the integer bits that represented <code>101</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Detailed Comparison: Structure vs. Union</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Structure (<code>struct</code>)</th>
+                    <th>Union (<code>union</code>)</th>
+                </tr>
+                <tr>
+                    <td><b>Keyword</b></td>
+                    <td><code>struct</code></td>
+                    <td><code>union</code></td>
+                </tr>
+                <tr>
+                    <td><b>Memory Allocation</b></td>
+                    <td>Sum of all member sizes (+ padding bytes)</td>
+                    <td>Equal to the size of the <b>largest member only</b></td>
+                </tr>
+                <tr>
+                    <td><b>Member Sharing</b></td>
+                    <td>Each member has its own distinct address</td>
+                    <td>All members share the single starting address</td>
+                </tr>
+                <tr>
+                    <td><b>Value Retention</b></td>
+                    <td>All members hold valid values simultaneously</td>
+                    <td>Only <b>one</b> member holds a valid value at a time</td>
+                </tr>
+                <tr>
+                    <td><b>Primary Use Case</b></td>
+                    <td>Modeling real entities (Student, Employee, Point)</td>
+                    <td>Hardware registers, memory conservation, variants</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; The Overwrite Trap:</b><br>
+                    Never write to member B and expect member A to retain its old data. Assigning a value to any member
+                    directly overwrites the bytes shared by all other members in that union!
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Real-World Use Case for Union:</b><br>
+                    Unions shine when designing a system where an item can be identified by <i>either</i> a Passport
+                    Number (string) <i>or</i> an Aadhaar Number (integer) &mdash; never both at once &mdash; saving
+                    precious RAM on embedded microcontrollers!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> A Union allocates only enough memory for its largest member; all
+                members share that single address space, so modifying one member overwrites the rest.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 10 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

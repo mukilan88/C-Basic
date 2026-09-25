@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 15: Error Handling in File Operations (feof, ferror, perror, strerror)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 15: ERROR HANDLING IN FILE OPERATIONS</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To prevent unexpected program crashes by detecting, diagnosing, and gracefully
+                handling file runtime errors such as missing files, permissions issues, disk-full faults, and
+                distinguishing between true I/O errors and natural End-Of-File (EOF).
+            </div>
+
+            <div class="section-tag">1. Why Error Handling Matters in File I/O?</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                Unlike variables in RAM which are always accessible, files live in secondary storage controlled by the
+                Operating System. File operations can fail for many external reasons: a deleted file, bad permissions,
+                or a disconnected USB drive.
+                Every file stream maintains internal <b>status flags</b> to track what happens during read/write calls:
+            </p>
+
+            <!-- Error Flag Indicators -->
+            <div class="flag-visual-container">
+                <div class="flag-card flag-eof">
+                    <div class="flag-title" style="color:#e65100;">&#127988; EOF Flag (feof)</div>
+                    <div class="flag-desc">Set when a read operation tries to read <b>past the final byte</b> of the
+                        file. Not an error &mdash; just marks the end!</div>
+                </div>
+                <div class="flag-card flag-err">
+                    <div class="flag-title" style="color:#c62828;">&#9888; Error Flag (ferror)</div>
+                    <div class="flag-desc">Set when a physical <b>hardware or stream failure</b> occurs (e.g., writing
+                        to a read-only file or corrupted disk sector).</div>
+                </div>
+            </div>
+
+            <div class="section-tag">2. The 4 Essential Error-Checking Tools</div>
+            <div class="grid-4">
+                <div class="tool-card">
+                    <div class="tool-title">&#128065; 1. feof(fp)</div>
+                    Returns non-zero if the file pointer has reached the End of File.
+                </div>
+                <div class="tool-card">
+                    <div class="tool-title">&#9888; 2. ferror(fp)</div>
+                    Returns non-zero if an I/O error occurred on the stream.
+                </div>
+                <div class="tool-card">
+                    <div class="tool-title">&#128226; 3. perror(str)</div>
+                    Prints your custom message followed by OS error explanation.
+                </div>
+                <div class="tool-card">
+                    <div class="tool-title">&#128260; 4. clearerr(fp)</div>
+                    Resets both EOF and error flags back to 0 for retry.
+                </div>
+            </div>
+
+            <div class="section-tag">3. Complete Program: Detecting Missing Files &amp; Reading Safely</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                    <span style="color:#1565c0;">#include</span> &lt;stdlib.h&gt;<br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;FILE *fp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> filename[30], ch;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter file name to open: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%s"</span>, filename);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Check for NULL pointer on
+                        fopen()</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fp = fopen(filename, <span style="color:#2e7d32;">"r"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (fp == NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror(<span style="color:#2e7d32;">"Error"</span>);
+                    <span style="color:#2e7d32;">// Prints system error description</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 1;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Read characters and monitor stream
+                        flags</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nFile Contents:\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">while</span> ((ch = fgetc(fp)) != EOF) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;putchar(ch);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. Diagnose why the loop stopped</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (ferror(fp)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nError: An I/O
+                        error occurred while reading!\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <span style="color:#ad1457;">else if</span> (feof(fp)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nReached End
+                        of File successfully.\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fclose(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Case 1 (Missing File):</b><br>
+                        Enter file name to open: <span class="inp">test.txt</span><br>
+                        <span class="err">Error: No such file or directory</span><br><br>
+                        <b>&#128187; Terminal Case 2 (Successful Read):</b><br>
+                        Enter file name to open: <span class="inp">sample.txt</span><br>
+                        File Contents:<br>
+                        <span class="out">Hello C Programmers!</span><br>
+                        Reached End of File successfully.
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; What Does perror() Do?</div>
+                        &#8226; When any system call fails, C sets a global error integer named
+                        <b><code>errno</code></b>.<br>
+                        &#8226; <code>perror("CustomMsg")</code> converts that code into plain English (e.g.
+                        <i>"Permission denied"</i> or <i>"No such file or directory"</i>) and prints it automatically!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">4. Quick Error Function Comparison Table</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Function Prototype</th>
+                    <th>Header</th>
+                    <th>When to Call It?</th>
+                    <th>Return Value</th>
+                </tr>
+                <tr>
+                    <td><code>int feof(FILE *fp);</code></td>
+                    <td><code>&lt;stdio.h&gt;</code></td>
+                    <td>After a read operation finishes</td>
+                    <td>Non-zero if EOF reached, else <code>0</code></td>
+                </tr>
+                <tr>
+                    <td><code>int ferror(FILE *fp);</code></td>
+                    <td><code>&lt;stdio.h&gt;</code></td>
+                    <td>After reading or writing to verify stream integrity</td>
+                    <td>Non-zero if an error occurred, else <code>0</code></td>
+                </tr>
+                <tr>
+                    <td><code>void perror(const char *s);</code></td>
+                    <td><code>&lt;stdio.h&gt;</code></td>
+                    <td>Immediately after <code>fopen() == NULL</code></td>
+                    <td>None (prints error string directly to stderr)</td>
+                </tr>
+                <tr>
+                    <td><code>void clearerr(FILE *fp);</code></td>
+                    <td><code>&lt;stdio.h&gt;</code></td>
+                    <td>Before retrying an operation on the same stream</td>
+                    <td>None (clears both EOF and error flags)</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; The while(!feof(fp)) Trap (Common Exam Bug):</b><br>
+                    <code>feof()</code> only returns true <b>after</b> a read attempt fails by hitting past EOF. Using
+                    <code>while(!feof(fp)) { fscanf(...); print(...); }</code> will process the last line <b>twice</b>!
+                    Always test the return of the read function: <code>while(fscanf(...) == 1)</code>.
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Always Guard fopen() with NULL Check:</b><br>
+                    Never use <code>fp</code> without testing <code>if (fp == NULL)</code> first! Passing a
+                    <code>NULL</code> pointer to <code>fgetc()</code> or <code>fprintf()</code> results in an immediate
+                    <b>Segmentation Fault / crash</b>!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> Check <code>fp == NULL</code> after opening; use
+                <code>perror()</code> for human-readable error messages, and verify <code>feof()</code> vs
+                <code>ferror()</code> to distinguish EOF from disk failures.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 15 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

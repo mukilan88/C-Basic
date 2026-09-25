@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 3: Strings in C (Null Terminator, Runtime Input &amp; Display)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">PAGE 3: STRINGS &ndash; CONCEPT, MEMORY LAYOUT &amp; RUNTIME INPUT</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand how text is stored in C as a 1D character array terminated by a Null
+            character (<code>'\0'</code>), accept string inputs at runtime, and compare <code>scanf()</code> with
+            <code>fgets()</code>.
+        </div>
+
+        <div class="section-tag">1. What is a String in C? &amp; Memory Layout</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.2px;">
+            In C, there is no separate <code>string</code> keyword like in Java or Python. A string is simply a <b>1D
+                array of characters</b> that ends with a special sentinel value called the <b>Null Terminator
+                (<code>'\0'</code>)</b>.<br>
+            The null character has an ASCII value of <code>0</code> and signals the end of the text to functions like
+            <code>printf()</code>.
+        </p>
+
+        <!-- Memory Visual Strip for String -->
+        <div style="background:#fdfefe; border:1.5px solid #00897b; border-radius:6px; padding:6px 8px; margin:4px 0;">
+            <div style="font-weight:bold; font-size:10.5px; color:#004d40; margin-bottom:2px;">
+                &#128065; Memory Representation of <code>char name[6] = "INDIA";</code> (Each <code>char</code> = 1
+                byte):
+            </div>
+            <div class="string-strip">
+                <div class="string-cell">
+                    <div class="cell-char">'I'</div>
+                    <div class="cell-idx">name[0]</div>
+                    <div class="cell-addr">#3000</div>
+                </div>
+                <div class="string-cell">
+                    <div class="cell-char">'N'</div>
+                    <div class="cell-idx">name[1]</div>
+                    <div class="cell-addr">#3001</div>
+                </div>
+                <div class="string-cell">
+                    <div class="cell-char">'D'</div>
+                    <div class="cell-idx">name[2]</div>
+                    <div class="cell-addr">#3002</div>
+                </div>
+                <div class="string-cell">
+                    <div class="cell-char">'I'</div>
+                    <div class="cell-idx">name[3]</div>
+                    <div class="cell-addr">#3003</div>
+                </div>
+                <div class="string-cell">
+                    <div class="cell-char">'A'</div>
+                    <div class="cell-idx">name[4]</div>
+                    <div class="cell-addr">#3004</div>
+                </div>
+                <div class="string-cell null-cell">
+                    <div class="cell-char null-char">'\0'</div>
+                    <div class="cell-idx" style="color:#ad1457;">name[5]</div>
+                    <div class="cell-addr" style="background:#f8bbd0;">#3005</div>
+                </div>
+            </div>
+            <div style="font-size:9.5px; color:#c2185b; margin-top:2px; font-weight:bold; text-align:center;">
+                &#9757; Rule of Thumb: An N-character word always needs an array size of at least (N + 1) to store the
+                terminating '\0'!
+            </div>
+        </div>
+
+        <div class="section-tag">2. Runtime Input &amp; Display Program</div>
+        <div class="grid-2">
+            <!-- Code Box -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> firstName[30];<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> fullName[50];<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Reading single word (stops at
+                    space)</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter first name: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%s"</span>, firstName); <span
+                    style="color:#2e7d32;">// No &amp; needed!</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// Clear newline buffer before reading multi-word
+                    string</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;getchar();<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Reading complete line with spaces
+                    safely</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter full name: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;fgets(fullName, <span style="color:#ad1457;">sizeof</span>(fullName),
+                stdin);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. Printing strings</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n--- Profile ---\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"First Name: %s\n"</span>, firstName);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Full Name : %s"</span>, fullName);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output Box -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Execution (Runtime):</b><br>
+                    Enter first name: <span class="inp">Mukilan</span><br>
+                    Enter full name: <span class="inp">Mukilan Selvaraj</span><br><br>
+                    <span class="out">--- Profile ---</span><br>
+                    First Name: Mukilan<br>
+                    Full Name : Mukilan Selvaraj
+                </div>
+                <div class="card-box" style="margin-top:4px;">
+                    <div class="card-title">&#128269; Why No &amp; in <code>scanf("%s", str)</code>?</div>
+                    In C, the array name by itself (<code>firstName</code>) already represents the <b>base memory
+                        address</b> of the array (<code>&amp;firstName[0]</code>). Adding an <code>&amp;</code> is
+                    redundant.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Input Methods Comparison</div>
+        <table class="styled-table">
+            <tr>
+                <th>Input Function</th>
+                <th>Handles Spaces?</th>
+                <th>Buffer Overflow Safety</th>
+                <th>Best Use Case</th>
+            </tr>
+            <tr>
+                <td><b><code>scanf("%s", str);</code></b></td>
+                <td>&#10060; No (stops reading at space/tab/newline)</td>
+                <td>Unsafe (can overflow if input is too long)</td>
+                <td>Single words (names, codes, IDs)</td>
+            </tr>
+            <tr>
+                <td><b><code>fgets(str, n, stdin);</code></b></td>
+                <td>&#9989; Yes (reads until enter key is pressed)</td>
+                <td>&#9989; <b>Safe</b> (reads at most <code>n - 1</code> characters)</td>
+                <td>Full sentences, addresses, full names</td>
+            </tr>
+            <tr>
+                <td><b><code>gets(str);</code></b></td>
+                <td>&#9989; Yes</td>
+                <td>&#10060; <b>Removed from modern C</b> (dangerous!)</td>
+                <td>Never use in modern programming</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Forgetting the Null Character:</b><br>
+                If you assign characters manually: <code>char s[3] = {'H','i'};</code> without adding <code>'\0'</code>,
+                <code>printf("%s", s)</code> keeps reading past the array until it randomly finds a 0 in memory,
+                printing strange junk characters!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Single Quotes vs Double Quotes:</b><br>
+                &#8226; <code>'A'</code> &rarr; Single character constant (1 byte).<br>
+                &#8226; <code>"A"</code> &rarr; String literal containing two bytes: <code>'A'</code> and
+                <code>'\0'</code>!
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Strings are 1D character arrays terminated by <code>'\0'</code>; use
+            <code>scanf("%s")</code> for single words and <code>fgets()</code> for lines containing spaces.
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 3 -</div>
+    </div>
+
+</body>
+
+</html>

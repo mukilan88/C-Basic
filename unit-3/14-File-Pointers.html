@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 14: File Pointers &amp; Random Access (fseek, ftell, rewind)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 14: FILE POINTERS &amp; RANDOM ACCESS (FSEEK, FTELL, REWIND)</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To master the internal file cursor/pointer, navigate freely across file bytes
+                using random access, read specific data without sequentially scanning from the beginning, and track
+                cursor positions using <code>fseek()</code>, <code>ftell()</code>, and <code>rewind()</code>.
+            </div>
+
+            <div class="section-tag">1. What is a File Pointer &amp; Cursor Position?</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                A <code>FILE *fp</code> is a pointer to an internal C runtime control structure that tracks everything
+                about an open file, including its buffer, mode, and crucially, its <b>current byte offset position (the
+                    cursor)</b>.<br>
+                Normally, reading or writing moves this cursor forward <b>sequentially</b>. But using C's random access
+                functions, you can jump directly to any byte location!
+            </p>
+
+            <!-- Cursor Movement Visualizer -->
+            <div class="cursor-visual-container">
+                <div style="font-weight:bold; font-size:10px; color:#004d40; margin-bottom:2px;">
+                    &#128065; Visualizing File Cursor in <code>"data.txt"</code> with text <code>"ABCDEFGH"</code>:
+                </div>
+                <div class="byte-stream">
+                    <div class="stream-cell">
+                        <div class="char-data">'A'</div>
+                        <div class="offset-pos">Byte 0</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'B'</div>
+                        <div class="offset-pos">Byte 1</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'C'</div>
+                        <div class="offset-pos">Byte 2</div>
+                    </div>
+                    <div class="stream-cell" style="border:2px solid #d81b60; background:#fce4ec;">
+                        <div class="char-data" style="color:#c2185b;">'D'</div>
+                        <div class="offset-pos" style="color:#c2185b; font-weight:bold;">Byte 3 &larr; fp</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'E'</div>
+                        <div class="offset-pos">Byte 4</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'F'</div>
+                        <div class="offset-pos">Byte 5</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'G'</div>
+                        <div class="offset-pos">Byte 6</div>
+                    </div>
+                    <div class="stream-cell">
+                        <div class="char-data">'H'</div>
+                        <div class="offset-pos">Byte 7</div>
+                    </div>
+                </div>
+                <div style="text-align:center; font-size:9.5px; color:#37474f;">
+                    &#9889; <code>fseek(fp, 3, SEEK_SET)</code> jumps straight to Byte 3 ('D') &bull;
+                    <code>ftell(fp)</code> reports current offset: <b>3</b>.
+                </div>
+            </div>
+
+            <div class="section-tag">2. The 3 Random Access Navigation Functions</div>
+            <div class="grid-3">
+                <div class="fn-mini-card">
+                    <div class="fn-mini-title">&#128640; 1. fseek() &ndash; Move Cursor</div>
+                    Repositions file cursor to any byte offset.<br>
+                    <code>fseek(fp, offset, origin);</code><br>
+                    Returns <code>0</code> on success.
+                </div>
+                <div class="fn-mini-card">
+                    <div class="fn-mini-title">&#128207; 2. ftell() &ndash; Current Position</div>
+                    Returns current byte index from file start.<br>
+                    <code>long pos = ftell(fp);</code><br>
+                    Helpful to compute total file size!
+                </div>
+                <div class="fn-mini-card">
+                    <div class="fn-mini-title">&#128260; 3. rewind() &ndash; Reset to Start</div>
+                    Snaps file cursor straight back to Byte 0.<br>
+                    <code>rewind(fp);</code><br>
+                    Equivalent to <code>fseek(fp, 0, SEEK_SET)</code>.
+                </div>
+            </div>
+
+            <div class="section-tag">3. Complete Program: Random File Jumps &amp; File Size</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;FILE *fp = fopen(<span style="color:#2e7d32;">"letters.txt"</span>, <span
+                        style="color:#2e7d32;">"w+"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> ch;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Write initial text to file</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fputs(<span style="color:#2e7d32;">"ABCDEFGH"</span>, fp);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Jump to byte offset 3 (4th
+                        letter)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fseek(fp, 3, SEEK_SET);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Position after seek: %ld\n"</span>,
+                    ftell(fp));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ch = fgetc(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Character read: %c\n"</span>, ch);
+                    <span style="color:#2e7d32;">// Reads 'D'</span><br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. Reset back to start with
+                        rewind()</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;rewind(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ch = fgetc(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Character after rewind: %c\n"</span>,
+                    ch); <span style="color:#2e7d32;">// 'A'</span><br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 4. Calculate total file size</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fseek(fp, 0, SEEK_END); <span style="color:#2e7d32;">// Move to
+                        end</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Total File Size: %ld bytes\n"</span>,
+                    ftell(fp));<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fclose(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Position after seek: <span class="out">3</span><br>
+                        Character read: <span class="inp">D</span><br>
+                        Character after rewind: <span class="inp">A</span><br>
+                        Total File Size: <span class="out">8 bytes</span>
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; The 3 Origin Constants for fseek()</div>
+                        &#8226; <b><code>SEEK_SET (0):</code></b> Offset measured from the <b>start</b> of the file.<br>
+                        &#8226; <b><code>SEEK_CUR (1):</code></b> Offset measured relative to <b>current cursor</b>
+                        location.<br>
+                        &#8226; <b><code>SEEK_END (2):</code></b> Offset measured from the <b>very end</b> of the file.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">4. Quick Navigation Reference Table</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Operation Task</th>
+                    <th>Code Instruction</th>
+                    <th>Cursor Shift Result</th>
+                </tr>
+                <tr>
+                    <td><b>Rewind to Beginning</b></td>
+                    <td><code>rewind(fp);</code> &nbsp;<i>or</i>&nbsp; <code>fseek(fp, 0, SEEK_SET);</code></td>
+                    <td>Cursor placed at Byte 0 (first character)</td>
+                </tr>
+                <tr>
+                    <td><b>Skip forward 5 bytes</b></td>
+                    <td><code>fseek(fp, 5, SEEK_CUR);</code></td>
+                    <td>Advances cursor forward by 5 positions</td>
+                </tr>
+                <tr>
+                    <td><b>Step backward 3 bytes</b></td>
+                    <td><code>fseek(fp, -3, SEEK_CUR);</code></td>
+                    <td>Moves cursor back by 3 positions</td>
+                </tr>
+                <tr>
+                    <td><b>Find total file size</b></td>
+                    <td><code>fseek(fp, 0, SEEK_END); long size = ftell(fp);</code></td>
+                    <td>Returns total byte count of the file</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; Negative Offset Trap:</b><br>
+                    Never pass a negative offset with <code>SEEK_SET</code>! Writing
+                    <code>fseek(fp, -5, SEEK_SET)</code> tries to access bytes before the beginning of the file, which
+                    produces undefined behavior and errors.
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Why Random Access Matters:</b><br>
+                    Imagine a database with 100,000 student records! Instead of looping through all 100,000 records, you
+                    can compute: <code>fseek(fp, id * sizeof(struct Student), SEEK_SET);</code> to fetch record #50,000
+                    instantly!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> File pointers track the active byte cursor; navigate anywhere using
+                <code>fseek()</code>, read your exact position with <code>ftell()</code>, and jump back to the start
+                with <code>rewind()</code>.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 14 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -56,10 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'unit3',
-      title: 'Unit 3: Arrays, Pointers & Structures',
+      title: 'Unit 3: Arrays, Pointers, Structures & Files',
       defaultUrl: pathPrefix + 'unit-3/unit3.html',
       pages: [
-        { title: 'Unit 3 Overview & Topics', url: pathPrefix + 'unit-3/unit3.html' }
+        { title: '01. 1D Arrays & Operations', url: pathPrefix + 'unit-3/unit3.html' },
+        { title: '02. 2D Arrays (Matrices)', url: pathPrefix + 'unit-3/02-2D-Array.html' },
+        { title: '03. String Basics & Input', url: pathPrefix + 'unit-3/03-String.html' },
+        { title: '04. Built-in String Functions', url: pathPrefix + 'unit-3/04-Built-in-String-Functions.html' },
+        { title: '05. Pointers Basics & Dereferencing', url: pathPrefix + 'unit-3/05-pointer.html' },
+        { title: '06. Pointer Arithmetic & Arrays', url: pathPrefix + 'unit-3/06-Pointer-Arithmetic.html' },
+        { title: '07. Function Pointers & Callbacks', url: pathPrefix + 'unit-3/07-Function-Pointers.html' },
+        { title: '08. Dynamic Memory Allocation', url: pathPrefix + 'unit-3/08-Dynamic-Memory-Allocation.html' },
+        { title: '09. Structures (struct)', url: pathPrefix + 'unit-3/09-Structures.html' },
+        { title: '10. Unions (union)', url: pathPrefix + 'unit-3/10-Unions.html' },
+        { title: '11. Array of Structures', url: pathPrefix + 'unit-3/11-Array-of-Structures.html' },
+        { title: '12. File Operations (fopen, fclose)', url: pathPrefix + 'unit-3/12-File-Operations.html' },
+        { title: '13. Text & Binary Files', url: pathPrefix + 'unit-3/13-Text-and-Binary-Files.html' },
+        { title: '14. File Pointers (fseek, ftell)', url: pathPrefix + 'unit-3/14-File-Pointers.html' },
+        { title: '15. File Error Handling', url: pathPrefix + 'unit-3/15-Error-Handling.html' },
+        { title: '16. Standard C Libraries Summary', url: pathPrefix + 'unit-3/16-Standard-Libraries.html' }
       ]
     }
   ];

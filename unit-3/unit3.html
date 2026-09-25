@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>C Programming - Unit 3 Overview</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <title>Unit 3 - Page 1: 1D Arrays &amp; Array Operations</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <script src="../notes.js" defer></script>
 </head>
@@ -16,39 +18,165 @@
         <div class="punch-hole hole2"></div>
         <div class="punch-hole hole3"></div>
 
-        <h1 class="main-title">C Programming</h1>
-        <div class="sub-title">Unit 3 - Arrays, Pointers & Structures</div>
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">01 - 1D Arrays &amp; Array Operations</div>
 
-        <div class="aim-box">&#127919; <u>Aim:</u> To master memory management, derived data types, and custom data structures in C.</div>
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To understand what an array is, visualize contiguous memory allocation and zero-based
+            indexing, read array elements dynamically from user input at runtime, display them, and perform standard
+            array operations.
+        </div>
 
-        <div class="section-tag">1. Overview of Unit 3</div>
-        <p class="p-tight">Unit 3 explores contiguous data storage (Arrays), memory addressing (Pointers), string manipulations, and user-defined data structures.</p>
+        <div class="section-tag">1. What is an Array? &amp; Memory Allocation</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.2px;">
+            An <b>array</b> is a collection of multiple variables of the <b>same data type</b> stored sequentially in
+            <b>contiguous (side-by-side) memory locations</b> under a single common name.<br>
+            Syntax: <code>data_type array_name[size];</code> &rarr; e.g., <code>int a[5];</code> reserves 5 continuous
+            integer blocks (5 &times; 4 bytes = <b>20 bytes</b> in RAM).
+        </p>
 
-        <div class="types-grid">
-            <div class="type-card">
-                <b>1. Arrays</b><br>
-                1D, 2D arrays, and multi-dimensional arrays.
+        <!-- Physical Memory Visualization -->
+        <div class="memory-container">
+            <div style="font-weight:bold; font-size:10.5px; color:#004d40; margin-bottom:2px;">
+                &#128065; Memory Architecture &amp; Index Mapping for <code>int a[5]</code>:
             </div>
-            <div class="type-card">
-                <b>2. Strings</b><br>
-                Character arrays, string functions (<code>strcpy</code>, <code>strcat</code>, <code>strlen</code>).
+            <div class="array-strip">
+                <div class="array-cell">
+                    <div class="cell-val">12</div>
+                    <div class="cell-idx">a[0] (Base)</div>
+                    <div class="cell-addr">#2000</div>
+                </div>
+                <div class="array-cell">
+                    <div class="cell-val">25</div>
+                    <div class="cell-idx">a[1]</div>
+                    <div class="cell-addr">#2004</div>
+                </div>
+                <div class="array-cell">
+                    <div class="cell-val">38</div>
+                    <div class="cell-idx">a[2]</div>
+                    <div class="cell-addr">#2008</div>
+                </div>
+                <div class="array-cell">
+                    <div class="cell-val">41</div>
+                    <div class="cell-idx">a[3]</div>
+                    <div class="cell-addr">#2012</div>
+                </div>
+                <div class="array-cell">
+                    <div class="cell-val">59</div>
+                    <div class="cell-idx">a[4] (Last)</div>
+                    <div class="cell-addr">#2016</div>
+                </div>
             </div>
-            <div class="type-card">
-                <b>3. Pointers</b><br>
-                Pointer basics, address-of operator <code>&amp;</code>, dereference <code>*</code>, dynamic memory allocation.
-            </div>
-            <div class="type-card">
-                <b>4. Structures &amp; Unions</b><br>
-                User-defined types using <code>struct</code> and <code>union</code>.
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; color:#455a64; margin-top:2px;">
+                <span>&#8226; <b>Index starts at 0:</b> First index is <code>0</code>, last index is
+                    <code>size - 1</code> (here: <code>5 - 1 = 4</code>).</span>
+                <span>&#8226; <b>Address Offset:</b> Jumps by <b>+4 bytes</b> per cell because
+                    <code>sizeof(int) = 4 bytes</code>.</span>
             </div>
         </div>
 
-        <div class="cloud-note">
-            <b>Unit 3 Notes Coming Soon!</b><br>
-            Use the top navigation dropdown to switch back to Unit 1 or explore other topics.
+        <div class="section-tag">2. Runtime Input &amp; Display Program (Step-by-Step)</div>
+        <div class="grid-2">
+            <!-- Code Box -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> n;<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter number of elements: "</span>);<br>
+                &nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;n);<br><br>
+                &nbsp;&nbsp;<span style="color:#1565c0;">int</span> a[n];<br>
+                &nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Reading values at Runtime</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter %d numbers:\n"</span>, n);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 0; i
+                &lt; n; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;a[i]); <span
+                    style="color:#2e7d32;">// &amp; passes memory address</span><br>
+                &nbsp;&nbsp;}<br><br>
+                &nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Printing elements along with their indices</span><br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nStored Array Elements:\n"</span>);<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (<span style="color:#1565c0;">int</span> i = 0; i
+                &lt; n; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Element at index [%d] = %d\n"</span>, i,
+                a[i]);<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output & Explanation Box -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Execution (Runtime):</b><br>
+                    Enter number of elements: <span class="inp">5</span><br>
+                    Enter 5 numbers:<br>
+                    <span class="inp">12 25 38 41 59</span><br><br>
+                    <span class="out">Stored Array Elements:</span><br>
+                    Element at index [0] = 12<br>
+                    Element at index [1] = 25<br>
+                    Element at index [2] = 38<br>
+                    Element at index [3] = 41<br>
+                    Element at index [4] = 59
+                </div>
+                <div class="card-box" style="margin-top:4px;">
+                    <div class="card-title">&#128269; How Runtime Input Works</div>
+                    &#8226; When <code>i = 0</code>, <code>scanf("%d", &amp;a[0])</code> stores <code>12</code> directly
+                    in address <code>#2000</code>.<br>
+                    &#8226; When <code>i = 1</code>, <code>scanf("%d", &amp;a[1])</code> stores <code>25</code> in
+                    address <code>#2004</code>, and so on.
+                </div>
+            </div>
         </div>
 
-        <div class="footer-page">- Unit 3 -</div>
+        <div class="section-tag">3. Common Array Operations</div>
+        <table class="styled-table">
+            <tr>
+                <th>Operation</th>
+                <th>What it does?</th>
+                <th>How to write the loop code?</th>
+            </tr>
+            <tr>
+                <td><b>1. Traversal</b></td>
+                <td>Visiting each element once (e.g., to print or count).</td>
+                <td><code>for(int i = 0; i &lt; n; i++) { printf("%d ", a[i]); }</code></td>
+            </tr>
+            <tr>
+                <td><b>2. Sum &amp; Average</b></td>
+                <td>Accumulating all values to compute totals.</td>
+                <td><code>sum += a[i];</code> &rarr; <code>float avg = (float)sum / n;</code></td>
+            </tr>
+            <tr>
+                <td><b>3. Search (Linear)</b></td>
+                <td>Checking if a specific target value exists in the array.</td>
+                <td><code>if (a[i] == key) { printf("Found at index %d", i); break; }</code></td>
+            </tr>
+            <tr>
+                <td><b>4. Maximum / Minimum</b></td>
+                <td>Comparing each element to find highest or lowest.</td>
+                <td><code>if (a[i] &gt; max) { max = a[i]; }</code> (Initialize <code>max = a[0]</code>)</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Out of Bounds Danger (No Bounds Checking):</b><br>
+                In C, if size is <code>5</code>, accessing <code>a[5]</code> or <code>a[10]</code> is illegal! C won't
+                show an error at compile time, but it reads/overwrites random RAM data (producing <b>garbage values</b>
+                or program crashes)!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Why Arrays Start at 0:</b><br>
+                Index <code>i</code> actually acts as an <b>offset formula</b>: <br>
+                <code>Address = Base_Address + (Index &times; Size_of_Data)</code><br>
+                For index 0: <code>#2000 + (0 &times; 4) = #2000</code> (Exact start point with zero shift!).
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> 1D Arrays store multiple same-type items side-by-side in RAM; indices run
+            from <code>0</code> to <code>n-1</code>, accessed using <code>a[i]</code>.
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 1 -</div>
     </div>
 
 </body>

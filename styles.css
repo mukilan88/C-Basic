@@ -865,6 +865,96 @@ body.dark-mode .mental-rule-box {
   border-color: #818cf8;
 }
 
+/* Unit 3 Specific Visual Components */
+.memory-container {
+  background: var(--paper-bg);
+  border: 1.5px solid #00897b;
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin: 5px 0;
+}
+
+.array-strip {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin: 4px 0;
+  flex-wrap: wrap;
+}
+
+.array-cell {
+  border: 2px solid #00695c;
+  background: rgba(224, 242, 241, 0.8);
+  border-radius: 4px;
+  width: 78px;
+  text-align: center;
+  padding: 3px 0;
+}
+
+body.dark-mode .array-cell {
+  background: rgba(0, 105, 92, 0.2);
+  border-color: #80cbc4;
+}
+
+.cell-val {
+  font-family: var(--font-code);
+  font-size: 13px;
+  font-weight: bold;
+  color: #004d40;
+}
+
+body.dark-mode .cell-val {
+  color: #80cbc4;
+}
+
+.cell-idx {
+  font-size: 10px;
+  color: #c2185b;
+  font-weight: bold;
+  border-top: 1px dashed #80cbc4;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+body.dark-mode .cell-idx {
+  color: #f5c2e7;
+}
+
+.cell-addr {
+  font-size: 9px;
+  color: #37474f;
+  font-family: var(--font-code);
+  background: #b2dfdb;
+  border-radius: 2px;
+  margin: 2px 4px 0 4px;
+}
+
+body.dark-mode .cell-addr {
+  background: #004d40;
+  color: #e0f2f1;
+}
+
+.terminal-box {
+  background: #263238;
+  color: #eceff1;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-family: var(--font-code);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 5px;
+}
+
+.terminal-box span.inp {
+  color: #ffe082;
+  font-weight: bold;
+}
+
+.terminal-box span.out {
+  color: #80cbc4;
+  font-weight: bold;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .page {
@@ -889,4 +979,5 @@ body.dark-mode .mental-rule-box {
     justify-content: space-between;
   }
 }
+
 

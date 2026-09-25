@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 16: Standard Libraries in C</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 16: STANDARD C LIBRARIES &amp; BUILT-IN HEADERS</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To master the core ANSI/ISO C standard library headers (&lt;math.h&gt;,
+                &lt;ctype.h&gt;, &lt;stdlib.h&gt;, &lt;time.h&gt;), understand pre-compiled routines, and avoid
+                reinventing standard utility algorithms.
+            </div>
+
+            <div class="section-tag">1. Standard Library Architecture &amp; Core Headers</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                The <b>C Standard Library</b> is a standardized collection of header files (<code>.h</code>) containing
+                macro definitions, type definitions, and pre-compiled function declarations that provide cross-platform
+                portability.
+            </p>
+
+            <!-- Library Cards Strip -->
+            <div class="lib-grid">
+                <div class="lib-card">
+                    <div class="lib-header">&lt;math.h&gt;</div>
+                    Mathematical routines for floating-point calculations.<br>
+                    <code>sqrt()</code>, <code>pow()</code>, <code>abs()</code>, <code>ceil()</code>,
+                    <code>floor()</code>
+                </div>
+                <div class="lib-card">
+                    <div class="lib-header">&lt;ctype.h&gt;</div>
+                    Character testing and case conversion routines.<br>
+                    <code>isalpha()</code>, <code>isdigit()</code>, <code>toupper()</code>, <code>tolower()</code>
+                </div>
+                <div class="lib-card">
+                    <div class="lib-header">&lt;time.h&gt;</div>
+                    System time query, clock ticks, and date conversions.<br>
+                    <code>time()</code>, <code>clock()</code>, <code>difftime()</code>, <code>ctime()</code>
+                </div>
+            </div>
+
+            <div class="section-tag">2. Complete Runtime Demonstration Program</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                    <span style="color:#1565c0;">#include</span> &lt;math.h&gt; <span style="color:#2e7d32;">// sqrt,
+                        pow</span><br>
+                    <span style="color:#1565c0;">#include</span> &lt;ctype.h&gt; <span style="color:#2e7d32;">//
+                        toupper, isdigit</span><br>
+                    <span style="color:#1565c0;">#include</span> &lt;stdlib.h&gt;<span style="color:#2e7d32;">// abs,
+                        rand</span><br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">double</span> num = 16.0;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> ch = 'm';<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> digit = '7';<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Math Library Functions</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"sqrt(%.1f) = %.2f\n"</span>, num,
+                    sqrt(num));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"pow(2, 3) = %.2f\n"</span>, pow(2,
+                    3));<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Character Handling Functions</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"toupper('%c') = '%c'\n"</span>, ch,
+                    toupper(ch));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (isdigit(digit)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"'%c' is a valid
+                        numeric digit\n"</span>, digit);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. General Utilities</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"abs(-45) = %d\n"</span>, abs(-45));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        sqrt(16.0) = <span class="out">4.00</span><br>
+                        pow(2, 3) = <span class="out">8.00</span><br>
+                        toupper('m') = <span class="inp">'M'</span><br>
+                        '7' is a valid numeric digit<br>
+                        abs(-45) = <span class="out">45</span>
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; Compilation Note for &lt;math.h&gt;</div>
+                        &#8226; In GCC / Linux environments, mathematical functions reside in an external shared math
+                        library.<br>
+                        &#8226; You must link it by appending the <b><code>-lm</code></b> flag during compilation:<br>
+                        <code style="color:#0d47a1;">gcc program.c -o program -lm</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Quick Function Matrix of Standard Headers</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Header File</th>
+                    <th>Key Functions</th>
+                    <th>Typical Use Case</th>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;stdio.h&gt;</code></b></td>
+                    <td><code>printf</code>, <code>scanf</code>, <code>fopen</code>, <code>fclose</code>,
+                        <code>fgets</code></td>
+                    <td>Console and file stream input/output.</td>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;stdlib.h&gt;</code></b></td>
+                    <td><code>malloc</code>, <code>free</code>, <code>exit</code>, <code>atoi</code>, <code>rand</code>,
+                        <code>qsort</code></td>
+                    <td>Memory management, conversions, and process control.</td>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;string.h&gt;</code></b></td>
+                    <td><code>strlen</code>, <code>strcpy</code>, <code>strcat</code>, <code>strcmp</code>,
+                        <code>memset</code></td>
+                    <td>String manipulation and raw byte block operations.</td>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;math.h&gt;</code></b></td>
+                    <td><code>sqrt</code>, <code>pow</code>, <code>sin</code>, <code>cos</code>, <code>log</code>,
+                        <code>ceil</code>, <code>floor</code></td>
+                    <td>Scientific, geometric, and floating-point computations.</td>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;ctype.h&gt;</code></b></td>
+                    <td><code>isalpha</code>, <code>isdigit</code>, <code>isalnum</code>, <code>toupper</code>,
+                        <code>tolower</code></td>
+                    <td>ASCII character classification and case shifting.</td>
+                </tr>
+                <tr>
+                    <td><b><code>&lt;time.h&gt;</code></b></td>
+                    <td><code>time</code>, <code>clock</code>, <code>difftime</code>, <code>strftime</code></td>
+                    <td>Benchmarking runtime and reading real-time calendar dates.</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; Implicit Declaration Warnings:</b><br>
+                    Using functions like <code>sqrt()</code> or <code>malloc()</code> without including their respective
+                    header files causes compiler warnings or faulty return-type assumptions (defaulting to
+                    <code>int</code> instead of pointers/doubles)!
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; ctype.h vs ASCII Math:</b><br>
+                    Instead of manual ASCII subtraction like <code>ch - 32</code> to make letters uppercase, always use
+                    <code>toupper(ch)</code>! It cleanly handles non-alphabetic symbols without risk of data corruption.
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> C Standard Libraries bundle pre-compiled, tested, and portable
+                routines; include the appropriate header (<code>&lt;math.h&gt;</code>, <code>&lt;ctype.h&gt;</code>,
+                <code>&lt;stdlib.h&gt;</code>) to avoid manual re-implementation.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 16 (End of Unit 3) -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

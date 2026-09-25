@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 4: Built-in String Functions (string.h)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">PAGE 4: STANDARD STRING FUNCTIONS (&lt;string.h&gt;)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To master standard C library string manipulation functions &mdash;
+            <code>strlen()</code>, <code>strcpy()</code>, <code>strcat()</code>, and <code>strcmp()</code> &mdash; and
+            observe their operations at runtime.
+        </div>
+
+        <div class="section-tag">1. The 4 Essential String Functions in C</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.2px;">
+            Since C cannot directly assign or concatenate strings using operators like <code>=</code> or <code>+</code>,
+            the standard header <b><code>&lt;string.h&gt;</code></b> provides pre-built functions to perform these
+            common operations.
+        </p>
+
+        <div class="grid-4">
+            <div class="fn-mini-card">
+                <div class="fn-mini-title">&#128207; 1. strlen(str) &ndash; String Length</div>
+                Counts all characters until it hits <code>'\0'</code>.<br>
+                <i>Note:</i> The null terminator is <b>never counted</b>!
+            </div>
+            <div class="fn-mini-card">
+                <div class="fn-mini-title">&#128203; 2. strcpy(dest, src) &ndash; String Copy</div>
+                Copies text from <code>src</code> into <code>dest</code>.<br>
+                <i>Rule:</i> <code>dest</code> must have enough space!
+            </div>
+            <div class="fn-mini-card">
+                <div class="fn-mini-title">&#128279; 3. strcat(dest, src) &ndash; Concatenate</div>
+                Attaches <code>src</code> to the end of <code>dest</code>.<br>
+                Overwrites <code>dest</code>'s old <code>'\0'</code> with <code>src</code>.
+            </div>
+            <div class="fn-mini-card">
+                <div class="fn-mini-title">&#9878; 4. strcmp(str1, str2) &ndash; Compare</div>
+                Compares ASCII character by character.<br>
+                Returns <code>0</code> if both strings match identically!
+            </div>
+        </div>
+
+        <div class="section-tag">2. Comprehensive Practical Program (Runtime Demonstration)</div>
+        <div class="grid-2">
+            <!-- Code Box -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                <span style="color:#1565c0;">#include</span> &lt;string.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> str1[50], str2[50],
+                copyStr[50];<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter first string: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%s"</span>, str1);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter second string: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%s"</span>, str2);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 1. Length of string</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nLength of str1 = %lu\n"</span>,
+                strlen(str1));<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Copying string</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;strcpy(copyStr, str1);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Copied string = %s\n"</span>,
+                copyStr);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. String Comparison</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (strcmp(str1, str2) == 0) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Comparison =
+                    Strings are EQUAL\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;} <span style="color:#ad1457;">else</span> {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Comparison =
+                    Strings are DIFFERENT\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 4. Concatenation (joining)</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;strcat(str1, str2);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Concatenated = %s\n"</span>, str1);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output Box -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Execution (Runtime):</b><br>
+                    Enter first string: <span class="inp">Hello</span><br>
+                    Enter second string: <span class="inp">World</span><br><br>
+                    <span class="out">Results:</span><br>
+                    Length of str1 = 5<br>
+                    Copied string = Hello<br>
+                    Comparison = Strings are DIFFERENT<br>
+                    Concatenated = HelloWorld
+                </div>
+                <div class="card-box" style="margin-top:4px;">
+                    <div class="card-title">&#129504; How strcmp() Evaluates Values</div>
+                    &#8226; <b><code>strcmp(s1, s2) == 0</code></b> &rarr; Exact match.<br>
+                    &#8226; <b><code>strcmp(s1, s2) &gt; 0</code></b> &rarr; First differing character in
+                    <code>s1</code> has larger ASCII value.<br>
+                    &#8226; <b><code>strcmp(s1, s2) &lt; 0</code></b> &rarr; First differing character in
+                    <code>s1</code> has smaller ASCII value.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Quick Reference Matrix for &lt;string.h&gt;</div>
+        <table class="styled-table">
+            <tr>
+                <th>Function Prototype</th>
+                <th>Destination Buffer Requirement</th>
+                <th>Return Value</th>
+                <th>Common Mistake to Avoid</th>
+            </tr>
+            <tr>
+                <td><code>size_t strlen(const char *s)</code></td>
+                <td>Read-only (doesn't modify)</td>
+                <td>Number of characters before <code>'\0'</code></td>
+                <td>Confusing <code>strlen()</code> with <code>sizeof()</code></td>
+            </tr>
+            <tr>
+                <td><code>char *strcpy(char *dest, char *src)</code></td>
+                <td>Must hold at least <code>strlen(src) + 1</code></td>
+                <td>Pointer to <code>dest</code></td>
+                <td>Reversing args: <code>strcpy(src, dest)</code> &#10060;</td>
+            </tr>
+            <tr>
+                <td><code>char *strcat(char *dest, char *src)</code></td>
+                <td>Must hold <code>strlen(dest) + strlen(src) + 1</code></td>
+                <td>Pointer to <code>dest</code></td>
+                <td>Target array too small (Buffer Overflow)</td>
+            </tr>
+            <tr>
+                <td><code>int strcmp(char *s1, char *s2)</code></td>
+                <td>Read-only (neither is modified)</td>
+                <td><code>0</code>, positive integer, or negative integer</td>
+                <td>Using <code>s1 == s2</code> (which only compares RAM addresses!)</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; The "s1 == s2" Exam Trap:</b><br>
+                Writing <code>if (str1 == str2)</code> in C checks if both strings live at the <b>exact same memory
+                    address</b>, NOT if their text contents match! Always use <code>strcmp(str1, str2) == 0</code> to
+                test textual equality.
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; strlen() vs sizeof():</b><br>
+                For <code>char s[10] = "Hi";</code>:<br>
+                &#8226; <code>strlen(s)</code> returns <b>2</b> (counts letters up to <code>'\0'</code>).<br>
+                &#8226; <code>sizeof(s)</code> returns <b>10</b> (total allocated bytes in RAM).
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> Include <code>&lt;string.h&gt;</code> to use <code>strlen</code>
+            (length), <code>strcpy</code> (copy), <code>strcat</code> (append), and <code>strcmp</code> (compare
+            content).
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 4 -</div>
+    </div>
+
+</body>
+
+</html>

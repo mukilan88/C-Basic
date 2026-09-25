@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 9: Structures in C (Definition, Declaration, Dot Operator &amp; Memory)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 9: STRUCTURES (STRUCT) &ndash; USER-DEFINED DATA TYPES</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To group logically related variables of different data types under a single
+                user-defined record using <code>struct</code>, access members using the dot (<code>.</code>) operator,
+                read runtime input, and analyze physical memory allocation.
+            </div>
+
+            <div class="section-tag">1. What is a Structure? &amp; Array vs. Structure</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                While an <b>Array</b> holds multiple items of the <b>same data type</b> (homogeneous), a
+                <b>Structure</b> (defined by keyword <code>struct</code>) allows bundling multiple variables of
+                <b>different data types</b> (heterogeneous) into one named blueprint.<br>
+                Syntax: <code>struct TemplateName { member1; member2; ... };</code> &rarr; <i>Always ends with a
+                    semicolon <code>;</code>!</i>
+            </p>
+
+            <!-- Structure Memory Representation -->
+            <div class="struct-mem-wrapper">
+                <div style="font-weight:bold; font-size:10px; color:#004d40; margin-bottom:2px;">
+                    &#128065; Memory Layout for one variable <code>struct Student s1;</code> (Each member gets its own
+                    independent memory):
+                </div>
+                <div class="struct-strip">
+                    <div class="member-cell cell-roll">
+                        <div class="mem-val">101</div>
+                        <div class="mem-label">s1.rollNo</div>
+                        <div class="mem-size">int (4 Bytes)</div>
+                    </div>
+                    <div class="member-cell cell-name">
+                        <div class="mem-val">"Mukilan"</div>
+                        <div class="mem-label">s1.name</div>
+                        <div class="mem-size">char[20] (20 Bytes)</div>
+                    </div>
+                    <div class="member-cell cell-marks">
+                        <div class="mem-val">92.50</div>
+                        <div class="mem-label">s1.marks</div>
+                        <div class="mem-size">float (4 Bytes)</div>
+                    </div>
+                </div>
+                <div style="text-align:center; font-size:9.5px; color:#37474f; margin-top:2px;">
+                    &#9889; Total Size &approx; <code>sizeof(rollNo) + sizeof(name) + sizeof(marks)</code> = <b>28
+                        Bytes</b> (plus optional padding bytes for CPU alignment).
+                </div>
+            </div>
+
+            <div class="section-tag">2. Complete Runtime Input &amp; Display Program</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                    <span style="color:#2e7d32;">// 1. Blueprint declaration (no memory allocated yet)</span><br>
+                    <span style="color:#1565c0;">struct</span> Student {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> rollNo;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> name[20];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">float</span> marks;<br>
+                    }; <span style="color:#d32f2f;">// Semicolon is mandatory!</span><br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 2. Variable creation (RAM allocated
+                        here)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">struct</span> Student s1;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter Roll Number: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;s1.rollNo);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter Name: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%s"</span>, s1.name); <span
+                        style="color:#2e7d32;">// Array name is address</span><br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter Marks: "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%f"</span>, &amp;s1.marks);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// 3. Printing details using Dot (.)
+                        Operator</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n--- Student Record
+                        ---\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Roll No : %d\n"</span>, s1.rollNo);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Name : %s\n"</span>, s1.name);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Marks : %.2f\n"</span>,
+                    s1.marks);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Enter Roll Number: <span class="inp">101</span><br>
+                        Enter Name: <span class="inp">Mukilan</span><br>
+                        Enter Marks: <span class="inp">92.5</span><br><br>
+                        <span class="out">--- Student Record ---</span><br>
+                        Roll No : 101<br>
+                        Name : Mukilan<br>
+                        Marks : 92.50
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; The Member Access Operator (.)</div>
+                        &#8226; Known as the <b>Dot Operator</b> or <b>Period Operator</b>.<br>
+                        &#8226; Syntax: <code>variable_name.member_name</code><br>
+                        &#8226; Directs the compiler to the relative memory offset of that exact field within the
+                        structure variable.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Array vs. Structure Comparison</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Property</th>
+                    <th>Array</th>
+                    <th>Structure</th>
+                </tr>
+                <tr>
+                    <td><b>Data Types</b></td>
+                    <td>Homogeneous (all elements must be identical type)</td>
+                    <td>Heterogeneous (members can be mixed: <code>int</code>, <code>float</code>, <code>char</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Access Method</b></td>
+                    <td>Accessed by numeric subscript index: <code>arr[0]</code></td>
+                    <td>Accessed by named identifier via dot operator: <code>s1.name</code></td>
+                </tr>
+                <tr>
+                    <td><b>Memory Allocation</b></td>
+                    <td>Contiguous blocks of identical element size</td>
+                    <td>Contiguous sequence of individual member types (+ padding)</td>
+                </tr>
+                <tr>
+                    <td><b>Keywords</b></td>
+                    <td>No special keyword needed (e.g., <code>int a[10];</code>)</td>
+                    <td>Uses <code>struct</code> keyword (e.g., <code>struct Book b;</code>)</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; Semicolon Alert After Definition:</b><br>
+                    Forgetting the closing semicolon <code>};</code> after the structure definition is one of the most
+                    frequent beginner syntax errors in C! The compiler will flag errors on the lines that follow.
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Using typedef for Cleaner Syntax:</b><br>
+                    Typing <code>struct Student s1;</code> every time is lengthy. You can simplify it with
+                    <code>typedef</code>:<br>
+                    <code>typedef struct { int id; } Student;</code> &rarr; Now you can declare variables simply as
+                    <code>Student s1;</code>!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> Structures bundle diverse data types into a single named record;
+                individual members are accessed using the Dot (<code>.</code>) operator and stored sequentially in
+                memory.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 9 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 12: File Operations (fopen, fclose, read &amp; write)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <div>
+            <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+            <div class="sub-title">PAGE 12: FILE OPERATIONS &ndash; OPEN, WRITE, READ &amp; CLOSE</div>
+
+            <div class="aim-box">
+                &#127919; <b>Aim:</b> To achieve permanent data storage by creating and connecting to files on the
+                secondary storage drive (Hard Disk) using C's standard file stream pipeline: <code>fopen()</code>,
+                <code>fprintf()</code>, <code>fscanf()</code>, and <code>fclose()</code>.
+            </div>
+
+            <div class="section-tag">1. Why Files? &amp; The 4-Stage File Lifecycle</div>
+            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+                Variables in RAM vanish the instant a program terminates (<b>Volatile Memory</b>). <b>Files</b> store
+                data persistently on non-volatile disks.
+                Communication between C code and a disk file operates through an OS buffer called a <b>Stream</b>
+                managed via a <code>FILE*</code> handle.
+            </p>
+
+            <!-- Pipeline Visualizer -->
+            <div class="file-pipeline-container">
+                <div class="pipeline-step">
+                    <div class="step-num">STAGE 1</div>
+                    <div class="step-name">fopen()</div>
+                    <div style="font-size:8.5px; color:#555;">Open / Connect</div>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="step-num">STAGE 2</div>
+                    <div class="step-name">fprintf()</div>
+                    <div style="font-size:8.5px; color:#555;">Write to Disk</div>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="step-num">STAGE 3</div>
+                    <div class="step-name">fscanf()</div>
+                    <div style="font-size:8.5px; color:#555;">Read from Disk</div>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <div class="step-num">STAGE 4</div>
+                    <div class="step-name">fclose()</div>
+                    <div style="font-size:8.5px; color:#555;">Save &amp; Disconnect</div>
+                </div>
+            </div>
+
+            <div class="section-tag">2. Complete Runtime Program (Write then Read from File)</div>
+            <div class="grid-2">
+                <!-- Code Box -->
+                <div class="code-snippet">
+                    <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                    <span style="color:#1565c0;">int</span> main() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;FILE *fp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> roll, readRoll;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">char</span> name[30], readName[30];<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// --- PART 1: WRITING DATA TO FILE
+                        ---</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fp = fopen(<span style="color:#2e7d32;">"student.txt"</span>, <span
+                        style="color:#2e7d32;">"w"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (fp == NULL) { printf(<span
+                        style="color:#2e7d32;">"Error opening file!\n"</span>); <span
+                        style="color:#ad1457;">return</span> 1; }<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter Roll No &amp; Name to write:
+                        "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d %s"</span>, &amp;roll, name);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fprintf(fp, <span style="color:#2e7d32;">"%d %s\n"</span>, roll, name);
+                    <span style="color:#2e7d32;">// Writes to disk</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fclose(fp); <span style="color:#2e7d32;">// Flushes buffer and
+                        saves</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Data saved to student.txt
+                        successfully.\n\n"</span>);<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// --- PART 2: READING DATA FROM FILE
+                        ---</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fp = fopen(<span style="color:#2e7d32;">"student.txt"</span>, <span
+                        style="color:#2e7d32;">"r"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">if</span> (fp == NULL) { printf(<span
+                        style="color:#2e7d32;">"File not found!\n"</span>); <span style="color:#ad1457;">return</span>
+                    1; }<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fscanf(fp, <span style="color:#2e7d32;">"%d %s"</span>, &amp;readRoll,
+                    readName); <span style="color:#2e7d32;">// Reads back</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"--- Data Read from Disk File
+                        ---\n"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Roll: %d | Name: %s\n"</span>,
+                    readRoll, readName);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fclose(fp);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                    }
+                </div>
+
+                <!-- Output & Mechanics Box -->
+                <div>
+                    <div class="terminal-box">
+                        <b>&#128187; Terminal Execution (Runtime):</b><br>
+                        Enter Roll No &amp; Name to write: <span class="inp">101 Mukilan</span><br>
+                        <span class="out">Data saved to student.txt successfully.</span><br><br>
+                        --- Data Read from Disk File ---<br>
+                        Roll: 101 | Name: Mukilan
+                    </div>
+                    <div class="card-box" style="margin-top:4px;">
+                        <div class="card-title">&#128269; Why fclose() is Critical</div>
+                        &#8226; C holds file writes in a temporary RAM buffer for speed.<br>
+                        &#8226; <b><code>fclose(fp)</code></b> forces the OS to physically write (flush) any remaining
+                        data to the hard disk.<br>
+                        &#8226; Failing to close a file risks data loss and leaves OS file locks open!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-tag">3. Fundamental File Access Modes in C</div>
+            <table class="styled-table">
+                <tr>
+                    <th>Mode</th>
+                    <th>Meaning / Action</th>
+                    <th>What happens if file doesn't exist?</th>
+                    <th>What happens to existing data?</th>
+                </tr>
+                <tr>
+                    <td><b><code>"r"</code></b></td>
+                    <td><b>Read only</b></td>
+                    <td>Returns <code>NULL</code> (Cannot open)</td>
+                    <td>Preserved (Read-only access)</td>
+                </tr>
+                <tr>
+                    <td><b><code>"w"</code></b></td>
+                    <td><b>Write only</b></td>
+                    <td>Creates a new empty file</td>
+                    <td><b>Erased!</b> (Overwrites everything)</td>
+                </tr>
+                <tr>
+                    <td><b><code>"a"</code></b></td>
+                    <td><b>Append</b> (add to end)</td>
+                    <td>Creates a new empty file</td>
+                    <td><b>Preserved</b> (Appends new data to end)</td>
+                </tr>
+                <tr>
+                    <td><b><code>"r+"</code></b></td>
+                    <td><b>Read + Write</b></td>
+                    <td>Returns <code>NULL</code></td>
+                    <td>Preserved (overwrites from start)</td>
+                </tr>
+            </table>
+
+            <div class="tips-grid">
+                <div class="alert-card alert-danger">
+                    <b>&#9888; The "w" Mode Danger Trap:</b><br>
+                    Opening a file with mode <code>"w"</code> immediately truncates the file size to 0 bytes! Any
+                    previous contents are wiped instantly. If you want to keep old data and add new records, always
+                    choose mode <code>"a"</code> (append).
+                </div>
+                <div class="alert-card alert-info">
+                    <b>&#128161; Console vs File I/O Parallel:</b><br>
+                    Notice how simple the syntax bridge is:<br>
+                    &#8226; <code>printf(...)</code> &harr; <code>fprintf(fp, ...)</code><br>
+                    &#8226; <code>scanf(...)</code> &harr; <code>fscanf(fp, ...)</code><br>
+                    You only add the <code>FILE *fp</code> argument as the first parameter!
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="revision-footer-pill">
+                &#128221; <b>One-Line Summary:</b> File handling persists data to disk: use <code>fopen()</code> with
+                appropriate mode, write with <code>fprintf()</code> or read with <code>fscanf()</code>, and always close
+                with <code>fclose()</code>.
+            </div>
+
+            <div class="footer-page">- Unit 3 &bull; Page 12 -</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 5: Pointers (Concept, Address-Of &amp; Dereferencing)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">PAGE 5: POINTERS &ndash; ADDRESS-OF (&amp;) AND DEREFERENCING (*)</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To demystify pointers, understand memory addresses, master pointer declaration and
+            initialization, and read/modify variable values directly through dereferencing.
+        </div>
+
+        <div class="section-tag">1. What is a Pointer? &amp; Physical Memory View</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.2px;">
+            A <b>pointer</b> is a special variable that <b>stores the memory address</b> of another variable instead of
+            a regular data value.<br>
+            Syntax: <code>data_type *pointer_name;</code> &rarr; e.g., <code>int *ptr = &amp;num;</code> tells the
+            compiler that <code>ptr</code> holds the address of integer <code>num</code>.
+        </p>
+
+        <!-- Pointer Visualizer -->
+        <div class="pointer-visual-container">
+            <div class="mem-card">
+                <div class="mem-card-title">&#128273; Pointer Variable (ptr)</div>
+                <div class="mem-card-val" style="color:#d81b60;">#2004</div>
+                <div class="mem-card-addr">Lives at Address: #5000</div>
+            </div>
+
+            <div class="arrow-pointer">
+                <span>points to (&amp;num)</span>
+                <span style="font-size:20px; line-height:1;">&rarr;</span>
+                <span>*ptr fetches value</span>
+            </div>
+
+            <div class="mem-card">
+                <div class="mem-card-title">&#128230; Target Variable (num)</div>
+                <div class="mem-card-val">25</div>
+                <div class="mem-card-addr">Lives at Address: #2004</div>
+            </div>
+        </div>
+
+        <div class="grid-2x2">
+            <div class="op-card">
+                <div class="op-title">&#128205; 1. Address-Of Operator (&amp;)</div>
+                Extracts the unique RAM address where a variable is located.<br>
+                <code>&amp;num</code> &rarr; Gives <code>#2004</code> (Printed with format specifier <code>%p</code>).
+            </div>
+            <div class="op-card">
+                <div class="op-title">&#128270; 2. Dereference Operator (*)</div>
+                Goes to the address stored in the pointer and extracts or modifies the data inside.<br>
+                <code>*ptr</code> &rarr; Reads or overwrites value <code>25</code>.
+            </div>
+        </div>
+
+        <div class="section-tag">2. Runtime Input &amp; Pointer Manipulation Program</div>
+        <div class="grid-2">
+            <!-- Code Box -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br><br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> num;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1565c0;">int</span> *ptr = &amp;num; <span
+                    style="color:#2e7d32;">// ptr stores the address of num</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Enter a number: "</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;num); <span
+                    style="color:#2e7d32;">// Reading runtime input</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n--- Inspecting Values ---\n"</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Direct Value (num) = %d\n"</span>,
+                num);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Address of num (&amp;num) = %p\n"</span>,
+                &amp;num);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Stored in ptr (ptr) = %p\n"</span>,
+                ptr);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"Value via pointer (*ptr) = %d\n"</span>,
+                *ptr);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#2e7d32;">// Modifying original variable through
+                    pointer</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;*ptr = *ptr + 10; <span style="color:#2e7d32;">// num is updated directly in
+                    RAM</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\nAfter *ptr += 10, num = %d\n"</span>,
+                num);<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output Box -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Execution (Runtime):</b><br>
+                    Enter a number: <span class="inp">25</span><br><br>
+                    <span class="out">--- Inspecting Values ---</span><br>
+                    Direct Value (num) = 25<br>
+                    Address of num (&amp;num) = 0x7ffd2004<br>
+                    Stored in ptr (ptr) = 0x7ffd2004<br>
+                    Value via pointer (*ptr) = 25<br><br>
+                    After *ptr += 10, num = <span class="out">35</span>
+                </div>
+                <div class="card-box" style="margin-top:4px;">
+                    <div class="card-title">&#128269; What Just Happened?</div>
+                    &#8226; <code>ptr</code> holds <code>0x7ffd2004</code> (the RAM address of <code>num</code>).<br>
+                    &#8226; Writing <code>*ptr = 35</code> opens box <code>0x7ffd2004</code> and changes its contents to
+                    <code>35</code>.<br>
+                    &#8226; <code>num</code> now evaluates to <code>35</code> because both refer to the exact same
+                    memory cell!
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Common Pointer Syntax Quick Reference</div>
+        <table class="styled-table">
+            <tr>
+                <th>Expression</th>
+                <th>Meaning / Action</th>
+                <th>Type of Output</th>
+            </tr>
+            <tr>
+                <td><code>int *p;</code></td>
+                <td>Declaration &mdash; creates a pointer variable designed to point to an <code>int</code>.</td>
+                <td>Pointer definition</td>
+            </tr>
+            <tr>
+                <td><code>p = &amp;x;</code></td>
+                <td>Assigns the address of <code>x</code> to pointer <code>p</code>.</td>
+                <td>Address assignment</td>
+            </tr>
+            <tr>
+                <td><code>p</code></td>
+                <td>The memory address stored inside <code>p</code>.</td>
+                <td>Memory address (hex)</td>
+            </tr>
+            <tr>
+                <td><code>*p</code></td>
+                <td><b>Dereferencing:</b> Accesses or modifies the value at address <code>p</code>.</td>
+                <td>Integer value</td>
+            </tr>
+            <tr>
+                <td><code>&amp;p</code></td>
+                <td>The memory address where the pointer variable itself is located in RAM.</td>
+                <td>Pointer's own address</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Wild / Uninitialized Pointer Danger:</b><br>
+                Declaring <code>int *p;</code> without setting an address makes it point to a random memory location!
+                Writing <code>*p = 50;</code> can crash your operating system. Always initialize with <code>NULL</code>:
+                <code>int *p = NULL;</code>!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Two Uses of the Asterisk (*):</b><br>
+                &#8226; <b>In Declaration:</b> <code>int *p;</code> &rarr; declares a pointer type.<br>
+                &#8226; <b>In Executable Code:</b> <code>*p = 20;</code> &rarr; dereferences (fetches/updates value).
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> <code>&amp;</code> gives the memory address of a variable; a pointer
+            stores that address; <code>*</code> accesses or updates the value at that address.
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 5 -</div>
+    </div>
+
+</body>
+
+</html>

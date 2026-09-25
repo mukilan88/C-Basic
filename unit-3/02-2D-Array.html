@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit 3 - Page 2: 2D Arrays (Matrices) &amp; Operations</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../notes.js" defer></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="punch-hole hole1"></div>
+        <div class="punch-hole hole2"></div>
+        <div class="punch-hole hole3"></div>
+
+        <h1 class="main-title">UNIT 3: C PROGRAMMING</h1>
+        <div class="sub-title">PAGE 2: 2D ARRAYS (MATRICES) &ndash; INPUT, LOGIC &amp; OPERATIONS</div>
+
+        <div class="aim-box">
+            &#127919; <b>Aim:</b> To master Two-Dimensional (2D) Arrays, understand tabular row-column addressing, read
+            and display matrices dynamically at runtime using nested loops, and perform common matrix operations.
+        </div>
+
+        <div class="section-tag">1. What is a 2D Array? &amp; Tabular Layout</div>
+        <p style="margin: 2px 0 4px 0; font-size: 11.2px;">
+            A <b>2D Array</b> is an array of arrays organized in a grid of <b>Rows and Columns</b> (commonly called a
+            <b>Matrix</b>).<br>
+            Syntax: <code>data_type array_name[rows][cols];</code> &rarr; e.g., <code>int a[2][3];</code> reserves $2
+            \times 3 = 6$ integer elements ($6 \times 4\text{ bytes} = \mathbf{24\text{ bytes}}$).
+        </p>
+
+        <!-- 2D Memory Grid Representation -->
+        <div class="matrix-wrapper">
+            <div>
+                <div style="font-weight:bold; font-size:10.5px; color:#004d40; margin-bottom:2px;">
+                    &#128065; Logical Grid Organization for <code>int a[2][3]</code>:
+                </div>
+                <table class="matrix-grid">
+                    <tr>
+                        <th></th>
+                        <th style="color:#1565c0;">Col 0</th>
+                        <th style="color:#1565c0;">Col 1</th>
+                        <th style="color:#1565c0;">Col 2</th>
+                    </tr>
+                    <tr>
+                        <th style="color:#ad1457;">Row 0</th>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">10</div>
+                                <div class="sub-idx">a[0][0]</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">20</div>
+                                <div class="sub-idx">a[0][1]</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">30</div>
+                                <div class="sub-idx">a[0][2]</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="color:#ad1457;">Row 1</th>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">40</div>
+                                <div class="sub-idx">a[1][0]</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">50</div>
+                                <div class="sub-idx">a[1][1]</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-box">
+                                <div class="val-text">60</div>
+                                <div class="sub-idx">a[1][2]</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div
+                style="font-size:10px; color:#37474f; border-left:1.5px dashed #80cbc4; padding-left:10px; max-width:240px;">
+                &#8226; <b>Index Formula:</b> <code>a[row_index][col_index]</code><br>
+                &#8226; <b>Row Index:</b> Runs from <code>0</code> to <code>rows - 1</code><br>
+                &#8226; <b>Col Index:</b> Runs from <code>0</code> to <code>cols - 1</code><br>
+                &#8226; <b>RAM Storage:</b> Stored in contiguous <b>Row-Major Order</b> (Row 0 elements stored first,
+                followed immediately by Row 1).
+            </div>
+        </div>
+
+        <div class="section-tag">2. Runtime Input &amp; Matrix Display (Complete Program)</div>
+        <div class="grid-2">
+            <!-- Code Snippet -->
+            <div class="code-snippet">
+                <span style="color:#1565c0;">#include</span> &lt;stdio.h&gt;<br>
+                <span style="color:#1565c0;">int</span> main() {<br>
+                &nbsp;<span style="color:#1565c0;">int</span> a[2][2], r, c;<br>
+                &nbsp;printf(<span style="color:#2e7d32;">"Enter matrix elements (2x2):\n"</span>);<br>
+
+                &nbsp;<span style="color:#2e7d32;">// 1. Reading runtime values using Nested Loops</span><br>
+                &nbsp;<span style="color:#ad1457;">for</span> (r = 0; r &lt; 2; r++) { <span style="color:#2e7d32;">//
+                    Outer
+                    loop: Rows</span><br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (c = 0; c &lt; 2; c++) { <span
+                    style="color:#2e7d32;">//
+                    Inner
+                    loop: Columns</span><br>
+                &nbsp;&nbsp;&nbsp;scanf(<span style="color:#2e7d32;">"%d"</span>, &amp;a[r][c]);<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;}<br>
+
+                &nbsp;<span style="color:#2e7d32;">// 2. Printing in proper 2D Matrix Format</span><br>
+                &nbsp;printf(<span style="color:#2e7d32;">"\nThe 2x2 Matrix is:\n"</span>);<br>
+                &nbsp;<span style="color:#ad1457;">for</span> (r = 0; r &lt; 2; r++) {<br>
+                &nbsp;&nbsp;<span style="color:#ad1457;">for</span> (c = 0; c &lt; 2; c++) {<br>
+                &nbsp;&nbsp;&nbsp;printf(<span style="color:#2e7d32;">"%d\t"</span>, a[r][c]); <span
+                    style="color:#2e7d32;">// Tab
+                    space</span><br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;printf(<span style="color:#2e7d32;">"\n"</span>); <span style="color:#2e7d32;">// Line break
+                    after
+                    each
+                    row</span><br>
+                &nbsp;}<br>
+                &nbsp;<span style="color:#ad1457;">return</span> 0;<br>
+                }
+            </div>
+
+            <!-- Output & Mechanics -->
+            <div>
+                <div class="terminal-box">
+                    <b>&#128187; Terminal Execution (Runtime):</b><br>
+                    Enter matrix elements (2x2):<br>
+                    <span class="inp">1 2</span><br>
+                    <span class="inp">3 4</span><br><br>
+                    <span class="out">The 2x2 Matrix is:</span><br>
+                    1&nbsp;&nbsp;&nbsp;&nbsp;2<br>
+                    3&nbsp;&nbsp;&nbsp;&nbsp;4
+                </div>
+                <div class="card-box" style="margin-top:4px;">
+                    <div class="card-title">&#128269; Why Nested Loops?</div>
+                    &#8226; <b>Outer Loop (<code>r</code>):</b> Selects the horizontal row.<br>
+                    &#8226; <b>Inner Loop (<code>c</code>):</b> Sweeps left-to-right through every column in that
+                    row.<br>
+                    &#8226; <b><code>printf("\n");</code>:</b> Placed right after the inner loop finishes to start the
+                    next row on a fresh line!
+                </div>
+            </div>
+        </div>
+
+        <div class="section-tag">3. Common 2D Array Operations</div>
+        <table class="styled-table">
+            <tr>
+                <th>Operation</th>
+                <th>Key Purpose</th>
+                <th>Standard Loop Logic</th>
+            </tr>
+            <tr>
+                <td><b>1. Matrix Addition</b></td>
+                <td>Adds matching elements from two identical-sized matrices ($C = A + B$)</td>
+                <td><code>sum[i][j] = a[i][j] + b[i][j];</code></td>
+            </tr>
+            <tr>
+                <td><b>2. Matrix Transpose</b></td>
+                <td>Swaps rows into columns ($B[j][i] = A[i][j]$)</td>
+                <td><code>transpose[j][i] = a[i][j];</code></td>
+            </tr>
+            <tr>
+                <td><b>3. Diagonal Sum (Trace)</b></td>
+                <td>Sums main diagonal elements where row index equals column index ($i == j$)</td>
+                <td><code>if (i == j) { diag_sum += a[i][j]; }</code></td>
+            </tr>
+            <tr>
+                <td><b>4. Row-wise Sum</b></td>
+                <td>Computes total sum of each individual row independently</td>
+                <td>Reset <code>row_sum = 0;</code> before inner loop, print after.</td>
+            </tr>
+        </table>
+
+        <div class="tips-grid">
+            <div class="alert-card alert-danger">
+                <b>&#9888; Index Out-of-Bounds Trap:</b><br>
+                In <code>int a[2][3]</code>, the valid row indices are only <code>0, 1</code> and column indices are
+                <code>0, 1, 2</code>. Writing <code>a[2][3] = 10;</code> causes memory corruption!
+            </div>
+            <div class="alert-card alert-info">
+                <b>&#128161; Matrix Initialization Trick:</b><br>
+                You can initialize directly: <code>int a[2][2] = {{1, 2}, {3, 4}};</code>.<br>
+                In C, you can omit the row dimension, but you <b>must provide column dimension</b>:
+                <code>int a[][2] = {1, 2, 3, 4};</code>.
+            </div>
+        </div>
+
+        <div class="revision-footer-pill">
+            &#128221; <b>One-Line Summary:</b> A 2D array represents data in rows and columns; nested loops (outer for
+            rows, inner for columns) are used to input, display, and process elements.
+        </div>
+
+        <div class="footer-page">- Unit 3 &bull; Page 2 -</div>
+    </div>
+
+</body>
+
+</html>
