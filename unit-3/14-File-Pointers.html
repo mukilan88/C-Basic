@@ -30,7 +30,7 @@
             </div>
 
             <div class="section-tag">1. What is a File Pointer &amp; Cursor Position?</div>
-            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+            <p style="margin: 2px 0 4px 0; font-size: 15px;">
                 A <code>FILE *fp</code> is a pointer to an internal C runtime control structure that tracks everything
                 about an open file, including its buffer, mode, and crucially, its <b>current byte offset position (the
                     cursor)</b>.<br>
@@ -40,7 +40,7 @@
 
             <!-- Cursor Movement Visualizer -->
             <div class="cursor-visual-container">
-                <div style="font-weight:bold; font-size:10px; color:#004d40; margin-bottom:2px;">
+                <div style="font-weight:bold; font-size: 15px; color:#004d40; margin-bottom:2px;">
                     &#128065; Visualizing File Cursor in <code>"data.txt"</code> with text <code>"ABCDEFGH"</code>:
                 </div>
                 <div class="byte-stream">
@@ -77,7 +77,7 @@
                         <div class="offset-pos">Byte 7</div>
                     </div>
                 </div>
-                <div style="text-align:center; font-size:9.5px; color:#37474f;">
+                <div style="text-align:center; font-size: 13px; color:#37474f;">
                     &#9889; <code>fseek(fp, 3, SEEK_SET)</code> jumps straight to Byte 3 ('D') &bull;
                     <code>ftell(fp)</code> reports current offset: <b>3</b>.
                 </div>

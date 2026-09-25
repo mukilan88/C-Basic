@@ -30,7 +30,7 @@
             </div>
 
             <div class="section-tag">1. Concept &amp; Memory Layout of an Array of Structures</div>
-            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+            <p style="margin: 2px 0 4px 0; font-size: 15px;">
                 A single structure variable stores details of only <b>one entity</b>. To store records for a whole class
                 of 60 students or 100 employees, we create an <b>Array of Structures</b>.<br>
                 Syntax: <code style="color:#0d47a1; font-weight:bold;">struct StructureName array_name[size];</code>
@@ -39,7 +39,7 @@
 
             <!-- Contiguous Memory Representation of Structure Array -->
             <div class="struct-array-mem">
-                <div style="font-weight:bold; font-size:10px; color:#004d40; margin-bottom:2px;">
+                <div style="font-weight:bold; font-size: 15px; color:#004d40; margin-bottom:2px;">
                     &#128065; Contiguous Storage of <code>struct Student s[3]</code> (Each block = 1 complete record):
                 </div>
                 <div class="array-record-strip">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align:center; font-size:9.5px; color:#37474f; margin-top:2px;">
+                <div style="text-align:center; font-size: 13px; color:#37474f; margin-top:2px;">
                     &#9889; Total Size = <code>3 &times; sizeof(struct Student)</code>. In RAM, <code>s[1]</code> begins
                     immediately after <code>s[0]</code> finishes!
                 </div>

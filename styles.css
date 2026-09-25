@@ -64,6 +64,21 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Global Typography Consistency */
+p, li, td, th, div {
+  font-family: var(--font-hand);
+}
+
+p {
+  font-size: 15.5px;
+  line-height: 1.5;
+  margin: 6px 0 12px 0;
+}
+
+code, pre, .code-snippet, .code-box, .terminal-box {
+  font-family: var(--font-code) !important;
+}
+
 /* Top Navigation Bar / Toolbar */
 .notes-nav-bar {
   position: fixed;

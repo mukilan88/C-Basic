@@ -58,7 +58,7 @@
                     After swap: &nbsp;x=<span>10</span>, y=<span>20</span> &nbsp;<span style="color:#ff8a80;">(Not Swapped!)</span>
                 </div>
                 <div
-                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size:11px; color:#e65100;">
+                    style="background:#fff3e0; border:1.5px solid #ffa000; border-radius:5px; padding:6px; margin-top:6px; font-size: 15px; color:#e65100;">
                     <b>&#128269; Why did x &amp; y remain 10 &amp; 20?</b><br>
                     <code>x</code> and <code>y</code> live inside <code>main()</code>'s memory stack frame. Parameters <code>a</code> and <code>b</code> receive only separate duplicate copies. Swapping <code>a</code> and <code>b</code> inside <code>swap()</code> alters only the copies, leaving <code>x</code> and <code>y</code> in <code>main()</code> completely untouched!
                 </div>

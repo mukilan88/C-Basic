@@ -30,7 +30,7 @@
             </div>
 
             <div class="section-tag">1. What is a Union? &amp; Shared Memory Architecture</div>
-            <p style="margin: 2px 0 4px 0; font-size: 11px;">
+            <p style="margin: 2px 0 4px 0; font-size: 15px;">
                 A <b>Union</b> is a user-defined data type similar to a structure, with one fundamental difference:
                 <b>all members share the exact same memory space</b>.
                 While a struct allocates memory for <i>every</i> member, a union's total size equals only the size of
@@ -48,7 +48,7 @@
                         <div class="block-part b-float">f (4B)</div>
                         <div class="block-part b-char">ch (1B)</div>
                     </div>
-                    <div style="font-size:9.5px; color:#1565c0; margin-top:2px;">
+                    <div style="font-size: 13px; color:#1565c0; margin-top:2px;">
                         Total = 4 + 4 + 1 = <b>9+ Bytes</b> (Each has its own address)
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="union-shared-block">
                         [ Shared 4 Bytes ] &larr; i / f / ch
                     </div>
-                    <div style="font-size:9.5px; color:#c2185b; margin-top:2px;">
+                    <div style="font-size: 13px; color:#c2185b; margin-top:2px;">
                         Total = max(4, 4, 1) = <b>4 Bytes</b> (All start at the exact same address!)
                     </div>
                 </div>
