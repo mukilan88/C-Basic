@@ -538,16 +538,6 @@ body.dark-mode .revision-footer-pill {
   color: #94e2d5;
 }
 
-/* Page number footer (same look as .footer-page) */
-.page-number {
-  text-align: center;
-  font-weight: 700;
-  margin-top: 35px;
-  color: #64748b;
-  font-size: 17px;
-  letter-spacing: 2px;
-}
-
 /* Two-column responsive grid (implicit vs explicit cast cards, etc.) */
 .grid-2 {
   display: grid;
@@ -704,20 +694,6 @@ body.dark-mode .trap-right {
 body.dark-mode .memory-pill {
   background: rgba(137, 220, 235, 0.08);
   border-color: #89dceb;
-}
-
-.terminal-box {
-  background: #263238;
-  color: #eceff1;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-family: var(--font-code);
-  font-size: 11px;
-  margin-top: 4px;
-}
-
-.terminal-box span {
-  color: #80cbc4;
 }
 
 .flow-box {
